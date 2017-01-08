@@ -7,6 +7,7 @@ import {
 import TaskList from './containers/TaskList';
 import TaskForm from './containers/TaskForm';
 import store from './store/ReduxStore';
+import SplashScreen from 'react-native-splash-screen'
 
 class EBudgie extends Component {
   constructor(props, context) {
@@ -16,6 +17,12 @@ class EBudgie extends Component {
     store.subscribe(() => {
       this.setState(store.getState());
     });
+  }
+
+  componentDidMount() {
+    setTimeout(function() {
+      SplashScreen.hide();
+    }, 1000);
   }
 
   onAddStarted() {
@@ -57,18 +64,18 @@ class EBudgie extends Component {
           <TaskForm
             onAdd={this.onAdd.bind(this)}
             onCancel={this.onCancel.bind(this)}
-          />
+            />
         );
       default:
-       return (
-        <TaskList
-          filter={this.state.filter}
-          onAddStarted={this.onAddStarted.bind(this)}
-          onDone={this.onDone.bind(this)}
-          onToggle={this.onToggle.bind(this)}
-          todos={this.state.todos}
-        />
-      );
+        return (
+          <TaskList
+            filter={this.state.filter}
+            onAddStarted={this.onAddStarted.bind(this)}
+            onDone={this.onDone.bind(this)}
+            onToggle={this.onToggle.bind(this)}
+            todos={this.state.todos}
+            />
+        );
     }
   }
 
@@ -85,7 +92,7 @@ class EBudgie extends Component {
           this.nav = nav;
         })}
         renderScene={this.renderScene.bind(this)}
-      />
+        />
     );
   }
 }
