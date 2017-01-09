@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EBudgie</string>
+    <string name="fb_app_id">301044056957554</string>
+    <string name="ak_client_token">ab08ee8449e7b455f56052b3962dc099</string>
 </resources>
