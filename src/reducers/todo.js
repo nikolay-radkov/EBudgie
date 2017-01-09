@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { PUSH_ROUTE, POP_ROUTE } from '../constants/ActionTypes';
 
 const defaultTodos = [
   {
@@ -7,13 +7,13 @@ const defaultTodos = [
   }
 ];
 
-const defaultState = {
+const initialState = {
   todos: defaultTodos,
   allTodos: defaultTodos,
   filter: 'pending'
 };
 
-function todoStore(state = defaultState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_TODO':
       const allTodos = state.allTodos.concat([{
@@ -46,7 +46,4 @@ function todoStore(state = defaultState, action) {
     default:
       return state;
   }
-}
-const store = createStore(todoStore);
-
-export default store;
+};
