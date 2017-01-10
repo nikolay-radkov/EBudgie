@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {
   BackAndroid,
-  NavigationExperimental,
-  Text,
+  NavigationExperimental
 } from 'react-native';
 const {
-  CardStack: NavigationCardStack,
+  CardStack: NavigationCardStack
 } = NavigationExperimental;
 import { connect } from 'react-redux';
 
 import { push, pop } from '../actions/navigationActions';
 import getRoute from '../getRoute';
+import Header from '../components/Header/Component';
 
 class NavigationRoot extends Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class NavigationRoot extends Component {
     this._renderScene = this._renderScene.bind(this);
     this._handleNavigate = this._handleNavigate.bind(this);
     this._handleBackAction = this._handleBackAction.bind(this);
+    this._renderHeader = this._renderHeader.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +31,15 @@ class NavigationRoot extends Component {
 
   componentWillUnmount() {
     BackAndroid.removeEventListener('hardwareBackPress', this._handleBackAction);
+  }
+
+  _renderHeader (sceneProps) {
+    return (
+      <Header
+        popRoute={this.props.popRoute}
+        {...sceneProps}
+        />
+    );
   }
 
   _renderScene({ scene }) {
@@ -51,25 +61,27 @@ class NavigationRoot extends Component {
 
   _handleNavigate(action) {
     switch (action && action.type) {
-    case 'push':
-      this.props.pushRoute(action.payload);
-      return true;
-    case 'back':
-    case 'pop':
-      return this._handleBackAction();
-    default:
-      return false;
+      case 'push':
+        this.props.pushRoute(action.payload);
+        return true;
+      case 'back':
+      case 'pop':
+        return this._handleBackAction();
+      default:
+        return false;
     }
   }
 
   render() {
     return (
       <NavigationCardStack
-        direction='vertical'
+        direction='horizontal'
         navigationState={this.props.navigation}
+        renderHeader={this._renderHeader}
         onNavigate={this._handleNavigate}
         renderScene={this._renderScene}
-      />
+        enableGestures={false}
+        />
     );
   }
 }

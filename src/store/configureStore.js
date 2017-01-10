@@ -41,11 +41,26 @@
 // export default store;
 
 
-import { createStore } from 'redux';
+import {
+  createStore,
+  applyMiddleware
+} from 'redux';
+import { composeWithDevTools } from 'remote-redux-devtools';
+import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
+
 import rootReducer from '../reducers';
 
 export default function configureStore(initialState) {
- const store = createStore(rootReducer, initialState);
+  const logger = createLogger();
+  const middlewares = [
+    thunk,
+    logger
+  ];
+
+  const store = createStore(rootReducer, initialState, composeWithDevTools(
+    applyMiddleware(...middlewares)
+  ));
 
   if (module.hot) {
     module.hot.accept(() => {
