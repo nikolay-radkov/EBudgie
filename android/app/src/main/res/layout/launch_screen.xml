@@ -1,6 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/launch_screen">
+    android:background="#023365">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"/>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#013263"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/budgie_icon"></LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="EBudgie"
+            android:id="@+id/editText"
+            android:fontFamily="monospace"
+            android:textSize="36sp"
+            android:textAlignment="center"
+            android:textStyle="normal|bold"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="23dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="v1.0.0"
+            android:fontFamily="monospace"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="23dp" />
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="©2017 Nikolay Radkov. All rights reserved."
+                android:fontFamily="monospace"
+                android:textSize="13sp"
+                android:layout_margin="10sp"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:id="@+id/textView"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
+        android:background="#EEF2F4">
+
+        <LinearLayout
+            android:layout_width="40sp"
+            android:layout_margin="10sp"
+            android:layout_height="match_parent"
+            android:background="@drawable/budgie_icon"
+            android:layout_toLeftOf="@+id/smallName"
+            android:layout_toStartOf="@+id/smallName">
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/smallName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="EBudgie"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_marginBottom="5sp"
+            android:layout_marginEnd="10sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginStart="5sp"
+            android:layout_marginTop="5sp"
+            android:textColor="#023365"
+            android:textStyle="normal|bold" />
+    </RelativeLayout>
 </LinearLayout>
