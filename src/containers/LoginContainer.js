@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import RNAccountKit from 'react-native-facebook-account-kit'
-import { Button } from 'react-native-elements'
+import RNAccountKit from 'react-native-facebook-account-kit';
+import { Button } from 'react-native-elements';
 
-import { push, pop } from '../actions/navigationActions';
+import { pushRoute, popRoute } from '../boundActionCreators/navigation';
+import { createNewPouchDB } from '../boundActionCreators/pouchdb';
 
 class LoginContainer extends Component {
   constructor(state) {
     super(state);
     this.loginWithEmail = this.loginWithEmail.bind(this);
     this.loginWithPhone = this.loginWithPhone.bind(this);
+    this.goToHome = this.goToHome.bind(this);
     this.skip = this.skip.bind(this);
   }
 
@@ -20,8 +23,8 @@ class LoginContainer extends Component {
         if (!token) {
           console.log('Login cancelled')
         } else {
-          console.log(`Logged with phone. Token: ${token}`)
-          this.props.pushRoute({ key: 'home', title: 'Home' })
+          console.log(`Logged with phone. Token: ${token}`);
+          this.goToHome(token.clientId);
         }
       });
   }
@@ -32,14 +35,21 @@ class LoginContainer extends Component {
         if (!token) {
           console.log('Login cancelled')
         } else {
-          console.log(`Logged with email. Token: ${token}`)
-          this.props.pushRoute({ key: 'home', title: 'Home' })
+          console.log(`Logged with email. Token: ${token}`);
+          this.goToHome(token.clientId);
         }
       });
   }
 
+  goToHome(dbName = 'unauthorized') {
+    this.props.createNewPouchDB(dbName)
+      .then(() => {
+        this.props.pushRoute({ key: 'home', title: 'Home' });
+      });
+  }
+
   skip() {
-    this.props.pushRoute({ key: 'home', title: 'Home' })
+    this.goToHome();
   }
 
   render() {
@@ -90,7 +100,8 @@ class LoginContainer extends Component {
 }
 
 LoginContainer.propTypes = {
-  pushRoute: React.PropTypes.func.isRequired
+  pushRoute: React.PropTypes.func.isRequired,
+  createNewPouchDB: React.PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -101,7 +112,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    pushRoute: route => dispatch(push(route)),
+    pushRoute: bindActionCreators(pushRoute, dispatch),
+    createNewPouchDB: bindActionCreators(createNewPouchDB, dispatch),
   };
 }
 

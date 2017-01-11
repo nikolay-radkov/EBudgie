@@ -7,9 +7,10 @@ import {
 const {
   CardStack: NavigationCardStack
 } = NavigationExperimental;
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { push, pop } from '../actions/navigationActions';
+import { pushRoute, popRoute } from '../boundActionCreators/navigation';
 import getRoute from '../getRoute';
 import Header from '../components/Header/Component';
 
@@ -94,8 +95,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    pushRoute: route => dispatch(push(route)),
-    popRoute: () => dispatch(pop()),
+    pushRoute: bindActionCreators(pushRoute, dispatch),
+    popRoute: bindActionCreators(popRoute, dispatch),
   };
 }
 
