@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {
   BackAndroid,
@@ -12,9 +12,9 @@ import { connect } from 'react-redux';
 
 import { pushRoute, popRoute } from '../boundActionCreators/navigation';
 import getRoute from '../getRoute';
-import Header from '../components/Header/Component';
+import Header from './Header/Component';
 
-class NavigationRoot extends Component {
+class NavigationRootContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -37,7 +37,6 @@ class NavigationRoot extends Component {
   _renderHeader (sceneProps) {
     return (
       <Header
-        popRoute={this.props.popRoute}
         {...sceneProps}
         />
     );
@@ -45,7 +44,6 @@ class NavigationRoot extends Component {
 
   _renderScene({ scene }) {
     const {
-      index,
       key,
     } = scene;
     // render your scene based on the route (navigationState)
@@ -76,16 +74,22 @@ class NavigationRoot extends Component {
   render() {
     return (
       <NavigationCardStack
-        direction='horizontal'
-        navigationState={this.props.navigation}
-        renderHeader={this._renderHeader}
-        onNavigate={this._handleNavigate}
-        renderScene={this._renderScene}
+        direction="horizontal"
         enableGestures={false}
+        navigationState={this.props.navigation}
+        onNavigate={this._handleNavigate}
+        renderHeader={this._renderHeader}
+        renderScene={this._renderScene}
         />
     );
   }
 }
+
+NavigationRootContainer.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  pushRoute: React.PropTypes.func.isRequired,
+  popRoute: React.PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
   return {
@@ -103,4 +107,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(NavigationRoot);
+)(NavigationRootContainer);

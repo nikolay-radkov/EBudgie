@@ -1,5 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { NavigationExperimental, TouchableHighlight, Text } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { popRoute, pushRoute } from '../../boundActionCreators/navigation';
 
 const NavigationHeaderBackButton = require('NavigationHeaderBackButton');
 
@@ -16,7 +20,7 @@ class Header extends Component {
   }
 
   _back = () => {
-    this.props.popRoute();
+    this.props.pop();
   }
 
   _renderTitleComponent = (props) => {
@@ -35,16 +39,19 @@ class Header extends Component {
       onNavigateBack = this._back;
     }
 
-    return (<NavigationHeaderBackButton onPress={onNavigateBack}>
-      <Text>+</Text>
-    </NavigationHeaderBackButton>)
-    // return (<NavigationHeader.NavigationHeaderBackButton>a</NavigationHeader.NavigationHeaderBackButton>)
+    return (
+      <NavigationHeaderBackButton onPress={onNavigateBack}>
+        <Text>+</Text>
+      </NavigationHeaderBackButton>
+    );
   }
 
   _renderRightComponent = (props) => {
-    return (<TouchableHighlight onPress={this._onAddItem}>
-      <Text>+</Text>
-    </TouchableHighlight>)
+    return (
+      <TouchableHighlight onPress={this._onAddItem}>
+        <Text>+</Text>
+      </TouchableHighlight>
+    );
   }
 
   render() {
@@ -59,12 +66,12 @@ class Header extends Component {
       navigation = (
         <NavigationHeader
           style={{
-            backgroundColor: "#023365"
+            backgroundColor: '#023365'
           }}
           {...this.props}
-          renderTitleComponent={this._renderTitleComponent}
           renderLeftComponent={this._renderLeftComponent}
           renderRightComponent={this._renderRightComponent}
+          renderTitleComponent={this._renderTitleComponent}
           />
       );
     }
@@ -73,4 +80,25 @@ class Header extends Component {
   }
 }
 
-export default Header;
+Header.propTypes = {
+  scene: PropTypes.object.isRequired,
+  pop: PropTypes.func.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    pop: bindActionCreators(popRoute, dispatch),
+    push: bindActionCreators(pushRoute, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
