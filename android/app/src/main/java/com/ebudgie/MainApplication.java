@@ -7,6 +7,7 @@ import com.facebook.react.ReactApplication;
 import io.underscope.react.fbak.RNAccountKitPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.facebook.react.modules.storage.ReactDatabaseSupplier;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -26,6 +27,9 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
+      long size = 100L * 1024L * 1024L; // 100 MB
+      ReactDatabaseSupplier.getInstance(getApplicationContext()).setMaximumSize(size);
+
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new RNAccountKitPackage(),
