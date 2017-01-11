@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { NavigationExperimental, TouchableHighlight, Text } from 'react-native';
+import {
+  NavigationExperimental
+} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import HeaderButton from '../../components/Header/HeaderButton';
 
 import { popRoute, pushRoute } from '../../boundActionCreators/navigation';
 
-const NavigationHeaderBackButton = require('NavigationHeaderBackButton');
 
 const {
   Header: NavigationHeader,
@@ -25,7 +27,9 @@ class Header extends Component {
 
   _renderTitleComponent = (props) => {
     return (
-      <NavigationHeader.Title>
+      <NavigationHeader.Title textStyle={{
+        color: '#FFFFFF'
+      }}>
         {props.scene.route.title}
       </NavigationHeader.Title>
     );
@@ -33,25 +37,55 @@ class Header extends Component {
 
   _renderLeftComponent = (props) => {
     const { route } = this.props.scene;
-    let onNavigateBack;
+    let leftButton;
+    let onLeftButtonPress;
 
-    if (route.key !== 'fhome') {
-      onNavigateBack = this._back;
+    if (route.key !== 'login' && route.key !== 'home') {
+      switch (route.key) {
+        case 'add_item':
+          onLeftButtonPress = this._back;
+          leftButton = (
+            <HeaderButton
+              iconProps={{
+                name: 'arrow-back',
+                color: '#FFFFFF'
+              }}
+              onPress={onLeftButtonPress}
+              />
+          );
+          break;
+      }
     }
 
-    return (
-      <NavigationHeaderBackButton onPress={onNavigateBack}>
-        <Text>+</Text>
-      </NavigationHeaderBackButton>
-    );
+    return leftButton;
   }
 
   _renderRightComponent = (props) => {
-    return (
-      <TouchableHighlight onPress={this._onAddItem}>
-        <Text>+</Text>
-      </TouchableHighlight>
-    );
+    const { route } = this.props.scene;
+    let rightButton;
+    let onRightButtonPress;
+
+    if (route.key !== 'login') {
+      switch (route.key) {
+        case 'home':
+          onRightButtonPress = () => this.props.push({
+            key: 'add_item',
+            title: 'New item'
+          });
+          rightButton = (
+            <HeaderButton
+              iconProps={{
+                name: 'add',
+                color: '#FFFFFF'
+              }}
+              onPress={onRightButtonPress}
+              />
+          );
+          break;
+      }
+
+      return rightButton;
+    }
   }
 
   render() {
@@ -83,6 +117,7 @@ class Header extends Component {
 Header.propTypes = {
   scene: PropTypes.object.isRequired,
   pop: PropTypes.func.isRequired,
+  push: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
