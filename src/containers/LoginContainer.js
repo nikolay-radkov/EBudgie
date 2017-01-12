@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import RNAccountKit from 'react-native-facebook-account-kit';
 import { Button } from 'react-native-elements';
 
-import { pushRoute, popRoute } from '../boundActionCreators/navigation';
+import { pushRoute } from '../boundActionCreators/navigation';
 import { createNewPouchDB } from '../boundActionCreators/pouchdb';
 
 class LoginContainer extends Component {
@@ -21,7 +21,7 @@ class LoginContainer extends Component {
     RNAccountKit.loginWithPhone()
       .then((token) => {
         if (!token) {
-          console.log('Login cancelled')
+          console.log('Login cancelled');
         } else {
           console.log(`Logged with phone. Token: ${token}`);
           this.goToHome(token.clientId);
@@ -33,7 +33,7 @@ class LoginContainer extends Component {
     RNAccountKit.loginWithEmail()
       .then((token) => {
         if (!token) {
-          console.log('Login cancelled')
+          console.log('Login cancelled');
         } else {
           console.log(`Logged with email. Token: ${token}`);
           this.goToHome(token.clientId);
@@ -60,15 +60,10 @@ class LoginContainer extends Component {
         paddingTop: 50
       }}>
         <View onTouchStart={this.skip} style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
-          <Image source={require('../images/budgie-icon.png')}
-            />
+          <Image source={require('../images/budgie-icon.png')} />
         </View>
         <View style={{ flex: 3, justifyContent: 'center' }}>
           <Button
-            raised
-            large
-            iconRight
-            fontWeight="bold"
             backgroundColor="#023365"
             borderRadius={5}
             buttonStyle={{
@@ -76,23 +71,28 @@ class LoginContainer extends Component {
               marginLeft: 50,
               marginRight: 50,
             }}
-            icon={{ name: 'email' }}
-            title='Login with Email'
-            onPress={this.loginWithEmail} />
-          <Button
-            raised
-            large
-            iconRight
             fontWeight="bold"
+            icon={{ name: 'email' }}
+            iconRight
+            large
+            onPress={this.loginWithEmail}
+            raised
+            title="Login with Email" />
+          <Button
             backgroundColor="#023365"
             borderRadius={5}
             buttonStyle={{
+              marginBottom: 30,
               marginLeft: 50,
               marginRight: 50,
             }}
+            fontWeight="bold"
             icon={{ name: 'phone' }}
-            title='Login with Phone'
-            onPress={this.loginWithPhone} />
+            iconRight
+            large
+            onPress={this.loginWithPhone}
+            raised
+            title="Login with Phone" />
         </View>
       </View>
     );
@@ -111,10 +111,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    pushRoute: bindActionCreators(pushRoute, dispatch),
-    createNewPouchDB: bindActionCreators(createNewPouchDB, dispatch),
-  };
+  return bindActionCreators({
+    pushRoute,
+    createNewPouchDB
+  }, dispatch);
 }
 
 export default connect(
