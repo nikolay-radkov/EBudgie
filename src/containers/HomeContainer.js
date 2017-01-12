@@ -6,11 +6,13 @@ import { List, ListItem } from 'react-native-elements';
 import Drawer from 'react-native-drawer';
 
 import { createNewDrawer } from '../boundActionCreators/drawer';
+import { pushRoute } from '../boundActionCreators/navigation';
 
 class HomeContainer extends Component {
   constructor(state) {
     super(state);
     this.getDrawer = this.getDrawer.bind(this);
+    this.goTo = this.goTo.bind(this);
   }
 
   getDrawer(drawer) {
@@ -18,18 +20,54 @@ class HomeContainer extends Component {
     createDrawer(drawer);
   }
 
+  goTo(route) {
+    const { push } = this.props;
+
+    push({
+      key: route,
+      title: 'Add item'
+    });
+  }
+
   render() {
     const list = [{
-      avatar_url: 'https://upload.wikimedia.org/wikipedia/en/6/63/Action_Man_Aqua_Blaster_figure.jpg',
-      name: 'Action Man',
-      subtitle: 'Online'
+      icon: 'money-off',
+      name: 'Add new expense',
+      subtitle: 'Current: -1000$',
+      color: '#fd1111',
+      route: 'add_expense'
+    }, {
+      icon: 'attach-money',
+      name: 'Add new income',
+      subtitle: 'Current: 200$',
+      color: '#11dd22',
+      route: 'add_income'
+    }, {
+      icon: 'library-add',
+      name: 'Add new category',
+      subtitle: '25 categories now',
+      route: 'add_category'
+    }, {
+      icon: 'add',
+      name: 'Add new item',
+      subtitle: '135 categories now',
+      route: 'add_item'
+    }, {
+      icon: 'repeat',
+      name: 'Change montly salary',
+      subtitle: 'Current: 2000$',
+      route: 'edit_salary'
+    }, {
+      icon: 'timeline',
+      name: 'See reports',
+      subtitle: '2 reports',
+      route: 'reports'
     }];
 
     const MenuComponent = (
       <View style={{
         flex: 1,
         backgroundColor: '#ededed',
-        paddingTop: 10,
       }}>
         <List containerStyle={{ marginBottom: 20 }}>
           {
@@ -37,7 +75,11 @@ class HomeContainer extends Component {
               <ListItem
                 avatar={l.avatar_url}
                 key={i}
-                onPress={() => console.log('Pressed')}
+                leftIcon={{
+                  name: l.icon,
+                  color: l.color
+                }}
+                onPress={() => this.goTo(l.route)}
                 roundAvatar
                 subtitle={l.subtitle}
                 title={l.name}
@@ -62,16 +104,16 @@ class HomeContainer extends Component {
 
     return (
       <Drawer
-        closedDrawerOffset={0}
+        closedDrawerOffset={0.0}
         content={MenuComponent}
-        openDrawerOffset={100}
-        panCloseMask={0.9}
+        openDrawerOffset={0.2}
+        panCloseMask={0.2}
         panOpenMask={0.1}
         panThreshold={0.25}
+        tapToClose
         ref={this.getDrawer}
         side="left"
         styles={drawerStyles}
-        tapToClose
         tweenHandler={(ratio) => ({
           main: { opacity: (2 - ratio) / 2 }
         })}
@@ -89,7 +131,8 @@ class HomeContainer extends Component {
 }
 
 HomeContainer.propTypes = {
-  createDrawer: PropTypes.func.isRequired
+  createDrawer: PropTypes.func.isRequired,
+  push: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -99,9 +142,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    createDrawer: bindActionCreators(createNewDrawer, dispatch)
-  };
+  return bindActionCreators({
+    createDrawer: createNewDrawer,
+    push: pushRoute
+  }, dispatch);
 }
 
 export default connect(
