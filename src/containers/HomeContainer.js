@@ -24,8 +24,7 @@ class HomeContainer extends Component {
     const { push } = this.props;
 
     push({
-      key: route,
-      title: 'Add item'
+      key: route
     });
   }
 
@@ -110,10 +109,10 @@ class HomeContainer extends Component {
         panCloseMask={0.2}
         panOpenMask={0.1}
         panThreshold={0.25}
-        tapToClose
         ref={this.getDrawer}
         side="left"
         styles={drawerStyles}
+        tapToClose
         tweenHandler={(ratio) => ({
           main: { opacity: (2 - ratio) / 2 }
         })}
