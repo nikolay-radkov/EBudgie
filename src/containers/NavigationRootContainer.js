@@ -34,7 +34,7 @@ class NavigationRootContainer extends Component {
     BackAndroid.removeEventListener('hardwareBackPress', this._handleBackAction);
   }
 
-  _renderHeader (sceneProps) {
+  _renderHeader(sceneProps) {
     return (
       <Header
         {...sceneProps}
@@ -46,16 +46,24 @@ class NavigationRootContainer extends Component {
     const {
       key,
     } = scene;
-    // render your scene based on the route (navigationState)
+
     return getRoute(key);
   }
 
   _handleBackAction() {
-    if (this.props.navigation.index === 0) {
-      return false;
+   const { drawer, navigation } = this.props;
+
+    if (drawer && drawer._open) {
+      drawer.close();
+      return true;
+    } else {
+      if (navigation.index === 0) {
+        return false;
+      }
+
+      this.props.popRoute();
+      return true;
     }
-    this.props.popRoute();
-    return true;
   }
 
   _handleNavigate(action) {
@@ -86,6 +94,7 @@ class NavigationRootContainer extends Component {
 }
 
 NavigationRootContainer.propTypes = {
+  drawer: PropTypes.object,
   navigation: PropTypes.object.isRequired,
   pushRoute: React.PropTypes.func.isRequired,
   popRoute: React.PropTypes.func.isRequired,
@@ -93,6 +102,7 @@ NavigationRootContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    drawer: state.drawer.instance,
     navigation: state.navigation,
   };
 }

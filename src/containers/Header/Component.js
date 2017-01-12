@@ -18,11 +18,20 @@ class Header extends Component {
     super(state);
 
     this._back = this._back.bind(this);
+    this._togglerawer = this._togglerawer.bind(this);
     this._renderTitleComponent = this._renderTitleComponent.bind(this);
   }
 
   _back = () => {
     this.props.pop();
+  }
+
+  _togglerawer = () => {
+    const { drawer } = this.props;
+
+    if (drawer) {
+      !drawer._open ? drawer.open() : drawer.close();
+    }
   }
 
   _renderTitleComponent = (props) => {
@@ -40,8 +49,20 @@ class Header extends Component {
     let leftButton;
     let onLeftButtonPress;
 
-    if (route.key !== 'login' && route.key !== 'home') {
+    if (route.key !== 'login') {
       switch (route.key) {
+        case 'home':
+          onLeftButtonPress = this._togglerawer;
+          leftButton = (
+            <HeaderButton
+              iconProps={{
+                name: 'menu',
+                color: '#FFFFFF'
+              }}
+              onPress={onLeftButtonPress}
+              />
+          );
+          break;
         case 'add_item':
           onLeftButtonPress = this._back;
           leftButton = (
@@ -115,6 +136,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
+  drawer: PropTypes.object,
   scene: PropTypes.object.isRequired,
   pop: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired
@@ -122,7 +144,7 @@ Header.propTypes = {
 
 function mapStateToProps(state) {
   return {
-
+    drawer: state.drawer.instance
   };
 }
 
