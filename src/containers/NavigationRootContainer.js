@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 
 import { pushRoute, popRoute } from '../boundActionCreators/navigation';
 import getRoute from '../getRoute';
-import Header from './Header/Component';
+import CustomHeader from './Header/CustomHeader';
 
 class NavigationRootContainer extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class NavigationRootContainer extends Component {
 
   _renderHeader(sceneProps) {
     return (
-      <Header
+      <CustomHeader
         {...sceneProps}
         />
     );
@@ -51,7 +51,7 @@ class NavigationRootContainer extends Component {
   }
 
   _handleBackAction() {
-   const { drawer, navigation } = this.props;
+    const { drawer, navigation } = this.props;
 
     if (drawer && drawer._open) {
       drawer.close();
@@ -108,10 +108,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    pushRoute: bindActionCreators(pushRoute, dispatch),
-    popRoute: bindActionCreators(popRoute, dispatch),
-  };
+  return bindActionCreators({
+    pushRoute,
+    popRoute
+  }, dispatch);
 }
 
 export default connect(
