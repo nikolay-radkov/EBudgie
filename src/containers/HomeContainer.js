@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { List, ListItem } from 'react-native-elements';
 import Drawer from 'react-native-drawer';
+import Calendar from 'react-native-calendar';
 
 import { createNewDrawer } from '../boundActionCreators/drawer';
 import { pushRoute } from '../boundActionCreators/navigation';
@@ -64,7 +65,7 @@ class HomeContainer extends Component {
     }];
 
     const MenuComponent = (
-      <View style={{
+      <ScrollView style={{
         flex: 1,
         backgroundColor: '#ededed',
       }}>
@@ -86,7 +87,7 @@ class HomeContainer extends Component {
             ))
           }
         </List>
-      </View>
+      </ScrollView>
     );
 
     const drawerStyles = {
@@ -94,7 +95,9 @@ class HomeContainer extends Component {
         borderRightColor: 'rgba(0,0,0,1)',
         borderRightWidth: 0,
         elevation: 5,
-        shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3
+        shadowColor: '#000000',
+        shadowOpacity: 0.8,
+        shadowRadius: 3
       },
       main: {
 
@@ -118,12 +121,36 @@ class HomeContainer extends Component {
         })}
         type="overlay">
 
-        <View style={{
+        <ScrollView style={{
           flex: 1,
-          backgroundColor: 'red',
+          backgroundColor: '#EEF1F4',
         }}>
-          <Text>Here is your current budget</Text>
-        </View>
+          <Calendar
+            customStyle={{
+              day: {
+                fontSize: 15,
+                textAlign: 'center'
+              }
+            }}
+            eventDates={['2015-07-01']}
+            events={[{ date: '2015-07-01' }]}
+            nextButtonText={'Next'}
+            onDateSelect={(date) => this.onDateSelect(date)}
+            onSwipeNext={this.onSwipeNext}
+            onSwipePrev={this.onSwipePrev}
+            onTouchNext={this.onTouchNext}
+            onTouchPrev={this.onTouchPrev}
+            prevButtonText={'Prev'}
+            scrollEnabled
+            selectedDate={'2015-08-15'}
+            showControls
+            showEventIndicators
+            startDate={'2015-08-01'}
+            titleFormat={'MMMM YYYY'}
+            today={'2016-16-05'}
+            weekStart={1}
+            />
+        </ScrollView>
       </Drawer>
     );
   }
