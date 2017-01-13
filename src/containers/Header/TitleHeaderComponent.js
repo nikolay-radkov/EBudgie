@@ -20,6 +20,9 @@ const TitleHeaderComponent = ({
       case 'add_item':
         title = 'Add item';
         break;
+      case 'add_category':
+        title = 'Add category';
+        break;
       default:
        title = 'Not found';
     }
