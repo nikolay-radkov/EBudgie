@@ -5,6 +5,7 @@ import { View, TouchableHighlight, Text, Animated, Dimensions, TouchableWithoutF
 import dismissKeyboard from 'dismissKeyboard';
 
 import ColorPickerModal from '../components/Modal/ColorPickerModal';
+import IconPickerModal from '../components/Modal/IconPickerModal';
 import * as actions from '../actionCreators/addCategoryForm';
 
 import {
@@ -25,13 +26,17 @@ class AddCategoryContainer extends Component {
     setOffset(offset);
   }
 
+  componentWillUnmount() {
+    const { resetAddCategoryForm } = this.props;
+    resetAddCategoryForm();
+  }
+
   render() {
     const {
       offset,
       colorModal,
       iconModal,
       color,
-      title,
       icon,
       iconColor
     } = this.props.addCategoryForm;
@@ -40,8 +45,10 @@ class AddCategoryContainer extends Component {
       openColorPicker,
       closeColorPicker,
       openIconPicker,
+      closeIconPicker,
       setCategoryColor,
       setCategoryTitle,
+      setCategoryIcon,
       addNewCategory
     } = this.props;
 
@@ -62,8 +69,8 @@ class AddCategoryContainer extends Component {
               width: 50
             }}>
               <Icon
-                name={icon}
                 color={iconColor}
+                name={icon}
                 size={30}
                 />
             </View>
@@ -96,6 +103,13 @@ class AddCategoryContainer extends Component {
               offset={offset}
               style={{ flex: 1 }} />
             : null}
+          {iconModal ?
+            <IconPickerModal
+              callback={setCategoryIcon}
+              closeModal={closeIconPicker}
+              offset={offset}
+              style={{ flex: 1 }} />
+            : null}
         </View>
       </TouchableWithoutFeedback>
     );
@@ -110,6 +124,8 @@ AddCategoryContainer.propTypes = {
   closeColorPicker: PropTypes.func.isRequired,
   openIconPicker: PropTypes.func.isRequired,
   closeIconPicker: PropTypes.func.isRequired,
+  resetAddCategoryForm: PropTypes.func.isRequired,
+  addNewCategory: PropTypes.func.isRequired,
   setOffset: PropTypes.func.isRequired,
   addCategoryForm: PropTypes.object.isRequired,
 };
