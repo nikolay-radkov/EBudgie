@@ -6,7 +6,8 @@ import {
   CLOSE_COLOR_PICKER,
   OPEN_ICON_PICKER,
   CLOSE_ICON_PICKER,
-  SET_OFFSET
+  SET_OFFSET,
+  RESET_ADD_CATEGORY_FORM
 } from '../constants/ActionTypes';
 
 export const setCategoryTitle = (title) => {
@@ -58,5 +59,11 @@ export const setOffset = (offset) => {
   return {
     type: SET_OFFSET,
     offset
+  };
+};
+
+export const resetAddCategoryForm = () => {
+  return {
+    type: RESET_ADD_CATEGORY_FORM
   };
 };
