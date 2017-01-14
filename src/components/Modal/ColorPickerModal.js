@@ -15,7 +15,7 @@ class ColorPickerModal extends Component {
   }
 
   componentDidMount() {
-    Animated.timing(this.props.offSet, {
+    Animated.timing(this.props.offset, {
       duration: 300,
       toValue: 0
     }).start();
@@ -24,11 +24,11 @@ class ColorPickerModal extends Component {
   closeModal() {
     const { color } = this.state;
 
-    this.props.callback(color);
-    Animated.timing(this.props.offSet, {
+    Animated.timing(this.props.offset, {
       duration: 300,
       toValue: Dimensions.get('window').height
     }).start(this.props.closeModal);
+    this.props.callback(color);
   }
 
   changeColor(color) {
@@ -40,7 +40,7 @@ class ColorPickerModal extends Component {
   render() {
     return (
       <Animated.View style={[styles.container, {
-        transform: [{ translateY: this.props.offSet }],
+        transform: [{ translateY: this.props.offset }],
       }]}>
         <View style={styles.closeButtonContainer}>
           <TouchableHighlight
@@ -61,7 +61,7 @@ class ColorPickerModal extends Component {
 }
 
 ColorPickerModal.propTypes = {
-  offSet: PropTypes.object.isRequired,
+  offset: PropTypes.object.isRequired,
   oldColor: PropTypes.object,
   callback: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,

@@ -1,89 +1,127 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, TouchableHighlight, Text, Animated, Dimensions } from 'react-native';
+import { View, TouchableHighlight, Text, Animated, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import dismissKeyboard from 'dismissKeyboard';
 
 import ColorPickerModal from '../components/Modal/ColorPickerModal';
+import * as actions from '../actionCreators/addCategoryForm';
 
 import {
   FormLabel,
   FormInput,
-  Grid,
-  Row,
-  Col
+  Icon
 } from 'react-native-elements';
 
 class AddCategoryContainer extends Component {
   constructor() {
     super();
-    this.state = {
-      modal: false,
-      offSet: new Animated.Value(Dimensions.get('window').height),
-      color: 'white'
-    };
-
-    this.changeColor = this.changeColor.bind(this);
   }
 
-  changeColor(color) {
-    debugger;
-    this.setState({
-      color
-    });
+  componentDidMount() {
+    const { setOffset } = this.props;
+    const offset = new Animated.Value(Dimensions.get('window').height);
+
+    setOffset(offset);
   }
 
   render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <FormLabel>Title</FormLabel>
-        <FormInput />
-        <Grid>
-          <Row>
-            <Col size={1}>
-              <TouchableHighlight
-                onPress={() => this.setState({ modal: true })}
-                style={{backgroundColor: this.state.color}}
-                underlayColor="transparent">
-                <Text>Color Picker</Text>
-              </TouchableHighlight>
-            </Col>
-            <Col size={1}>
-              <TouchableHighlight
-                onPress={() => this.setState({ modal: true })}
-                underlayColor="transparent">
-                <Text>Icon Picker </Text>
-              </TouchableHighlight>
-            </Col>
-          </Row>
+    const {
+      offset,
+      colorModal,
+      iconModal,
+      color,
+      title,
+      icon,
+      iconColor
+    } = this.props.addCategoryForm;
 
-        </Grid>
-        {this.state.modal ?
-          <ColorPickerModal
-            callback={this.changeColor}
-            closeModal={() => this.setState({ modal: false })}
-            offSet={this.state.offSet}
-            showtime={this.state.time}
-            style={{ flex: 1 }} />
-          : null}
-      </View>
+    const {
+      openColorPicker,
+      closeColorPicker,
+      openIconPicker,
+      setCategoryColor,
+      setCategoryTitle,
+      addNewCategory
+    } = this.props;
+
+    return (
+      <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
+        <View style={{ flex: 1 }}>
+          <FormLabel>Title</FormLabel>
+          <FormInput
+            icon={{ color: '#red', name: 'search' }}
+            onChangeText={setCategoryTitle}
+            onSubmitEditing={() => dismissKeyboard()} />
+          <View style={{
+            flexDirection: 'row'
+          }}>
+            <View style={{
+              backgroundColor: color,
+              padding: 10,
+              width: 50
+            }}>
+              <Icon
+                name={icon}
+                color={iconColor}
+                size={30}
+                />
+            </View>
+            <TouchableHighlight
+              onPress={openColorPicker}
+              underlayColor="transparent">
+              <Text>Color Picker</Text>
+            </TouchableHighlight>
+
+            <TouchableHighlight
+              onPress={openIconPicker}
+              underlayColor="transparent">
+              <Text>Icon Picker </Text>
+            </TouchableHighlight>
+
+          </View>
+          <View style={{
+            flexDirection: 'row-reverse'
+          }}>
+            <TouchableHighlight
+              onPress={addNewCategory}
+              underlayColor="transparent">
+              <Text>Submit</Text>
+            </TouchableHighlight>
+          </View>
+          {colorModal ?
+            <ColorPickerModal
+              callback={setCategoryColor}
+              closeModal={closeColorPicker}
+              offset={offset}
+              style={{ flex: 1 }} />
+            : null}
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
 
 AddCategoryContainer.propTypes = {
-
+  setCategoryTitle: PropTypes.func.isRequired,
+  setCategoryColor: PropTypes.func.isRequired,
+  setCategoryIcon: PropTypes.func.isRequired,
+  openColorPicker: PropTypes.func.isRequired,
+  closeColorPicker: PropTypes.func.isRequired,
+  openIconPicker: PropTypes.func.isRequired,
+  closeIconPicker: PropTypes.func.isRequired,
+  setOffset: PropTypes.func.isRequired,
+  addCategoryForm: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-
+    addCategoryForm: state.addCategoryForm
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-
-  };
+  return bindActionCreators(actions, dispatch);
 }
 
 export default connect(
