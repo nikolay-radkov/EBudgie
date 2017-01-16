@@ -11,7 +11,6 @@ const ApplicationStyles = {
   },
   container: {
     flex: 1,
-    paddingTop: Metrics.statusBarPadding,
   },
   backgroundImage: {
     position: 'absolute',
