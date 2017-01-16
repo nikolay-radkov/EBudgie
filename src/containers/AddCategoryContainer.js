@@ -19,6 +19,7 @@ class AddCategoryContainer extends Component {
     super();
 
     this.closeAllModals = this.closeAllModals.bind(this);
+    this.saveCategory = this.saveCategory.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +43,25 @@ class AddCategoryContainer extends Component {
 
     closeColorPicker();
     closeIconPicker();
+  }
+
+  saveCategory() {
+    const {
+      addNewCategory,
+
+    } = this.props;
+
+    const {
+      title,
+      icon,
+      color
+    } = this.props.addCategoryForm;
+
+    addNewCategory({
+      title,
+      icon,
+      color
+    });
   }
 
   render() {
@@ -104,7 +124,7 @@ class AddCategoryContainer extends Component {
             flexDirection: 'row-reverse'
           }}>
             <TouchableHighlight
-              onPress={addNewCategory}
+              onPress={this.saveCategory}
               underlayColor="transparent">
               <Text>Submit</Text>
             </TouchableHighlight>
