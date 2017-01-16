@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { ScrollView, Animated, StyleSheet, Dimensions, TouchableHighlight, View, Text } from 'react-native';
+import dismissKeyboard from 'dismissKeyboard';
 
 import materialIconCategories from '../../constants/MaterialIconCategories';
 import IconCategory from './IconCategory';
@@ -14,6 +15,10 @@ class IconPickerModal extends Component {
 
     this.changeIcon = this.changeIcon.bind(this);
     this.closeModal = this.closeModal.bind(this);
+  }
+
+  componentWillMount() {
+    dismissKeyboard();
   }
 
   componentDidMount() {

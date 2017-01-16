@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Animated, StyleSheet, Dimensions, TouchableHighlight, View, Text } from 'react-native';
 import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
+import dismissKeyboard from 'dismissKeyboard';
 
 class ColorPickerModal extends Component {
   constructor() {
@@ -12,6 +13,10 @@ class ColorPickerModal extends Component {
 
     this.closeModal = this.closeModal.bind(this);
     this.changeColor = this.changeColor.bind(this);
+  }
+
+  componentWillMount() {
+    dismissKeyboard();
   }
 
   componentDidMount() {
