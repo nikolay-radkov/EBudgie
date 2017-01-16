@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, StatusBar, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RNAccountKit from 'react-native-facebook-account-kit';
@@ -7,6 +7,39 @@ import { Button } from 'react-native-elements';
 
 import { pushRoute } from '../boundActionCreators/navigation';
 import { createNewPouchDB } from '../boundActionCreators/pouchdb';
+import theme from '../themes/ApplicationStyles';
+import colors from '../themes/Colors';
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.background,
+    paddingTop: 50 + StatusBar.currentHeight
+  },
+  icon: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonContainer: {
+    flex: 3,
+    justifyContent: 'center'
+  },
+  buttonStyle: {
+    marginBottom: 30,
+    marginLeft: 50,
+    marginRight: 50,
+  }
+});
+
+const buttonProps = {
+  backgroundColor: colors.main,
+  borderRadius: 5,
+  buttonStyle: styles.buttonStyle,
+  fontWeight: 'bold',
+  large: true,
+  iconRight: true,
+  raised: true,
+}
 
 class LoginContainer extends Component {
   constructor(state) {
@@ -54,44 +87,20 @@ class LoginContainer extends Component {
 
   render() {
     return (
-      <View style={{
-        flex: 1,
-        backgroundColor: '#EEF1F4',
-        paddingTop: 50
-      }}>
-        <View onTouchStart={this.skip} style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={[theme.container, styles.container]}>
+        <View onTouchStart={this.skip} style={styles.icon}>
           <Image source={require('../images/budgie-icon.png')} />
         </View>
-        <View style={{ flex: 3, justifyContent: 'center' }}>
+        <View style={styles.buttonContainer}>
           <Button
-            backgroundColor="#023365"
-            borderRadius={5}
-            buttonStyle={{
-              marginBottom: 30,
-              marginLeft: 50,
-              marginRight: 50,
-            }}
-            fontWeight="bold"
+            {...buttonProps}
             icon={{ name: 'email' }}
-            iconRight
-            large
             onPress={this.loginWithEmail}
-            raised
             title="Login with Email" />
           <Button
-            backgroundColor="#023365"
-            borderRadius={5}
-            buttonStyle={{
-              marginBottom: 30,
-              marginLeft: 50,
-              marginRight: 50,
-            }}
-            fontWeight="bold"
+            {...buttonProps}
             icon={{ name: 'phone' }}
-            iconRight
-            large
             onPress={this.loginWithPhone}
-            raised
             title="Login with Phone" />
         </View>
       </View>
