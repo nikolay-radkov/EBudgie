@@ -7,7 +7,8 @@ import {
   OPEN_ICON_PICKER,
   CLOSE_ICON_PICKER,
   SET_OFFSET,
-  RESET_ADD_CATEGORY_FORM
+  RESET_ADD_CATEGORY_FORM,
+  NEW_CATEGORY
 } from '../constants/ActionTypes';
 
 export const setCategoryTitle = (title) => {
@@ -65,5 +66,12 @@ export const setOffset = (offset) => {
 export const resetAddCategoryForm = () => {
   return {
     type: RESET_ADD_CATEGORY_FORM
+  };
+};
+
+export const addNewCategory = (category) => {
+  return {
+    type: NEW_CATEGORY,
+    category
   };
 };
