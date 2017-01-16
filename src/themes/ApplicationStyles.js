@@ -6,43 +6,39 @@ import Colors from './Colors'
 // Similar to an XML fragment layout in Android
 
 const ApplicationStyles = {
-  screen: {
-    mainContainer: {
-      flex: 1,
-      marginTop: Metrics.navBarHeight,
-      backgroundColor: Colors.transparent
-    },
-    backgroundImage: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0
-    },
-    container: {
-      flex: 1,
-      paddingTop: Metrics.baseMargin
-    },
-    section: {
-      margin: Metrics.section,
-      padding: Metrics.baseMargin,
-      borderTopColor: Colors.frost,
-      borderTopWidth: 0.5,
-      borderBottomColor: Colors.frost,
-      borderBottomWidth: 1
-    },
-    sectionText: {
-      color: Colors.snow,
-      marginVertical: Metrics.smallMargin,
-      textAlign: 'center',
-      fontWeight: 'bold'
-    },
-    subtitle: {
-      color: Colors.snow,
-      padding: Metrics.smallMargin,
-      marginBottom: Metrics.smallMargin,
-      marginHorizontal: Metrics.smallMargin
-    }
+  mainContainer: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    paddingTop: Metrics.statusBarPadding,
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
+  },
+  section: {
+    margin: Metrics.section,
+    padding: Metrics.baseMargin,
+    borderTopColor: Colors.frost,
+    borderTopWidth: 0.5,
+    borderBottomColor: Colors.frost,
+    borderBottomWidth: 1
+  },
+  sectionText: {
+    color: Colors.snow,
+    marginVertical: Metrics.smallMargin,
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  subtitle: {
+    color: Colors.snow,
+    padding: Metrics.smallMargin,
+    marginBottom: Metrics.smallMargin,
+    marginHorizontal: Metrics.smallMargin
   },
   darkLabelContainer: {
     backgroundColor: Colors.cloud,
@@ -72,4 +68,4 @@ const ApplicationStyles = {
   }
 }
 
-export default ApplicationStyles
+export default ApplicationStyles;

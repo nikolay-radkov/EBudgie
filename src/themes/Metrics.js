@@ -1,12 +1,13 @@
-import {Dimensions, Platform} from 'react-native'
+import {Dimensions, Platform, StatusBar} from 'react-native';
 
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window');
 
 // Used via Metrics.baseMargin
 const metrics = {
   marginHorizontal: 10,
   marginVertical: 10,
   section: 25,
+  statusBarPadding: StatusBar.currentHeight,
   baseMargin: 10,
   doubleBaseMargin: 20,
   smallMargin: 5,
@@ -28,6 +29,6 @@ const metrics = {
     large: 60,
     logo: 300
   }
-}
+};
 
-export default metrics
+export default metrics;
