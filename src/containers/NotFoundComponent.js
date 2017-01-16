@@ -2,30 +2,45 @@ import React, { Component } from 'react';
 import {
   View,
   Image,
-  Text
+  Text,
+  StyleSheet,
+  StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
+
+import theme from '../themes/ApplicationStyles';
+import colors from '../themes/Colors';
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.background,
+    paddingTop: 50 + StatusBar.currentHeight
+  },
+  icon: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  messageContainer: {
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  message: {
+    fontSize: 20,
+    textAlign: 'center'
+  }
+});
 
 class NotFoundComponent extends Component {
   render() {
     return (
-      <View style={{
-        flex: 1,
-        backgroundColor: '#EEF1F4',
-        paddingTop: 50
-      }}>
-        <View onTouchStart={this.skip} style={{
-          flex: 2,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+      <View style={[theme.container, styles.container]}>
+        <View style={styles.icon}>
           <Image source={require('../images/budgie-icon.png')} />
         </View>
-        <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{
-            fontSize: 30,
-            textAlign: 'center'
-          }}>
+        <View style={styles.messageContainer}>
+          <Text style={styles.message}>
             The resource could not be found
           </Text>
         </View>
