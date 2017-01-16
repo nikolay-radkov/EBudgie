@@ -44,7 +44,8 @@ class CustomHeader extends Component {
       navigation = (
         <NavigationHeader
           style={{
-            backgroundColor: '#023365'
+            backgroundColor: '#023365',
+            paddingTop: 20
           }}
           {...this.props}
           renderLeftComponent={this._renderLeftComponent}

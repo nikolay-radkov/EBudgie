@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {
   BackAndroid,
-  NavigationExperimental
+  NavigationExperimental,
+  StyleSheet
 } from 'react-native';
 const {
   CardStack: NavigationCardStack
@@ -13,6 +14,16 @@ import { connect } from 'react-redux';
 import { pushRoute, popRoute } from '../boundActionCreators/navigation';
 import getRoute from '../getRoute';
 import CustomHeader from './Header/CustomHeader';
+
+import colors from '../themes/Colors';
+import metrics from '../themes/Metrics';
+
+const styles = StyleSheet.create({
+  navigationStyles: {
+    backgroundColor: colors.main,
+    paddingTop: metrics.statusBarPadding
+  }
+});
 
 class NavigationRootContainer extends Component {
   constructor(props) {
@@ -88,6 +99,7 @@ class NavigationRootContainer extends Component {
         onNavigate={this._handleNavigate}
         renderHeader={this._renderHeader}
         renderScene={this._renderScene}
+        style={styles.navigationStyles}
         />
     );
   }
