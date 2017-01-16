@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes }from 'react';
 import {
   ScrollView,
   StyleSheet
@@ -20,7 +20,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const Menu = () => {
+const Menu = ({
+  goTo
+}) => {
   const list = [{
     icon: 'money-off',
     name: 'Add new expense',
@@ -67,7 +69,7 @@ const Menu = () => {
                 name: l.icon,
                 color: l.color
               }}
-              onPress={() => this.goTo(l.route)}
+              onPress={() => goTo(l.route)}
               roundAvatar
               subtitle={l.subtitle}
               title={l.name}
@@ -78,5 +80,9 @@ const Menu = () => {
     </ScrollView>
   );
 };
+
+Menu.propTypes = {
+  goTo: PropTypes.func.isRequired
+}
 
 export default Menu;

@@ -43,11 +43,16 @@ class HomeContainer extends Component {
   }
 
   render() {
+    const MenuComponent = (
+      <Menu
+        goTo={this.goTo}
+        />
+    );
 
     return (
       <Drawer
         closedDrawerOffset={0.0}
-        content={(<Menu />)}
+        content={MenuComponent}
         openDrawerOffset={0.2}
         panCloseMask={0.2}
         panOpenMask={0.1}
