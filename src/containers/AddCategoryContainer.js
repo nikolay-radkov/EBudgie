@@ -17,6 +17,8 @@ import {
 class AddCategoryContainer extends Component {
   constructor() {
     super();
+
+    this.closeAllModals = this.closeAllModals.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +31,17 @@ class AddCategoryContainer extends Component {
   componentWillUnmount() {
     const { resetAddCategoryForm } = this.props;
     resetAddCategoryForm();
+  }
+
+  closeAllModals() {
+    dismissKeyboard();
+    const {
+      closeColorPicker,
+      closeIconPicker
+    } = this.props;
+
+    closeColorPicker();
+    closeIconPicker();
   }
 
   render() {
@@ -53,7 +66,7 @@ class AddCategoryContainer extends Component {
     } = this.props;
 
     return (
-      <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
+      <TouchableWithoutFeedback onPress={this.closeAllModals}>
         <View style={{ flex: 1 }}>
           <FormLabel>Title</FormLabel>
           <FormInput
