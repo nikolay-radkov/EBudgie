@@ -77,7 +77,7 @@ class LoginContainer extends Component {
   goToHome(dbName = 'unauthorized') {
     this.props.createNewPouchDB(dbName)
       .then(() => {
-        this.props.pushRoute({ key: 'home', title: 'Home' });
+        this.props.pushRoute({ key: 'home' });
       });
   }
 
