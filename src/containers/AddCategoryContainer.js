@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, TouchableHighlight, Text, Animated, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { View, Animated, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Button } from 'react-native-elements';
 import dismissKeyboard from 'dismissKeyboard';
 
 import ColorPickerModal from '../components/Modal/ColorPickerModal';
 import IconPickerModal from '../components/Modal/IconPickerModal';
 import * as actions from '../actionCreators/addCategoryForm';
+import colors from '../themes/Colors';
 
 import {
   FormLabel,
@@ -88,18 +90,23 @@ class AddCategoryContainer extends Component {
     return (
       <TouchableWithoutFeedback onPress={this.closeAllModals}>
         <View style={{ flex: 1 }}>
-          <FormLabel>Title</FormLabel>
-          <FormInput
-            icon={{ color: '#red', name: 'search' }}
-            onChangeText={setCategoryTitle}
-            onSubmitEditing={() => dismissKeyboard()} />
           <View style={{
-            flexDirection: 'row'
+            padding: 10,
+            flexDirection: 'row',
+            justifyContent: 'center',
           }}>
+            <Button
+              backgroundColor={colors.positive}
+              borderRadius={10}
+              icon={{ name: 'format-color-fill' }}
+              iconLeft
+              onPress={openColorPicker}
+              title="Color" />
             <View style={{
               backgroundColor: color,
               padding: 10,
-              width: 50
+              width: 50,
+              borderRadius: 50
             }}>
               <Icon
                 color={iconColor}
@@ -107,27 +114,30 @@ class AddCategoryContainer extends Component {
                 size={30}
                 />
             </View>
-            <TouchableHighlight
-              onPress={openColorPicker}
-              underlayColor="transparent">
-              <Text>Color Picker</Text>
-            </TouchableHighlight>
-
-            <TouchableHighlight
+            <Button
+              backgroundColor={colors.warm}
+              borderRadius={10}
+              color={colors.snow}
+              icon={{ name: 'insert-emoticon', color: color.snow }}
+              iconRight
               onPress={openIconPicker}
-              underlayColor="transparent">
-              <Text>Icon Picker </Text>
-            </TouchableHighlight>
+              title="Icon" />
 
           </View>
+          <FormLabel>Title</FormLabel>
+          <FormInput
+            onChangeText={setCategoryTitle}
+            onSubmitEditing={() => dismissKeyboard()} />
           <View style={{
             flexDirection: 'row-reverse'
           }}>
-            <TouchableHighlight
+            <Button
+              backgroundColor={colors.main}
+              borderRadius={10}
+              icon={{ name: 'save' }}
+              iconRight
               onPress={this.saveCategory}
-              underlayColor="transparent">
-              <Text>Submit</Text>
-            </TouchableHighlight>
+              title="Save" />
           </View>
           {colorModal ?
             <ColorPickerModal
