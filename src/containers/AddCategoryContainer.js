@@ -8,6 +8,7 @@ import dismissKeyboard from 'dismissKeyboard';
 import ColorPickerModal from '../components/Modal/ColorPickerModal';
 import IconPickerModal from '../components/Modal/IconPickerModal';
 import * as actions from '../actionCreators/addCategoryForm';
+import { popRoute } from '../boundActionCreators/navigation';
 import colors from '../themes/Colors';
 
 import {
@@ -50,7 +51,7 @@ class AddCategoryContainer extends Component {
   saveCategory() {
     const {
       addNewCategory,
-
+      pop
     } = this.props;
 
     const {
@@ -64,6 +65,8 @@ class AddCategoryContainer extends Component {
       icon,
       color
     });
+
+    pop();
   }
 
   render() {
@@ -171,6 +174,7 @@ AddCategoryContainer.propTypes = {
   addNewCategory: PropTypes.func.isRequired,
   setOffset: PropTypes.func.isRequired,
   addCategoryForm: PropTypes.object.isRequired,
+  pop: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -180,7 +184,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actions, dispatch);
+  return {
+    ...bindActionCreators(actions, dispatch),
+    pop: bindActionCreators(popRoute, dispatch)
+  };
 }
 
 export default connect(
