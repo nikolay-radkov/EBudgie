@@ -1,7 +1,12 @@
+// Navigation
 export const PUSH_ROUTE = 'PUSH_ROUTE';
 export const POP_ROUTE = 'POP_ROUTE';
+
+// Drawer
 export const NEW_POUCHDB = 'NEW_POUCHDB';
 export const NEW_DRAWER = 'NEW_DRAWER';
+
+// Category Form
 export const SET_CATEGORY_TITLE = 'SET_CATEGORY_TITLE';
 export const SET_CATEGORY_COLOR = 'SET_CATEGORY_COLOR';
 export const SET_CATEGORY_ICON = 'SET_CATEGORY_ICON';
@@ -12,3 +17,11 @@ export const CLOSE_ICON_PICKER = 'CLOSE_ICON_PICKER';
 export const SET_OFFSET = 'SET_OFFSET';
 export const RESET_ADD_CATEGORY_FORM = 'RESET_ADD_CATEGORY_FORM';
 export const NEW_CATEGORY = 'NEW_CATEGORY';
+
+// Item Form
+export const SET_ITEM_NAME = 'SET_ITEM_NAME';
+export const SET_ITEM_CATEGORY = 'SET_ITEM_CATEGORY';
+export const OPEN_CATEGORY_PICKER = 'OPEN_CATEGORY_PICKER';
+export const CLOSE_CATEGORY_PICKER = 'CLOSE_CATEGORY_PICKER';
+export const RESET_ADD_ITEM_FORM = 'RESET_ADD_ITEM_FORM';
+export const NEW_ITEM = 'NEW_ITEM';
