@@ -1,6 +1,5 @@
 import { NEW_CATEGORY } from '../constants/ActionTypes';
 
-
 const initialState = {
   types: []
 };
