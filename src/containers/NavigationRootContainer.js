@@ -62,7 +62,7 @@ class NavigationRootContainer extends Component {
   }
 
   _handleBackAction() {
-    const { drawer, navigation } = this.props;
+    const { drawer, navigation, pop } = this.props;
 
     if (drawer && drawer._open) {
       drawer.close();
@@ -72,15 +72,16 @@ class NavigationRootContainer extends Component {
         return false;
       }
 
-      this.props.popRoute();
+      pop();
       return true;
     }
   }
 
   _handleNavigate(action) {
+    const { push } = this.props;
     switch (action && action.type) {
       case 'push':
-        this.props.pushRoute(action.payload);
+        push(action.payload);
         return true;
       case 'back':
       case 'pop':
@@ -108,8 +109,8 @@ class NavigationRootContainer extends Component {
 NavigationRootContainer.propTypes = {
   drawer: PropTypes.object,
   navigation: PropTypes.object.isRequired,
-  pushRoute: React.PropTypes.func.isRequired,
-  popRoute: React.PropTypes.func.isRequired,
+  push: PropTypes.func.isRequired,
+  pop: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -121,8 +122,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    pushRoute,
-    popRoute
+    push: pushRoute,
+    pop: popRoute
   }, dispatch);
 }
 
