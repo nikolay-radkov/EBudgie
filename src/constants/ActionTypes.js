@@ -1,6 +1,7 @@
 // Navigation
 export const PUSH_ROUTE = 'PUSH_ROUTE';
 export const POP_ROUTE = 'POP_ROUTE';
+export const REPLACE_ROUTE = 'REPLACE_ROUTE';
 
 // Drawer
 export const NEW_POUCHDB = 'NEW_POUCHDB';

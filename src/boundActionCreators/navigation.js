@@ -1,4 +1,4 @@
-import { pop, push } from '../actionCreators/navigation';
+import { pop, push, replace } from '../actionCreators/navigation';
 
 export const pushRoute = (route) => {
   return (dispatch) => {
@@ -9,5 +9,11 @@ export const pushRoute = (route) => {
 export const popRoute = () => {
   return (dispatch) => {
     return dispatch(pop());
+  };
+};
+
+export const replaceRoute = (route) => {
+  return (dispatch) => {
+    return dispatch(replace(route));
   };
 };
