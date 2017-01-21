@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import RNAccountKit from 'react-native-facebook-account-kit';
 import { Button } from 'react-native-elements';
 
-import { pushRoute } from '../boundActionCreators/navigation';
+import { replaceRoute } from '../boundActionCreators/navigation';
 import { createNewPouchDB } from '../boundActionCreators/pouchdb';
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
@@ -77,7 +77,7 @@ class LoginContainer extends Component {
   goToHome(dbName = 'unauthorized') {
     this.props.createNewPouchDB(dbName)
       .then(() => {
-        this.props.pushRoute({ key: 'home' });
+        this.props.replaceRoute({ key: 'home' });
       });
   }
 
@@ -109,7 +109,7 @@ class LoginContainer extends Component {
 }
 
 LoginContainer.propTypes = {
-  pushRoute: React.PropTypes.func.isRequired,
+  replaceRoute: React.PropTypes.func.isRequired,
   createNewPouchDB: React.PropTypes.func.isRequired,
 };
 
@@ -121,7 +121,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    pushRoute,
+    replaceRoute,
     createNewPouchDB
   }, dispatch);
 }
