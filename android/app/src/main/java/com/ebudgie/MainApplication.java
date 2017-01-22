@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.reactlibrary.RNUUIDGeneratorPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import io.underscope.react.fbak.RNAccountKitPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
 
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNUUIDGeneratorPackage(),
             new RNDeviceInfo(),
             new RNAccountKitPackage(),
             new SplashScreenReactPackage(),
