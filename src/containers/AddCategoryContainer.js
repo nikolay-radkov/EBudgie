@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { View, Animated, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { Button } from 'react-native-elements';
 import dismissKeyboard from 'dismissKeyboard';
+import UUIDGenerator from 'react-native-uuid-generator';
 
 import ColorPickerModal from '../components/Modal/ColorPickerModal';
 import IconPickerModal from '../components/Modal/IconPickerModal';
@@ -48,7 +49,7 @@ class AddCategoryContainer extends Component {
     closeIconPicker();
   }
 
-  saveCategory() {
+  async saveCategory() {
     const {
       addNewCategory,
       pop
@@ -60,7 +61,10 @@ class AddCategoryContainer extends Component {
       color
     } = this.props.addCategoryForm;
 
+    const uuid = await UUIDGenerator.getRandomUUID();
+
     addNewCategory({
+      id: uuid,
       title,
       icon,
       color
