@@ -1,13 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Text,
+  Picker,
+} from 'react-native';
 import {
   FormLabel,
   FormInput,
   Button,
 } from 'react-native-elements';
 import dismissKeyboard from 'dismissKeyboard';
+import UUIDGenerator from 'react-native-uuid-generator';
 
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
@@ -30,20 +37,25 @@ class AddItemContainer extends Component {
     resetAddItemForm();
   }
 
-  saveItem() {
+  async saveItem() {
     const {
       addNewItem,
-      pop
+      pop,
+      categories
     } = this.props;
 
     const {
       name,
-      category
+      categoryId
     } = this.props.addItemForm;
 
+    const selectedCategoryId = categoryId ? categoryId : categories[0].id;
+
+    const uuid = await UUIDGenerator.getRandomUUID();
     addNewItem({
+      id: uuid,
       name,
-      category
+      categoryId: selectedCategoryId
     });
 
     pop();
@@ -51,10 +63,15 @@ class AddItemContainer extends Component {
 
   render() {
     const {
+      addItemForm,
       setItemName,
-      setItemCategory
+      setItemCategory,
+      categories
     } = this.props;
 
+    const categoryOptions = categories.map((category) => (
+      <Picker.Item key={category.id} label={category.title} value={category.id} />
+    ));
     return (
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <View style={[theme.container,]}>
@@ -63,9 +80,11 @@ class AddItemContainer extends Component {
             onChangeText={setItemName}
             onSubmitEditing={() => dismissKeyboard()} />
           <FormLabel>Category</FormLabel>
-          <FormInput
-            onChangeText={setItemCategory}
-            onSubmitEditing={() => dismissKeyboard()} />
+          <Picker
+            onValueChange={setItemCategory}
+            selectedValue={addItemForm.categoryId}>
+            {categoryOptions}
+          </Picker>
           <View style={{
             flexDirection: 'row-reverse'
           }}>
@@ -91,13 +110,14 @@ AddItemContainer.propTypes = {
   resetAddItemForm: PropTypes.func.isRequired,
   addItemForm: PropTypes.object.isRequired,
   addNewItem: PropTypes.func.isRequired,
-  pop: PropTypes.func.isRequired
+  pop: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
 };
-
 
 function mapStateToProps(state) {
   return {
-    addItemForm: state.addItemForm
+    addItemForm: state.addItemForm,
+    categories: state.ebudgie.categories
   };
 }
 

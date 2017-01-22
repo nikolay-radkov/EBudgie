@@ -14,10 +14,10 @@ export const setItemName = (name) => {
   };
 };
 
-export const setItemCategory = (category) => {
+export const setItemCategory = (categoryId) => {
   return {
     type: SET_ITEM_CATEGORY,
-    category
+    categoryId
   };
 };
 

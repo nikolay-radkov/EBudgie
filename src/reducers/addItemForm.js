@@ -11,7 +11,7 @@ const initialState = {
   categoryModal: null,
   offset: null,
   name: null,
-  category: null,
+  categoryId: null,
 };
 
 export default (state = initialState, action) => {
@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
     case SET_ITEM_CATEGORY:
       return {
         ...state,
-        category: action.category
+        categoryId: action.categoryId
       };
     case OPEN_CATEGORY_PICKER:
       return {
