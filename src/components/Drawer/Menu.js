@@ -1,4 +1,4 @@
-import React, { PropTypes }from 'react';
+import React, { PropTypes } from 'react';
 import {
   ScrollView,
   StyleSheet
@@ -21,39 +21,43 @@ const styles = StyleSheet.create({
 });
 
 const Menu = ({
-  goTo
+  goTo,
+  categoriesCount,
+  itemsCount,
+  currentExpenses,
+  currentIncome,
+  currentSallary,
 }) => {
   const list = [{
     icon: 'money-off',
     name: 'Add new expense',
-    subtitle: 'Current: -1000$',
+    subtitle: `Current: ${currentExpenses}$`,
     color: '#fd1111',
     route: 'add_expense'
   }, {
     icon: 'attach-money',
     name: 'Add new income',
-    subtitle: 'Current: 200$',
+    subtitle: `Current: ${currentIncome}$`,
     color: '#11dd22',
     route: 'add_income'
   }, {
     icon: 'library-add',
     name: 'Add new category',
-    subtitle: '25 categories now',
+    subtitle: `${categoriesCount} categories now`,
     route: 'add_category'
   }, {
     icon: 'add',
     name: 'Add new item',
-    subtitle: '135 categories now',
+    subtitle: `${itemsCount} items now`,
     route: 'add_item'
   }, {
     icon: 'repeat',
     name: 'Change montly salary',
-    subtitle: 'Current: 2000$',
+    subtitle: `Current: ${currentSallary}$`,
     route: 'edit_salary'
   }, {
     icon: 'timeline',
     name: 'See reports',
-    subtitle: '2 reports',
     route: 'reports'
   }];
 
@@ -82,7 +86,20 @@ const Menu = ({
 };
 
 Menu.propTypes = {
-  goTo: PropTypes.func.isRequired
-}
+  goTo: PropTypes.func.isRequired,
+  categoriesCount: PropTypes.number,
+  itemsCount: PropTypes.number,
+  currentExpenses: PropTypes.number,
+  currentIncome: PropTypes.number,
+  currentSallary: PropTypes.number,
+};
+
+Menu.defaultProps = {
+  categoriesCount: 0,
+  itemsCount: 0,
+  currentExpenses: 0,
+  currentIncome: 0,
+  currentSallary: 0,
+};
 
 export default Menu;

@@ -43,9 +43,22 @@ class HomeContainer extends Component {
   }
 
   render() {
+    const {
+      categoriesCount,
+      itemsCount,
+      currentExpenses,
+      currentIncome,
+      currentSallary,
+    } = this.props;
+
     const MenuComponent = (
       <Menu
+        categoriesCount={categoriesCount}
+        // currentExpenses={currentExpenses}
+        // currentIncome={currentIncome}
+        // currentSallary={currentSallary}
         goTo={this.goTo}
+        itemsCount={itemsCount}
         />
     );
 
@@ -78,7 +91,11 @@ HomeContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-
+      categoriesCount: state.ebudgie.categories.length,
+      itemsCount: state.ebudgie.items.length,
+      currentExpenses: null,
+      currentIncome: null,
+      currentSallary: null,
   };
 }
 
