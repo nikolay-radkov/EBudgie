@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'remote-redux-devtools';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
+import reduxPouchdb from '../middlewares/redux-pouchdb';
 import rootReducer from '../reducers';
 
 export default function configureStore(initialState) {
@@ -15,7 +16,8 @@ export default function configureStore(initialState) {
   });
   const middlewares = [
     thunk,
-    logger
+    logger,
+    reduxPouchdb
   ];
 
   const store = createStore(rootReducer, initialState, composeWithDevTools(
