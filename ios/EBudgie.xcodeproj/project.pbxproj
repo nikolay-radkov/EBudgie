@@ -36,6 +36,7 @@
 		BB6CD89275AD429F9DAD464B /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0BD8113116E45ADA15F427B /* Entypo.ttf */; };
 		EC4D7DFE990D480CB1085E7C /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F1EEB3D910A40B4AF16E750 /* Foundation.ttf */; };
 		E5F1AEB1A8414C6C92E6087A /* libRNAccountKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBD1AD26B3249E6ADC71F3A /* libRNAccountKit.a */; };
+		18C0F13CDCD04948AEA9224F /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8768FDB89E4742B3F4AAEB /* libRNDeviceInfo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -274,6 +275,8 @@
 		FFEFB257E876449585AF1838 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		804CE2BFF5CE4C29853C3234 /* RNAccountKit.xcodeproj */ = {isa = PBXFileReference; name = "RNAccountKit.xcodeproj"; path = "../node_modules/react-native-facebook-account-kit/ios/RNAccountKit.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		1DBD1AD26B3249E6ADC71F3A /* libRNAccountKit.a */ = {isa = PBXFileReference; name = "libRNAccountKit.a"; path = "libRNAccountKit.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7919E58ACA294FAD926F8DEB /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; name = "RNDeviceInfo.xcodeproj"; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		CB8768FDB89E4742B3F4AAEB /* libRNDeviceInfo.a */ = {isa = PBXFileReference; name = "libRNDeviceInfo.a"; path = "libRNDeviceInfo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +306,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				E5F1AEB1A8414C6C92E6087A /* libRNAccountKit.a in Frameworks */,
+				18C0F13CDCD04948AEA9224F /* libRNDeviceInfo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +454,7 @@
 				71CD5A7460AC4549B665472A /* RNVectorIcons.xcodeproj */,
 				890BEF5C4A4B4BDAB5BA161F /* SplashScreen.xcodeproj */,
 				804CE2BFF5CE4C29853C3234 /* RNAccountKit.xcodeproj */,
+				7919E58ACA294FAD926F8DEB /* RNDeviceInfo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -939,6 +944,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EBudgie.app/EBudgie";
@@ -955,6 +961,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
