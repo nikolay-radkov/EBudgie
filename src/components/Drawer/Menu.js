@@ -32,32 +32,36 @@ const Menu = ({
     icon: 'money-off',
     name: 'Add new expense',
     subtitle: `Current: ${currentExpenses}$`,
-    color: '#fd1111',
+    color: colors.error,
     route: 'add_expense'
   }, {
     icon: 'attach-money',
     name: 'Add new income',
     subtitle: `Current: ${currentIncome}$`,
-    color: '#11dd22',
+    color: colors.success,
     route: 'add_income'
   }, {
     icon: 'library-add',
     name: 'Add new category',
     subtitle: `${categoriesCount} categories now`,
+    color: colors.positive,
     route: 'add_category'
   }, {
     icon: 'add',
     name: 'Add new item',
     subtitle: `${itemsCount} items now`,
+    color: colors.warm,
     route: 'add_item'
   }, {
     icon: 'repeat',
     name: 'Change montly salary',
     subtitle: `Current: ${currentSallary}$`,
+    color: colors.panther,
     route: 'edit_salary'
   }, {
     icon: 'timeline',
     name: 'See reports',
+    color: colors.cloud,
     route: 'reports'
   }];
 
