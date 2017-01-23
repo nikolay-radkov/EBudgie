@@ -23,6 +23,9 @@ const TitleHeaderComponent = ({
       case 'add_category':
         title = 'Add category';
         break;
+      case 'edit_salary':
+        title = 'Monthly salary';
+        break;
       default:
        title = 'Not found';
     }
