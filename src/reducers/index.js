@@ -5,6 +5,7 @@ import drawer from './drawer';
 import addCategoryForm from './addCategoryForm';
 import addItemForm from './addItemForm';
 import ebudgie from './ebudgie';
+import editSalaryForm from './editSalaryForm';
 
 const rootReducer = combineReducers({
   navigation,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   drawer,
   addCategoryForm,
   addItemForm,
-  ebudgie
+  ebudgie,
+  editSalaryForm,
 });
 
 export default rootReducer;

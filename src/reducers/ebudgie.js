@@ -2,20 +2,23 @@ import {
   NEW_POUCHDB,
   NEW_ITEM,
   NEW_CATEGORY,
-  LOAD_EBUDGIE
+  LOAD_EBUDGIE,
+  EDIT_SALARY
 } from '../constants/ActionTypes';
 
 const initialState = {
   _id: null,
   _rev: null,
   categories: [],
-  items: []
+  items: [],
+  salaries: []
 };
 
 export default (state = initialState, action) => {
   const {
     items,
-    categories
+    categories,
+    salaries
   } = state;
 
   switch (action.type) {
@@ -47,6 +50,14 @@ export default (state = initialState, action) => {
         categories: [
           ...categories,
           action.category
+        ]
+      };
+    case EDIT_SALARY:
+      return {
+        ...state,
+        salaries: [
+          ...salaries,
+          action.salary
         ]
       };
     default:
