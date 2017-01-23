@@ -26,7 +26,7 @@ const Menu = ({
   itemsCount,
   currentExpenses,
   currentIncome,
-  currentSallary,
+  currentSalary,
 }) => {
   const list = [{
     icon: 'money-off',
@@ -55,7 +55,7 @@ const Menu = ({
   }, {
     icon: 'repeat',
     name: 'Change montly salary',
-    subtitle: `Current: ${currentSallary}$`,
+    subtitle: `Current: ${currentSalary}$`,
     color: colors.panther,
     route: 'edit_salary'
   }, {
@@ -95,7 +95,7 @@ Menu.propTypes = {
   itemsCount: PropTypes.number,
   currentExpenses: PropTypes.number,
   currentIncome: PropTypes.number,
-  currentSallary: PropTypes.number,
+  currentSalary: PropTypes.number,
 };
 
 Menu.defaultProps = {
@@ -103,7 +103,7 @@ Menu.defaultProps = {
   itemsCount: 0,
   currentExpenses: 0,
   currentIncome: 0,
-  currentSallary: 0,
+  currentSalary: 0,
 };
 
 export default Menu;
