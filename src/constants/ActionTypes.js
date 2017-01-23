@@ -29,3 +29,8 @@ export const NEW_ITEM = 'NEW_ITEM';
 
 // EBudgie
 export const LOAD_EBUDGIE = 'LOAD_EBUDGIE';
+
+// Edit Salary
+export const SET_SALARY_VALUE = 'SET_SALARY_VALUE';
+export const RESET_EDIT_SALARY_FORM = 'RESET_EDIT_SALARY_FORM';
+export const EDIT_SALARY = 'EDIT_SALARY';
