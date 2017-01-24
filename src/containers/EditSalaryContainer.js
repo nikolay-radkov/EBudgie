@@ -45,7 +45,7 @@ class EditSalary extends Component {
     } = this.props.editSalaryForm;
 
     editSalary({
-      value,
+      value: parseFloat(value),
       date: new Date()
     });
 
