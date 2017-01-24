@@ -22,15 +22,21 @@ export const NEW_CATEGORY = 'NEW_CATEGORY';
 // Item Form
 export const SET_ITEM_NAME = 'SET_ITEM_NAME';
 export const SET_ITEM_CATEGORY = 'SET_ITEM_CATEGORY';
-export const OPEN_CATEGORY_PICKER = 'OPEN_CATEGORY_PICKER';
-export const CLOSE_CATEGORY_PICKER = 'CLOSE_CATEGORY_PICKER';
 export const RESET_ADD_ITEM_FORM = 'RESET_ADD_ITEM_FORM';
 export const NEW_ITEM = 'NEW_ITEM';
 
 // EBudgie
 export const LOAD_EBUDGIE = 'LOAD_EBUDGIE';
+export const UPDATE_REV = 'UPDATE_REV';
 
 // Edit Salary
 export const SET_SALARY_VALUE = 'SET_SALARY_VALUE';
 export const RESET_EDIT_SALARY_FORM = 'RESET_EDIT_SALARY_FORM';
 export const EDIT_SALARY = 'EDIT_SALARY';
+
+// Income Form
+export const SET_INCOME_VALUE = 'SET_INCOME_VALUE';
+export const SET_INCOME_CATEGORY = 'SET_INCOME_CATEGORY';
+export const SET_INCOME_ITEM = 'SET_INCOME_ITEM';
+export const RESET_ADD_ICOME_FORM = 'RESET_ADD_ICOME_FORM';
+export const NEW_INCOME = 'NEW_INCOME';

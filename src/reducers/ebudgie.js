@@ -3,7 +3,9 @@ import {
   NEW_ITEM,
   NEW_CATEGORY,
   LOAD_EBUDGIE,
-  EDIT_SALARY
+  EDIT_SALARY,
+  NEW_INCOME,
+  UPDATE_REV
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -11,14 +13,16 @@ const initialState = {
   _rev: null,
   categories: [],
   items: [],
-  salaries: []
+  salaries: [],
+  incomes: []
 };
 
 export default (state = initialState, action) => {
   const {
     items,
     categories,
-    salaries
+    salaries,
+    incomes
   } = state;
 
   switch (action.type) {
@@ -42,7 +46,7 @@ export default (state = initialState, action) => {
         items: [
           ...items,
           action.item
-        ]
+        ],
       };
     case NEW_CATEGORY:
       return {
@@ -59,6 +63,19 @@ export default (state = initialState, action) => {
           ...salaries,
           action.salary
         ]
+      };
+    case NEW_INCOME:
+      return {
+        ...state,
+        incomes: [
+          ...incomes,
+          action.income
+        ]
+      };
+    case UPDATE_REV:
+      return {
+        ...state,
+        _rev: action._rev,
       };
     default:
       return state;
