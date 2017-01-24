@@ -105,8 +105,6 @@ class AddItemContainer extends Component {
 AddItemContainer.propTypes = {
   setItemName: PropTypes.func.isRequired,
   setItemCategory: PropTypes.func.isRequired,
-  openCategoryPicker: PropTypes.func.isRequired,
-  closeCategoryPicker: PropTypes.func.isRequired,
   resetAddItemForm: PropTypes.func.isRequired,
   addItemForm: PropTypes.object.isRequired,
   addNewItem: PropTypes.func.isRequired,

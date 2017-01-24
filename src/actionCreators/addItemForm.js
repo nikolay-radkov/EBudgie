@@ -1,8 +1,6 @@
 import {
   SET_ITEM_NAME,
   SET_ITEM_CATEGORY,
-  OPEN_CATEGORY_PICKER,
-  CLOSE_CATEGORY_PICKER,
   RESET_ADD_ITEM_FORM,
   NEW_ITEM
 } from '../constants/ActionTypes';
@@ -18,18 +16,6 @@ export const setItemCategory = (categoryId) => {
   return {
     type: SET_ITEM_CATEGORY,
     categoryId
-  };
-};
-
-export const openCategoryPicker = () => {
-  return {
-    type: OPEN_CATEGORY_PICKER,
-  };
-};
-
-export const closeCategoryPicker = () => {
-  return {
-    type: CLOSE_CATEGORY_PICKER,
   };
 };
 

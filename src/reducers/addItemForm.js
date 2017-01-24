@@ -1,14 +1,10 @@
 import {
   SET_ITEM_NAME,
   SET_ITEM_CATEGORY,
-  OPEN_CATEGORY_PICKER,
-  CLOSE_CATEGORY_PICKER,
   RESET_ADD_ITEM_FORM,
-  NEW_ITEM
 } from '../constants/ActionTypes';
 
 const initialState = {
-  categoryModal: null,
   offset: null,
   name: null,
   categoryId: null,
@@ -25,16 +21,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         categoryId: action.categoryId
-      };
-    case OPEN_CATEGORY_PICKER:
-      return {
-        ...state,
-        categoryModal: true
-      };
-    case CLOSE_CATEGORY_PICKER:
-      return {
-        ...state,
-        categoryModal: false
       };
     case RESET_ADD_ITEM_FORM:
       return {
