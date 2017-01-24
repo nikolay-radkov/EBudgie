@@ -4,6 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "android:production": "node node_modules/react-native/local-cli/cli.js run-android --configuration Release",
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+    "ios:production": "node node_modules/react-native/local-cli/cli.js run-ios --configuration Release",
     "test": "jest"
   },
   "dependencies": {
