@@ -15,6 +15,7 @@ import {
 import _ from 'lodash';
 import dismissKeyboard from 'dismissKeyboard';
 import UUIDGenerator from 'react-native-uuid-generator';
+import moment from 'moment';
 
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
@@ -57,10 +58,10 @@ class AddIncomeContainer extends Component {
     const uuid = await UUIDGenerator.getRandomUUID();
     addNewIncome({
       id: uuid,
-      value,
+      value: parseFloat(value),
       categoryId: selectedCategoryId,
       itemId: selectedItemId,
-      date: new Date(),
+      date: moment(),
     });
 
     pop();
@@ -87,6 +88,7 @@ class AddIncomeContainer extends Component {
         <View style={[theme.container,]}>
           <FormLabel>Value</FormLabel>
           <FormInput
+            keyboardType="numeric"
             onChangeText={setIncomeValue}
             onSubmitEditing={() => dismissKeyboard()} />
           <FormLabel>Category</FormLabel>

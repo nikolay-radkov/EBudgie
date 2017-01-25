@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import Calendar from 'react-native-calendar';
+import moment from 'moment';
 
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
@@ -16,9 +17,11 @@ const Overview = ({
   onSwipeNext,
   onSwipePrev,
   onTouchNext,
-  onTouchPrev
+  onTouchPrev,
+  eventsDate,
+  selectedDate,
 }) => {
-  const today = new Date();
+  const today = moment();
 
   return (
     <ScrollView style={[theme.container, styles.scrollView]}>
@@ -27,10 +30,14 @@ const Overview = ({
           day: {
             fontSize: 15,
             textAlign: 'center'
-          }
+          },
+          eventIndicator: {
+            backgroundColor: 'blue',
+            width: 10,
+            height: 10,
+          },
         }}
-        eventDates={['2018-01-21']}
-        events={[{ date: '2015-07-01' }]}
+        eventDates={eventsDate}
         nextButtonText={'Next'}
         onDateSelect={(date) => onDateSelect(date)}
         onSwipeNext={onSwipeNext}
@@ -39,7 +46,7 @@ const Overview = ({
         onTouchPrev={onTouchPrev}
         prevButtonText={'Prev'}
         scrollEnabled
-        selectedDate={'2017-01-15'}
+        selectedDate={selectedDate}
         showControls
         showEventIndicators
         startDate={today}
@@ -57,6 +64,9 @@ Overview.propTypes = {
   onSwipePrev: PropTypes.func,
   onTouchNext: PropTypes.func,
   onTouchPrev: PropTypes.func,
+  eventsDate: PropTypes.array,
+  selectedDate: PropTypes.any,
+
 };
 
 export default Overview;

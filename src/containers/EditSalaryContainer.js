@@ -12,6 +12,7 @@ import {
   Button,
 } from 'react-native-elements';
 import dismissKeyboard from 'dismissKeyboard';
+import moment from 'moment';
 
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
@@ -46,7 +47,7 @@ class EditSalary extends Component {
 
     editSalary({
       value: parseFloat(value),
-      date: new Date()
+      date: moment()
     });
 
     pop();

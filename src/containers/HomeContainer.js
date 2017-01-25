@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Drawer from 'react-native-drawer';
+import _ from 'lodash';
+import moment from 'moment';
 
 import { createNewDrawer } from '../boundActionCreators/drawer';
 import { pushRoute } from '../boundActionCreators/navigation';
@@ -49,13 +51,15 @@ class HomeContainer extends Component {
       currentExpenses,
       currentIncome,
       currentSalary,
+      selectedDate,
+      eventsDate,
     } = this.props;
 
     const MenuComponent = (
       <Menu
         categoriesCount={categoriesCount}
         // currentExpenses={currentExpenses}
-        // currentIncome={currentIncome}
+        currentIncome={currentIncome}
         currentSalary={currentSalary}
         goTo={this.goTo}
         itemsCount={itemsCount}
@@ -78,7 +82,9 @@ class HomeContainer extends Component {
           main: { opacity: (2 - ratio) / 2 }
         })}
         type="overlay">
-        <Overview />
+        <Overview
+          eventsDate={eventsDate}
+          selectedDate={selectedDate}/>
       </Drawer >
     );
   }
@@ -87,18 +93,49 @@ class HomeContainer extends Component {
 HomeContainer.propTypes = {
   createDrawer: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
+  selectedDate: PropTypes.any,
+  eventsDate: PropTypes.array
 };
+
+function calculateCurrentIncome(incomes) {
+  const filteredIncomes = _.filter(incomes, (income) => {
+    const incomeDate = moment(income.date);
+    const currentDate = moment();
+    return incomeDate.month() === currentDate.month() &&
+      incomeDate.year() === currentDate.year();
+  });
+  return _.sumBy(filteredIncomes, 'value');
+}
+
+function getEventDates(ebudgie) {
+  const incomeDates = _.filter(ebudgie.incomes, (income) => {
+    const incomeDate = moment(income.date);
+    const currentDate = moment();
+    return incomeDate.month() === currentDate.month();
+  });
+
+  const expenseDates = _.filter(ebudgie.expenses, (expense) => {
+    const expenseDate = moment(expense.date);
+    const currentDate = moment();
+    return expenseDate.month() === currentDate.month();
+  });
+
+  const eventDates = incomeDates.concat(expenseDates);
+  return _.map(eventDates, (event) => event.date);
+}
 
 function mapStateToProps(state) {
   const { salaries } = state.ebudgie;
   const currentSalary = salaries[salaries.length - 1] || {};
 
   return {
-      categoriesCount: state.ebudgie.categories.length,
-      itemsCount: state.ebudgie.items.length,
-      currentExpenses: null,
-      currentIncome: null,
-      currentSalary: currentSalary.value || 0,
+    categoriesCount: state.ebudgie.categories.length,
+    itemsCount: state.ebudgie.items.length,
+    currentExpenses: null,
+    currentIncome: calculateCurrentIncome(state.ebudgie.incomes),
+    currentSalary: currentSalary.value || 0,
+    selectedDate: moment(),
+    eventsDate: getEventDates(state.ebudgie)
   };
 }
 
