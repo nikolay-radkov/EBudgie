@@ -2,7 +2,7 @@ import {
   SET_INCOME_VALUE,
   SET_INCOME_CATEGORY,
   SET_INCOME_ITEM,
-  RESET_ADD_ICOME_FORM,
+  RESET_ADD_INCOME_FORM,
   SET_INCOME_DATE,
 } from '../constants/ActionTypes';
 
@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
         ...state,
         date: action.date
       };
-    case RESET_ADD_ICOME_FORM:
+    case RESET_ADD_INCOME_FORM:
       return {
         ...initialState
       };

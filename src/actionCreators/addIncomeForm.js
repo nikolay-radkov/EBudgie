@@ -2,7 +2,7 @@ import {
   SET_INCOME_VALUE,
   SET_INCOME_CATEGORY,
   SET_INCOME_ITEM,
-  RESET_ADD_ICOME_FORM,
+  RESET_ADD_INCOME_FORM,
   NEW_INCOME,
   SET_INCOME_DATE,
 } from '../constants/ActionTypes';
@@ -37,7 +37,7 @@ export const setIncomeDate = (date) => {
 
 export const resetAddIncomeForm = () => {
   return {
-    type: RESET_ADD_ICOME_FORM,
+    type: RESET_ADD_INCOME_FORM,
   };
 };
 
