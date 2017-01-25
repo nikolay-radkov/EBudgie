@@ -3,7 +3,8 @@ import {
   SET_INCOME_CATEGORY,
   SET_INCOME_ITEM,
   RESET_ADD_ICOME_FORM,
-  NEW_INCOME
+  NEW_INCOME,
+  SET_INCOME_DATE,
 } from '../constants/ActionTypes';
 
 export const setIncomeValue = (value) => {
@@ -24,6 +25,13 @@ export const setIncomeItem = (itemId) => {
   return {
     type: SET_INCOME_ITEM,
     itemId
+  };
+};
+
+export const setIncomeDate = (date) => {
+  return {
+    type: SET_INCOME_DATE,
+    date
   };
 };
 

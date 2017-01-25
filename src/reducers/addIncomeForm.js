@@ -3,12 +3,14 @@ import {
   SET_INCOME_CATEGORY,
   SET_INCOME_ITEM,
   RESET_ADD_ICOME_FORM,
+  SET_INCOME_DATE,
 } from '../constants/ActionTypes';
 
 const initialState = {
   value: null,
   categoryId: null,
   itemId: null,
+  date: null,
 };
 
 export default (state = initialState, action) => {
@@ -27,6 +29,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         itemId: action.itemId
+      };
+    case SET_INCOME_DATE:
+      return {
+        ...state,
+        date: action.date
       };
     case RESET_ADD_ICOME_FORM:
       return {

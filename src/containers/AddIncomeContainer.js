@@ -16,6 +16,7 @@ import _ from 'lodash';
 import dismissKeyboard from 'dismissKeyboard';
 import UUIDGenerator from 'react-native-uuid-generator';
 import moment from 'moment';
+import DatePicker from 'react-native-datepicker'
 
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
@@ -30,6 +31,7 @@ class AddIncomeContainer extends Component {
   constructor() {
     super();
 
+    this.state = { date: "2016-05-15" }
     this.saveItem = this.saveItem.bind(this);
   }
 
@@ -49,7 +51,8 @@ class AddIncomeContainer extends Component {
     const {
       categoryId,
       itemId,
-      value
+      value,
+      date
     } = this.props.addIncomeForm;
 
     const selectedCategoryId = categoryId ? categoryId : categories[0].id;
@@ -61,7 +64,7 @@ class AddIncomeContainer extends Component {
       value: parseFloat(value),
       categoryId: selectedCategoryId,
       itemId: selectedItemId,
-      date: moment(),
+      date: moment(date),
     });
 
     pop();
@@ -74,8 +77,10 @@ class AddIncomeContainer extends Component {
       setIncomeCategory,
       setIncomeItem,
       categories,
-      items
+      items,
+      setIncomeDate,
     } = this.props;
+    const today = moment().format();
 
     const categoryOptions = categories.map((category) => (
       <Picker.Item key={category.id} label={category.title} value={category.id} />
@@ -103,6 +108,28 @@ class AddIncomeContainer extends Component {
             selectedValue={addIncomeForm.itemId}>
             {itemOptions}
           </Picker>
+          <FormLabel>Date</FormLabel>
+          <DatePicker
+            // style={{ width: 200 }}
+            cancelBtnText="Cancel"
+            confirmBtnText="Confirm"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+            }}
+            date={addIncomeForm.date}
+            format="YYYY-MM-DD"
+            mode="date"
+            onDateChange={setIncomeDate}
+            placeholder="select date"
+            />
           <View style={{
             flexDirection: 'row-reverse'
           }}>
@@ -124,6 +151,7 @@ AddIncomeContainer.propTypes = {
   setIncomeValue: PropTypes.func.isRequired,
   setIncomeCategory: PropTypes.func.isRequired,
   setIncomeItem: PropTypes.func.isRequired,
+  setIncomeDate: PropTypes.func.isRequired,
   resetAddIncomeForm: PropTypes.func.isRequired,
   addIncomeForm: PropTypes.object.isRequired,
   addNewIncome: PropTypes.func.isRequired,
