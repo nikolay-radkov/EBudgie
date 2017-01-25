@@ -24,14 +24,14 @@ const Menu = ({
   goTo,
   categoriesCount,
   itemsCount,
-  currentExpenses,
+  currentExpense,
   currentIncome,
   currentSalary,
 }) => {
   const list = [{
     icon: 'money-off',
     name: 'Add new expense',
-    subtitle: `Current: ${currentExpenses}$`,
+    subtitle: `Current: -${currentExpense}$`,
     color: colors.error,
     route: 'add_expense'
   }, {
@@ -93,7 +93,7 @@ Menu.propTypes = {
   goTo: PropTypes.func.isRequired,
   categoriesCount: PropTypes.number,
   itemsCount: PropTypes.number,
-  currentExpenses: PropTypes.number,
+  currentExpense: PropTypes.number,
   currentIncome: PropTypes.number,
   currentSalary: PropTypes.number,
 };
@@ -101,7 +101,7 @@ Menu.propTypes = {
 Menu.defaultProps = {
   categoriesCount: 0,
   itemsCount: 0,
-  currentExpenses: 0,
+  currentExpense: 0,
   currentIncome: 0,
   currentSalary: 0,
 };
