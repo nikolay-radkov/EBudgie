@@ -53,12 +53,13 @@ class HomeContainer extends Component {
       currentSalary,
       selectedDate,
       eventsDate,
+      currentExpense,
     } = this.props;
 
     const MenuComponent = (
       <Menu
         categoriesCount={categoriesCount}
-        // currentExpenses={currentExpenses}
+        currentExpense={currentExpense}
         currentIncome={currentIncome}
         currentSalary={currentSalary}
         goTo={this.goTo}
@@ -94,7 +95,8 @@ HomeContainer.propTypes = {
   createDrawer: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   selectedDate: PropTypes.any,
-  eventsDate: PropTypes.array
+  eventsDate: PropTypes.array,
+  currentExpense: PropTypes.number
 };
 
 function calculateCurrentIncome(incomes) {
@@ -107,21 +109,26 @@ function calculateCurrentIncome(incomes) {
   return _.sumBy(filteredIncomes, 'value');
 }
 
-function getEventDates(ebudgie) {
-  const incomeDates = _.filter(ebudgie.incomes, (income) => {
-    const incomeDate = moment(income.date);
-    const currentDate = moment();
-    return incomeDate.month() === currentDate.month();
-  });
-
-  const expenseDates = _.filter(ebudgie.expenses, (expense) => {
+function calculateCurrentExpense(expenses) {
+  const filteredIncomes = _.filter(expenses, (expense) => {
     const expenseDate = moment(expense.date);
     const currentDate = moment();
-    return expenseDate.month() === currentDate.month();
+    return expenseDate.month() === currentDate.month() &&
+      expenseDate.year() === currentDate.year();
+  });
+  return _.sumBy(filteredIncomes, 'value');
+}
+
+function getEventDates(ebudgie) {
+  const incomeDates = _.map(ebudgie.incomes, (income) => {
+    return moment(income.date);
   });
 
-  const eventDates = incomeDates.concat(expenseDates);
-  return _.map(eventDates, (event) => event.date);
+  const expenseDates = _.map(ebudgie.expenses, (expense) => {
+    return moment(expense.date);
+  });
+
+  return incomeDates.concat(expenseDates);
 }
 
 function mapStateToProps(state) {
@@ -131,8 +138,8 @@ function mapStateToProps(state) {
   return {
     categoriesCount: state.ebudgie.categories.length,
     itemsCount: state.ebudgie.items.length,
-    currentExpenses: null,
     currentIncome: calculateCurrentIncome(state.ebudgie.incomes),
+    currentExpense: calculateCurrentExpense(state.ebudgie.expenses),
     currentSalary: currentSalary.value || 0,
     selectedDate: moment(),
     eventsDate: getEventDates(state.ebudgie)
