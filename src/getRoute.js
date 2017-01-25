@@ -7,6 +7,7 @@ import AddCategory from './containers/AddCategoryContainer';
 import NotFound from './containers/NotFoundComponent';
 import EditSalary from './containers/EditSalaryContainer';
 import AddIncome from './containers/AddIncomeContainer';
+import AddExpense from './containers/AddExpenseContainer';
 
 export default (key, params) => {
   switch (key) {
@@ -22,6 +23,8 @@ export default (key, params) => {
       return (<EditSalary />);
     case 'scene_add_income':
       return (<AddIncome />);
+    case 'scene_add_expense':
+      return (<AddExpense />);
     default:
       return <NotFound />;
   }

@@ -29,6 +29,9 @@ const TitleHeaderComponent = ({
       case 'add_income':
         title = 'Add income';
         break;
+      case 'add_expense':
+        title = 'Add expense';
+        break;
       default:
        title = 'Not found';
     }
