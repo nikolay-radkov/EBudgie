@@ -4,7 +4,6 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
-import com.horcrux.svg.RNSvgPackage;
 import com.reactlibrary.RNUUIDGeneratorPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import io.underscope.react.fbak.RNAccountKitPackage;
@@ -16,6 +15,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.github.reactNativeMPAndroidChart.MPAndroidChartPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,12 +35,12 @@ public class MainApplication extends Application implements ReactApplication {
 
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNSvgPackage(),
             new RNUUIDGeneratorPackage(),
             new RNDeviceInfo(),
             new RNAccountKitPackage(),
             new SplashScreenReactPackage(),
-            new VectorIconsPackage()
+            new VectorIconsPackage(),
+            new MPAndroidChartPackage()
       );
     }
   };

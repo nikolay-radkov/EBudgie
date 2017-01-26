@@ -135,7 +135,7 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-svg')
+    compile project(':reactNativeMPAndroidChart')
     compile project(':react-native-uuid-generator')
     compile project(':react-native-device-info')
     compile project(':react-native-facebook-account-kit')
