@@ -8,6 +8,7 @@ import NotFound from './containers/NotFoundComponent';
 import EditSalary from './containers/EditSalaryContainer';
 import AddIncome from './containers/AddIncomeContainer';
 import AddExpense from './containers/AddExpenseContainer';
+import Reports from './containers/ReportsContainer';
 
 export default (key, params) => {
   switch (key) {
@@ -25,6 +26,8 @@ export default (key, params) => {
       return (<AddIncome />);
     case 'scene_add_expense':
       return (<AddExpense />);
+    case 'scene_reports':
+      return (<Reports />);
     default:
       return <NotFound />;
   }
