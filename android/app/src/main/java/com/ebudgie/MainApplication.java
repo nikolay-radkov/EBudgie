@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.RNSvgPackage;
 import com.reactlibrary.RNUUIDGeneratorPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import io.underscope.react.fbak.RNAccountKitPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
 
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSvgPackage(),
             new RNUUIDGeneratorPackage(),
             new RNDeviceInfo(),
             new RNAccountKitPackage(),

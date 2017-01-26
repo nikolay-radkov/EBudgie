@@ -38,6 +38,7 @@
 		E5F1AEB1A8414C6C92E6087A /* libRNAccountKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBD1AD26B3249E6ADC71F3A /* libRNAccountKit.a */; };
 		18C0F13CDCD04948AEA9224F /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8768FDB89E4742B3F4AAEB /* libRNDeviceInfo.a */; };
 		0A37C89FC0394E289AC9DC31 /* libRNUUIDGenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5C303DF6A54EC49975727E /* libRNUUIDGenerator.a */; };
+		8407C2046DAC4D6F9288CBF4 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3442E2128A6846B1B25CFD8A /* libRNSVG.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -280,6 +281,8 @@
 		CB8768FDB89E4742B3F4AAEB /* libRNDeviceInfo.a */ = {isa = PBXFileReference; name = "libRNDeviceInfo.a"; path = "libRNDeviceInfo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		D5661C6741354E97B48E9162 /* RNUUIDGenerator.xcodeproj */ = {isa = PBXFileReference; name = "RNUUIDGenerator.xcodeproj"; path = "../node_modules/react-native-uuid-generator/ios/RNUUIDGenerator.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		CE5C303DF6A54EC49975727E /* libRNUUIDGenerator.a */ = {isa = PBXFileReference; name = "libRNUUIDGenerator.a"; path = "libRNUUIDGenerator.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		B2083BEBD7734DCE9C733D72 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		3442E2128A6846B1B25CFD8A /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,6 +314,7 @@
 				E5F1AEB1A8414C6C92E6087A /* libRNAccountKit.a in Frameworks */,
 				18C0F13CDCD04948AEA9224F /* libRNDeviceInfo.a in Frameworks */,
 				0A37C89FC0394E289AC9DC31 /* libRNUUIDGenerator.a in Frameworks */,
+				8407C2046DAC4D6F9288CBF4 /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +464,7 @@
 				804CE2BFF5CE4C29853C3234 /* RNAccountKit.xcodeproj */,
 				7919E58ACA294FAD926F8DEB /* RNDeviceInfo.xcodeproj */,
 				D5661C6741354E97B48E9162 /* RNUUIDGenerator.xcodeproj */,
+				B2083BEBD7734DCE9C733D72 /* RNSVG.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -951,6 +956,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EBudgie.app/EBudgie";
@@ -967,6 +973,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
