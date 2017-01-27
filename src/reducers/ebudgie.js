@@ -7,6 +7,10 @@ import {
   NEW_INCOME,
   UPDATE_REV,
   NEW_EXPENSE,
+  SET_LANGUAGE,
+  SET_CURRENCY,
+  TOGGLE_PUSH_NOTIFICATIONS,
+  RESET_EBUDGIE,
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -16,7 +20,10 @@ const initialState = {
   items: [],
   salaries: [],
   incomes: [],
-  expenses: []
+  expenses: [],
+  language: 'en',
+  currency: '$',
+  notificationsEnabled: true,
 };
 
 export default (state = initialState, action) => {
@@ -88,6 +95,23 @@ export default (state = initialState, action) => {
         ...state,
         _rev: action._rev,
       };
+    case SET_LANGUAGE:
+      return {
+        ...state,
+        language: action.language,
+      };
+    case SET_CURRENCY:
+      return {
+        ...state,
+        currency: action.currency,
+      };
+    case TOGGLE_PUSH_NOTIFICATIONS:
+      return {
+        ...state,
+        notificationsEnabled: action.notificationsEnabled,
+      };
+    case RESET_EBUDGIE:
+      return initialState;
     default:
       return state;
   }
