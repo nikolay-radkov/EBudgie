@@ -9,6 +9,7 @@ import EditSalary from './containers/EditSalaryContainer';
 import AddIncome from './containers/AddIncomeContainer';
 import AddExpense from './containers/AddExpenseContainer';
 import Reports from './containers/ReportsContainer';
+import Settings from './containers/SettingsContainer';
 
 export default (key, params) => {
   switch (key) {
@@ -28,6 +29,8 @@ export default (key, params) => {
       return (<AddExpense />);
     case 'scene_reports':
       return (<Reports />);
+    case 'scene_settings':
+      return (<Settings />);
     default:
       return <NotFound />;
   }
