@@ -27,17 +27,18 @@ const Menu = ({
   currentExpense,
   currentIncome,
   currentSalary,
+  currency,
 }) => {
   const list = [{
     icon: 'money-off',
     name: 'Add new expense',
-    subtitle: `Current: -${currentExpense}$`,
+    subtitle: `Current: -${currentExpense}${currency}`,
     color: colors.error,
     route: 'add_expense'
   }, {
     icon: 'attach-money',
     name: 'Add new income',
-    subtitle: `Current: ${currentIncome}$`,
+    subtitle: `Current: ${currentIncome}${currency}`,
     color: colors.success,
     route: 'add_income'
   }, {
@@ -55,7 +56,7 @@ const Menu = ({
   }, {
     icon: 'repeat',
     name: 'Change montly salary',
-    subtitle: `Current: ${currentSalary}$`,
+    subtitle: `Current: ${currentSalary}${currency}`,
     color: colors.panther,
     route: 'edit_salary'
   }, {
@@ -96,6 +97,7 @@ Menu.propTypes = {
   currentExpense: PropTypes.number,
   currentIncome: PropTypes.number,
   currentSalary: PropTypes.number,
+  currency: PropTypes.string
 };
 
 Menu.defaultProps = {
@@ -104,6 +106,7 @@ Menu.defaultProps = {
   currentExpense: 0,
   currentIncome: 0,
   currentSalary: 0,
+  currency: '$'
 };
 
 export default Menu;

@@ -54,6 +54,7 @@ class HomeContainer extends Component {
       selectedDate,
       eventsDate,
       currentExpense,
+      currency,
     } = this.props;
 
     const MenuComponent = (
@@ -64,6 +65,7 @@ class HomeContainer extends Component {
         currentSalary={currentSalary}
         goTo={this.goTo}
         itemsCount={itemsCount}
+        currency={currency}
         />
     );
 
@@ -96,7 +98,8 @@ HomeContainer.propTypes = {
   push: PropTypes.func.isRequired,
   selectedDate: PropTypes.any,
   eventsDate: PropTypes.array,
-  currentExpense: PropTypes.number
+  currentExpense: PropTypes.number,
+  currency: PropTypes.string,
 };
 
 function calculateCurrentIncome(incomes) {
@@ -136,6 +139,7 @@ function mapStateToProps(state) {
   const currentSalary = salaries[salaries.length - 1] || {};
 
   return {
+    currency: state.ebudgie.currency,
     categoriesCount: state.ebudgie.categories.length,
     itemsCount: state.ebudgie.items.length,
     currentIncome: calculateCurrentIncome(state.ebudgie.incomes),

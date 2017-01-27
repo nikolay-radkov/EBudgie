@@ -42,7 +42,8 @@ class ReportsContainer extends Component {
   render() {
     const {
       currentReport,
-      pastReports
+      pastReports,
+      currency,
     } = this.props;
 
     const listItems = pastReports.map((report, i) => {
@@ -71,18 +72,20 @@ class ReportsContainer extends Component {
           onPress={() => alert('clicked')}
           subtitle={
             <View>
-              <Text>Expenses: {report.expenseSum}</Text>
-              <Text>Incomes: {report.incomeSum}</Text>
+              <Text>Expenses: {report.expenseSum}{currency}</Text>
+              <Text>Incomes: {report.incomeSum}{currency}</Text>
             </View>
           }
-          title={`${report.date.format('YYYY MMMM')} (${report.result}$)`}
+          title={`${report.date.format('YYYY MMMM')} (${report.result}${currency})`}
           />
       );
     });
 
     return (
       <ScrollView >
-        <ReportPieChart currentReport={currentReport} />
+        <ReportPieChart
+          currency={currency}
+          currentReport={currentReport} />
         <View style={styles.headerContainer}>
           <Text style={styles.header}>Past Reports</Text>
         </View>
@@ -101,6 +104,7 @@ class ReportsContainer extends Component {
 ReportsContainer.propTypes = {
   pastReports: PropTypes.array,
   currentReport: PropTypes.object,
+  currency: PropTypes.string,
 };
 
 function getCurrentReport(ebudgie, from, to, salary) {
@@ -169,6 +173,7 @@ function mapStateToProps(state) {
   const currentSalary = salaries[salaries.length - 1] || {};
 
   return {
+    currency: state.ebudgie.currency,
     currentReport: getCurrentReport(
       state.ebudgie,
       moment().startOf('month'),

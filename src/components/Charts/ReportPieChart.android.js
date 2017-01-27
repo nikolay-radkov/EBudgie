@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
 });
 
 const ReportPieChart = ({
-  currentReport
+  currentReport,
+  currency,
 }) => {
   const legend = {
     enabled: true,
@@ -52,7 +53,7 @@ const ReportPieChart = ({
     <PieChart
       animation={animation}
       backgroundColor={colors.silver}
-      centerText={`${currentReport.result}$`}
+      centerText={`${currentReport.result}${currency}`}
       centerTextRadiusPercent={100}
       data={data}
       description={description}
@@ -72,7 +73,8 @@ const ReportPieChart = ({
 };
 
 ReportPieChart.propTypes = {
-  currentReport: PropTypes.object.isRequired
+  currentReport: PropTypes.object.isRequired,
+  currency: PropTypes.string.isRequired,
 };
 
 export default ReportPieChart;
