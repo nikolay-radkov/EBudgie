@@ -1,4 +1,4 @@
-import { NEW_POUCHDB } from '../constants/ActionTypes';
+import { NEW_POUCHDB, RESET_POUCHDB } from '../constants/ActionTypes';
 
 const initialState = {
   instance: null,
@@ -13,6 +13,8 @@ export default (state = initialState, action) => {
         instance: action.pouchdb,
         dbName: action.dbName
       };
+    case RESET_POUCHDB:
+      return initialState;
     default:
       return state;
   }
