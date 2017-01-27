@@ -29,6 +29,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     fontWeight: 'bold'
+  },
+  noReports: {
+    padding: 20,
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold'
   }
 });
 
@@ -39,50 +45,54 @@ class ReportsContainer extends Component {
       pastReports
     } = this.props;
 
+    const listItems = pastReports.map((report, i) => {
+      let leftIcon;
+      if (report.result === 0) {
+        leftIcon = {
+          name: 'trending-flat',
+          color: 'orange'
+        };
+      } else if (report.result < 0) {
+        leftIcon = {
+          name: 'trending-down',
+          color: 'red'
+        };
+      } else {
+        leftIcon = {
+          name: 'trending-up',
+          color: 'green'
+        };
+      }
+
+      return (
+        <ListItem
+          key={i}
+          leftIcon={leftIcon}
+          onPress={() => alert('clicked')}
+          subtitle={
+            <View>
+              <Text>Expenses: {report.expenseSum}</Text>
+              <Text>Incomes: {report.incomeSum}</Text>
+            </View>
+          }
+          title={`${report.date.format('YYYY MMMM')} (${report.result}$)`}
+          />
+      );
+    });
+
     return (
       <ScrollView >
         <ReportPieChart currentReport={currentReport} />
         <View style={styles.headerContainer}>
           <Text style={styles.header}>Past Reports</Text>
         </View>
-        <List containerStyle={styles.list}>
-          {
-            pastReports.map((report, i) => {
-              let leftIcon;
-              if (report.result === 0) {
-                leftIcon = {
-                  name: 'trending-flat',
-                  color: 'orange'
-                };
-              } else if (report.result < 0) {
-                leftIcon = {
-                  name: 'trending-down',
-                  color: 'red'
-                };
-              } else {
-                leftIcon = {
-                  name: 'trending-up',
-                  color: 'green'
-                };
-              }
-
-              return (
-                <ListItem
-                  key={i}
-                  leftIcon={leftIcon}
-                  onPress={() => alert('clicked')}
-                  subtitle={
-                    <View>
-                      <Text>Expenses: {report.expenseSum}</Text>
-                      <Text>Incomes: {report.incomeSum}</Text>
-                    </View>
-                  }
-                  title={`${report.date.format('YYYY MMMM')} (${report.result}$)`}
-                  />
-              );
-            })
-          }
-        </List>
+        {
+          listItems.length !== 0 ?
+            <List containerStyle={styles.list}>
+              {listItems}
+            </List>
+            : <Text style={styles.noReports}> No past reports</Text>
+        }
       </ScrollView>
     );
   }
