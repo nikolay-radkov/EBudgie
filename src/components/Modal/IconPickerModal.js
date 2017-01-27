@@ -101,7 +101,6 @@ var styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1,
-    padding: 5
   },
   picker: {
     flex: 1,
