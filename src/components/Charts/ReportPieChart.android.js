@@ -1,7 +1,15 @@
 import React, { PropTypes } from 'react';
+import { StyleSheet } from 'react-native';
 import { PieChart } from 'react-native-mp-android-chart';
 
 import colors from '../../themes/Colors';
+
+const styles = StyleSheet.create({
+  container: {
+    elevation: 5,
+    height: 200
+  }
+});
 
 const ReportPieChart = ({
   currentReport
@@ -21,39 +29,43 @@ const ReportPieChart = ({
       label: 'Budget',
       config: {
         colors: [colors.success, colors.error, colors.warm],
-        sliceSpace: 5,
-        selectionShift: 10
+        sliceSpace: 2,
+        selectionShift: 20,
       }
     }],
-    xValues: ['Budget left', 'Expenses', 'Incomes']
+    xValues: ['Budget left', 'Expenses', 'Incomes'],
   };
 
   const description = {
-    text: `Monthly budget for ${currentReport.date.format('YYYY MMMM')}`,
-    textSize: 15,
+    text: `Monthly budget for ${currentReport.date.format('MMMM YYYY')}`,
+    textSize: 12,
     textColor: 'darkgray',
     fontFamily: 'monospace',
-    fontStyle: 2
+  };
+
+  const animation = {
+    durationX: 500,
+    durationY: 1000
   };
 
   return (
     <PieChart
-      backgroundColor={'#f0f0f0'}
-      centerText={`${currentReport.result}`}
+      animation={animation}
+      backgroundColor={colors.silver}
+      centerText={`${currentReport.result}$`}
       centerTextRadiusPercent={100}
       data={data}
       description={description}
       drawSliceText
-      holeColor={'#f0f0f0'}
+      holeColor={colors.silver}
       holeRadius={30}
       legend={legend}
       logEnabled
-      maxAngle={350}
-      style={{ height: 200 }}
-      transparentCircleAlpha={50}
-      transparentCircleColor={'#f0f0f0'}
+      maxAngle={360}
+      style={styles.container}
+      transparentCircleAlpha={20}
+      transparentCircleColor={colors.dark}
       transparentCircleRadius={45}
-      usePercentValues
       />
 
   );

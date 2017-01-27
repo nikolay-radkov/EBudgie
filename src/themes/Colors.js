@@ -5,7 +5,7 @@ const colors = {
   warm: '#f2ad00',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',
-  silver: '#F7F7F7',
+  silver: '#F0F0F0',
   steel: '#CCCCCC',
   error: '#fd1111',
   ricePaper: 'rgba(255,255,255, 0.75)',
@@ -20,6 +20,7 @@ const colors = {
   ember: 'rgba(164, 0, 48, 0.5)',
   fire: '#e73536',
   success: '#11dd22',
+  dark: 'black'
 };
 
 export default colors;

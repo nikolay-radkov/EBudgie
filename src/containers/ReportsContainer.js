@@ -11,8 +11,25 @@ import moment from 'moment';
 import _ from 'lodash';
 import ReportPieChart from '../components/Charts/ReportPieChart';
 
-const styles = StyleSheet.create({
+import colors from '../themes/Colors';
+import metrics from '../themes/Metrics';
 
+const styles = StyleSheet.create({
+  list: {
+    marginTop: 0
+  },
+  headerContainer: {
+    height: metrics.navBarHeight,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.main,
+    elevation: 3,
+  },
+  header: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: 'bold'
+  }
 });
 
 class ReportsContainer extends Component {
@@ -25,7 +42,9 @@ class ReportsContainer extends Component {
     return (
       <ScrollView >
         <ReportPieChart currentReport={currentReport} />
-        <Text> Past Reports</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Past Reports</Text>
+        </View>
         <List containerStyle={styles.list}>
           {
             pastReports.map((report, i) => {
