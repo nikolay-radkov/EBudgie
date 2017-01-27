@@ -5,6 +5,9 @@ import {
   EDIT_SALARY,
   NEW_INCOME,
   NEW_EXPENSE,
+  SET_LANGUAGE,
+  SET_CURRENCY,
+  TOGGLE_PUSH_NOTIFICATIONS
 } from '../constants/ActionTypes';
 
 import { updateRev } from '../actionCreators/ebudgie';
@@ -18,6 +21,9 @@ const storage = store => next => async action => {
     case EDIT_SALARY:
     case NEW_INCOME:
     case NEW_EXPENSE:
+    case SET_LANGUAGE:
+    case SET_CURRENCY:
+    case TOGGLE_PUSH_NOTIFICATIONS:
       const state = store.getState();
       const ebudgie = state.ebudgie;
 
