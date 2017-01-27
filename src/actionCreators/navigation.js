@@ -1,4 +1,9 @@
-import { PUSH_ROUTE, POP_ROUTE, REPLACE_ROUTE } from '../constants/ActionTypes';
+import {
+  PUSH_ROUTE,
+  POP_ROUTE,
+  REPLACE_ROUTE,
+  RESET_ROUTES
+} from '../constants/ActionTypes';
 
 export function push(route) {
   return {
@@ -16,6 +21,13 @@ export function pop() {
 export function replace(route) {
   return {
     type: REPLACE_ROUTE,
+    route,
+  };
+}
+
+export function reset(route) {
+  return {
+    type: RESET_ROUTES,
     route,
   };
 }

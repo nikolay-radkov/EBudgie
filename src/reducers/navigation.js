@@ -1,4 +1,9 @@
-import { PUSH_ROUTE, POP_ROUTE, REPLACE_ROUTE } from '../constants/ActionTypes';
+import {
+  PUSH_ROUTE,
+  POP_ROUTE,
+  REPLACE_ROUTE,
+  RESET_ROUTES,
+} from '../constants/ActionTypes';
 import { NavigationExperimental } from 'react-native';
 
 const {
@@ -23,6 +28,11 @@ export default (state = initialState, action) => {
       return NavigationStateUtils.pop(state);
     case REPLACE_ROUTE:
       return NavigationStateUtils.replaceAtIndex(state, state.index, action.route);
+    case RESET_ROUTES:
+      return {
+        index: 0,
+        routes: [action.route]
+      };
     default:
       return state;
   }

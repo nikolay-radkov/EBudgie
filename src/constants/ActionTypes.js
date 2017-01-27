@@ -2,9 +2,11 @@
 export const PUSH_ROUTE = 'PUSH_ROUTE';
 export const POP_ROUTE = 'POP_ROUTE';
 export const REPLACE_ROUTE = 'REPLACE_ROUTE';
+export const RESET_ROUTES = 'RESET_ROUTES';
 
 // Drawer
 export const NEW_POUCHDB = 'NEW_POUCHDB';
+export const RESET_POUCHDB = 'RESET_POUCHDB';
 export const NEW_DRAWER = 'NEW_DRAWER';
 
 // Category Form
@@ -28,6 +30,7 @@ export const NEW_ITEM = 'NEW_ITEM';
 // EBudgie
 export const LOAD_EBUDGIE = 'LOAD_EBUDGIE';
 export const UPDATE_REV = 'UPDATE_REV';
+export const RESET_EBUDGIE = 'RESET_EBUDGIE';
 
 // Edit Salary
 export const SET_SALARY_VALUE = 'SET_SALARY_VALUE';
@@ -50,4 +53,7 @@ export const RESET_ADD_EXPENSE_FORM = 'RESET_ADD_EXPENSE_FORM';
 export const SET_EXPENSE_DATE = 'SET_EXPENSE_DATE';
 export const NEW_EXPENSE = 'NEW_EXPENSE';
 
-
+// Settings
+export const SET_LANGUAGE = 'SET_LANGUAGE';
+export const SET_CURRENCY = 'SET_CURRENCY';
+export const TOGGLE_PUSH_NOTIFICATIONS = 'TOGGLE_PUSH_NOTIFICATIONS';
