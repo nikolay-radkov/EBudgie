@@ -26,7 +26,7 @@ const ReportPieChart = ({
 
   const data = {
     datasets: [{
-      yValues: [currentReport.result, currentReport.expenseSum, currentReport.incomeSum],
+      yValues: [currentReport.result, Math.abs(currentReport.expenseSum), currentReport.incomeSum],
       label: 'Budget',
       config: {
         colors: [colors.success, colors.error, colors.warm],
@@ -68,7 +68,6 @@ const ReportPieChart = ({
       transparentCircleColor={colors.dark}
       transparentCircleRadius={45}
       />
-
   );
 };
 

@@ -32,7 +32,7 @@ const Menu = ({
   const list = [{
     icon: 'money-off',
     name: 'Add new expense',
-    subtitle: `Current: -${currentExpense}${currency}`,
+    subtitle: `Current: ${currentExpense}${currency}`,
     color: colors.error,
     route: 'add_expense'
   }, {

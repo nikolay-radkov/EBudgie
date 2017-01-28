@@ -10,7 +10,7 @@ import {
 export const setExpenseValue = (value) => {
   return {
     type: SET_EXPENSE_VALUE,
-    value
+    value: value * (-1)
   };
 };
 

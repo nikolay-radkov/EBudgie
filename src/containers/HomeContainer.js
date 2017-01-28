@@ -57,14 +57,14 @@ class HomeContainer extends Component {
 
   onDateSelect(date) {
     const { calendar, selectedDate, selectCalendarDate } = this.props;
-
-    debugger;
+debugger
     const currentDate = moment(selectedDate);
     const newDate = moment(date);
 
-    if (currentDate.year() === newDate.year() &&
+    if (!selectedDate &&
+      currentDate.year() === newDate.year() &&
       currentDate.month() === newDate.month() &&
-      currentDate.day() === newDate.day()) {
+      currentDate.date() === newDate.date()) {
       return calendar.selectDate(null);
     }
 
@@ -94,7 +94,7 @@ class HomeContainer extends Component {
       eventsDate,
       currentExpense,
       currency,
-      selectHomeDate
+      selectedEvents,
     } = this.props;
 
     const MenuComponent = (
@@ -128,6 +128,7 @@ class HomeContainer extends Component {
         <Overview
           addExpense={this.addExpense}
           addIncome={this.addIncome}
+          events={selectedEvents}
           eventsDate={eventsDate}
           getCalendar={this.getCalendar}
           onDateSelect={this.onDateSelect}
@@ -153,6 +154,7 @@ HomeContainer.propTypes = {
   selectCalendarDate: PropTypes.func.isRequired,
   createCalendar: PropTypes.func.isRequired,
   calendar: PropTypes.object,
+  selectedEvents: PropTypes.array,
 };
 
 function calculateCurrentIncome(incomes) {
@@ -177,14 +179,53 @@ function calculateCurrentExpense(expenses) {
 
 function getEventDates(ebudgie) {
   const incomeDates = _.map(ebudgie.incomes, (income) => {
-    return moment(income.date);
+    return moment(income.date).format('YYYY-MM-DD');
   });
 
   const expenseDates = _.map(ebudgie.expenses, (expense) => {
-    return moment(expense.date);
+    return moment(expense.date).format('YYYY-MM-DD');
   });
 
   return incomeDates.concat(expenseDates);
+}
+
+function getSelectedEvents(selectedDate, ebudgie) {
+  const incomes = _.filter(ebudgie.incomes, (income) => {
+    const currentMoment = moment(selectedDate);
+    const incomeMoment = moment(income.date);
+
+    return currentMoment.year() === incomeMoment.year() &&
+      currentMoment.month() === incomeMoment.month() &&
+      currentMoment.date() === incomeMoment.date();
+  });
+
+  const expenses = _.filter(ebudgie.expenses, (expense) => {
+    const currentMoment = moment(selectedDate);
+    const expenseMoment = moment(expense.date);
+
+    return currentMoment.year() === expenseMoment.year() &&
+      currentMoment.month() === expenseMoment.month() &&
+      currentMoment.date() === expenseMoment.date();
+  });
+
+  const events = _.map(incomes.concat(expenses), event => {
+    const mappedEvent = {
+      value: event.value,
+      date: event.date,
+    };
+
+    const category = _.find(ebudgie.categories, c => c.id === event.categoryId);
+    const item = _.find(ebudgie.items, i => i.id === event.itemId);
+
+    mappedEvent.category = category.title;
+    mappedEvent.icon = category.icon;
+    mappedEvent.color = category.color;
+    mappedEvent.item = item.name;
+
+    return mappedEvent;
+  });
+
+  return events;
 }
 
 function mapStateToProps(state) {
@@ -201,6 +242,7 @@ function mapStateToProps(state) {
     selectedDate: state.calendar.selectedDate,
     eventsDate: getEventDates(state.ebudgie),
     calendar: state.calendar.instance,
+    selectedEvents: getSelectedEvents(state.calendar.selectedDate, state.ebudgie),
   };
 }
 

@@ -122,7 +122,7 @@ function getCurrentReport(ebudgie, from, to, salary) {
   const report = {
     incomeSum,
     expenseSum,
-    result: salary.value + incomeSum - expenseSum,
+    result: salary.value + incomeSum + expenseSum,
     date: from,
   };
 

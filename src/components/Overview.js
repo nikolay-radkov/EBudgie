@@ -3,8 +3,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 import Calendar from 'react-native-calendar';
 import moment from 'moment';
 import { View } from 'react-native';
-import { Button } from 'react-native-elements';
-
+import { Button, List, ListItem } from 'react-native-elements';
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
 
@@ -34,6 +33,7 @@ const Overview = ({
   addExpense,
   addIncome,
   getCalendar,
+  events
 }) => {
   const today = moment();
 
@@ -46,7 +46,7 @@ const Overview = ({
             textAlign: 'center'
           },
           eventIndicator: {
-            backgroundColor: 'blue',
+            backgroundColor: colors.main,
             width: 10,
             height: 10,
           },
@@ -81,10 +81,47 @@ const Overview = ({
           backgroundColor={colors.warm}
           buttonStyle={styles.button}
           icon={{ name: 'attach-money' }}
+          iconRight
           onPress={addIncome}
           raised
           title="Add Income" />
       </View>
+      {selectedDate && !!events.length &&
+        <View>
+          <List containerStyle={styles.list}>
+            {
+              events.map((l, i) => (
+                <ListItem
+                  badge={{
+                    value: l.value,
+                    badgeTextStyle: {
+                      color: colors.snow
+                    },
+                    badgeContainerStyle: {
+                      backgroundColor: l.value < 0 ? colors.fire : colors.warm,
+                      right: 0
+                    }
+                  }}
+                  containerStyle={{
+                    backgroundColor: colors.main
+                  }}
+                  hideChevron
+                  key={i}
+                  leftIcon={{
+                    name: l.icon,
+                    color: l.color
+                  }}
+                  onPress={() => alert(JSON.stringify(l))}
+                  roundAvatar
+                  subtitle={l.item}
+                  title={l.category}
+                  titleStyle={{color: colors.snow}}
+                  />
+              ))
+            }
+          </List>
+        </View>
+      }
     </ScrollView>
   );
 };
@@ -100,6 +137,7 @@ Overview.propTypes = {
   addExpense: PropTypes.func.isRequired,
   addIncome: PropTypes.func.isRequired,
   getCalendar: PropTypes.func.isRequired,
+  events: PropTypes.array,
 };
 
 export default Overview;
