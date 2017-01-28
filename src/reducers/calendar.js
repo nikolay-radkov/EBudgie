@@ -1,14 +1,23 @@
 import moment from 'moment';
 
-import { SET_HOME_DATE } from '../constants/ActionTypes';
+import {
+  NEW_CALENDAR,
+  SET_CALENDAR_DATE,
+} from '../constants/ActionTypes';
 
 const initialState = {
-  selectedDate: moment().toISOString(),
+  selectedDate: null,
+  instance: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_HOME_DATE:
+    case NEW_CALENDAR:
+      return {
+        ...state,
+        instance: action.calendar
+      };
+    case SET_CALENDAR_DATE:
       return {
         ...state,
         selectedDate: action.selectedDate

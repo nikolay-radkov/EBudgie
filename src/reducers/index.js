@@ -8,7 +8,7 @@ import ebudgie from './ebudgie';
 import editSalaryForm from './editSalaryForm';
 import addIncomeForm from './addIncomeForm';
 import addExpenseForm from './addExpenseForm';
-import home from './home';
+import calendar from './calendar';
 
 const rootReducer = combineReducers({
   navigation,
@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   editSalaryForm,
   addIncomeForm,
   addExpenseForm,
-  home,
+  calendar,
 });
 
 export default rootReducer;

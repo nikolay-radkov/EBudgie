@@ -58,5 +58,6 @@ export const SET_LANGUAGE = 'SET_LANGUAGE';
 export const SET_CURRENCY = 'SET_CURRENCY';
 export const TOGGLE_PUSH_NOTIFICATIONS = 'TOGGLE_PUSH_NOTIFICATIONS';
 
-// Home
-export const SET_HOME_DATE = 'SET_HOME_DATE';
+// Calendar
+export const SET_CALENDAR_DATE = 'SET_CALENDAR_DATE';
+export const NEW_CALENDAR = 'NEW_CALENDAR';
