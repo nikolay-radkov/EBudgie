@@ -7,6 +7,9 @@ import moment from 'moment';
 
 import { createNewDrawer } from '../boundActionCreators/drawer';
 import { pushRoute } from '../boundActionCreators/navigation';
+import { setExpenseDate } from '../actionCreators/addExpenseForm';
+import { setIncomeDate } from '../actionCreators/addIncomeForm';
+import { setHomeDate } from '../actionCreators/home';
 import Menu from '../components/Drawer/Menu';
 import Overview from '../components/Overview';
 
@@ -29,6 +32,20 @@ class HomeContainer extends Component {
     super(state);
     this.getDrawer = this.getDrawer.bind(this);
     this.goTo = this.goTo.bind(this);
+    this.addExpense = this.addExpense.bind(this);
+    this.addIncome = this.addIncome.bind(this);
+  }
+
+  addExpense() {
+    const { prepareExpenseDate, selectedDate } = this.props;
+    prepareExpenseDate(selectedDate);
+    this.goTo('add_expense');
+  }
+
+  addIncome() {
+    const { prepareIncomeDate, selectedDate } = this.props;
+    prepareIncomeDate(selectedDate);
+    this.goTo('add_income');
   }
 
   getDrawer(drawer) {
@@ -48,24 +65,24 @@ class HomeContainer extends Component {
     const {
       categoriesCount,
       itemsCount,
-      currentExpenses,
       currentIncome,
       currentSalary,
       selectedDate,
       eventsDate,
       currentExpense,
       currency,
+      selectHomeDate
     } = this.props;
 
     const MenuComponent = (
       <Menu
         categoriesCount={categoriesCount}
+        currency={currency}
         currentExpense={currentExpense}
         currentIncome={currentIncome}
         currentSalary={currentSalary}
         goTo={this.goTo}
         itemsCount={itemsCount}
-        currency={currency}
         />
     );
 
@@ -86,8 +103,11 @@ class HomeContainer extends Component {
         })}
         type="overlay">
         <Overview
+          addExpense={this.addExpense}
+          addIncome={this.addIncome}
           eventsDate={eventsDate}
-          selectedDate={selectedDate}/>
+          onDateSelect={selectHomeDate}
+          selectedDate={selectedDate} />
       </Drawer >
     );
   }
@@ -100,6 +120,13 @@ HomeContainer.propTypes = {
   eventsDate: PropTypes.array,
   currentExpense: PropTypes.number,
   currency: PropTypes.string,
+  categoriesCount: PropTypes.number,
+  itemsCount: PropTypes.number,
+  currentIncome: PropTypes.number,
+  currentSalary: PropTypes.number,
+  prepareExpenseDate: PropTypes.func.isRequired,
+  prepareIncomeDate: PropTypes.func.isRequired,
+  selectHomeDate: PropTypes.func.isRequired,
 };
 
 function calculateCurrentIncome(incomes) {
@@ -145,7 +172,7 @@ function mapStateToProps(state) {
     currentIncome: calculateCurrentIncome(state.ebudgie.incomes),
     currentExpense: calculateCurrentExpense(state.ebudgie.expenses),
     currentSalary: currentSalary.value || 0,
-    selectedDate: moment(),
+    selectedDate: state.home.selectedDate,
     eventsDate: getEventDates(state.ebudgie)
   };
 }
@@ -153,7 +180,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     createDrawer: createNewDrawer,
-    push: pushRoute
+    push: pushRoute,
+    prepareExpenseDate: setExpenseDate,
+    prepareIncomeDate: setIncomeDate,
+    selectHomeDate: setHomeDate,
   }, dispatch);
 }
 
