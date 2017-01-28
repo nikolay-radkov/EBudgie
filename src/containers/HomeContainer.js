@@ -57,12 +57,10 @@ class HomeContainer extends Component {
 
   onDateSelect(date) {
     const { calendar, selectedDate, selectCalendarDate } = this.props;
-debugger
     const currentDate = moment(selectedDate);
     const newDate = moment(date);
 
-    if (!selectedDate &&
-      currentDate.year() === newDate.year() &&
+    if (currentDate.year() === newDate.year() &&
       currentDate.month() === newDate.month() &&
       currentDate.date() === newDate.date()) {
       return calendar.selectDate(null);
