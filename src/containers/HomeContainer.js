@@ -9,7 +9,7 @@ import { createNewDrawer } from '../boundActionCreators/drawer';
 import { pushRoute } from '../boundActionCreators/navigation';
 import { setExpenseDate } from '../actionCreators/addExpenseForm';
 import { setIncomeDate } from '../actionCreators/addIncomeForm';
-import { setHomeDate } from '../actionCreators/home';
+import { setCalendarDate, createNewCalendar } from '../actionCreators/calendar';
 import Menu from '../components/Drawer/Menu';
 import Overview from '../components/Overview';
 
@@ -34,6 +34,8 @@ class HomeContainer extends Component {
     this.goTo = this.goTo.bind(this);
     this.addExpense = this.addExpense.bind(this);
     this.addIncome = this.addIncome.bind(this);
+    this.onDateSelect = this.onDateSelect.bind(this);
+    this.getCalendar = this.getCalendar.bind(this);
   }
 
   addExpense() {
@@ -51,6 +53,27 @@ class HomeContainer extends Component {
   getDrawer(drawer) {
     const { createDrawer } = this.props;
     createDrawer(drawer);
+  }
+
+  onDateSelect(date) {
+    const { calendar, selectedDate, selectCalendarDate } = this.props;
+
+    debugger;
+    const currentDate = moment(selectedDate);
+    const newDate = moment(date);
+
+    if (currentDate.year() === newDate.year() &&
+      currentDate.month() === newDate.month() &&
+      currentDate.day() === newDate.day()) {
+      return calendar.selectDate(null);
+    }
+
+    selectCalendarDate(date);
+  }
+
+  getCalendar(calendar) {
+    const { createCalendar } = this.props;
+    createCalendar(calendar);
   }
 
   goTo(route) {
@@ -106,7 +129,8 @@ class HomeContainer extends Component {
           addExpense={this.addExpense}
           addIncome={this.addIncome}
           eventsDate={eventsDate}
-          onDateSelect={selectHomeDate}
+          getCalendar={this.getCalendar}
+          onDateSelect={this.onDateSelect}
           selectedDate={selectedDate} />
       </Drawer >
     );
@@ -126,7 +150,9 @@ HomeContainer.propTypes = {
   currentSalary: PropTypes.number,
   prepareExpenseDate: PropTypes.func.isRequired,
   prepareIncomeDate: PropTypes.func.isRequired,
-  selectHomeDate: PropTypes.func.isRequired,
+  selectCalendarDate: PropTypes.func.isRequired,
+  createCalendar: PropTypes.func.isRequired,
+  calendar: PropTypes.object,
 };
 
 function calculateCurrentIncome(incomes) {
@@ -172,8 +198,9 @@ function mapStateToProps(state) {
     currentIncome: calculateCurrentIncome(state.ebudgie.incomes),
     currentExpense: calculateCurrentExpense(state.ebudgie.expenses),
     currentSalary: currentSalary.value || 0,
-    selectedDate: state.home.selectedDate,
-    eventsDate: getEventDates(state.ebudgie)
+    selectedDate: state.calendar.selectedDate,
+    eventsDate: getEventDates(state.ebudgie),
+    calendar: state.calendar.instance,
   };
 }
 
@@ -183,7 +210,8 @@ function mapDispatchToProps(dispatch) {
     push: pushRoute,
     prepareExpenseDate: setExpenseDate,
     prepareIncomeDate: setIncomeDate,
-    selectHomeDate: setHomeDate,
+    createCalendar: createNewCalendar,
+    selectCalendarDate: setCalendarDate,
   }, dispatch);
 }
 

@@ -33,6 +33,7 @@ const Overview = ({
   selectedDate,
   addExpense,
   addIncome,
+  getCalendar,
 }) => {
   const today = moment();
 
@@ -58,6 +59,7 @@ const Overview = ({
         onTouchNext={onTouchNext}
         onTouchPrev={onTouchPrev}
         prevButtonText={'Prev'}
+        ref={getCalendar}
         scrollEnabled
         selectedDate={selectedDate}
         showControls
@@ -97,6 +99,7 @@ Overview.propTypes = {
   selectedDate: PropTypes.any,
   addExpense: PropTypes.func.isRequired,
   addIncome: PropTypes.func.isRequired,
+  getCalendar: PropTypes.func.isRequired,
 };
 
 export default Overview;
