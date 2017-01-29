@@ -1,4 +1,6 @@
 rootProject.name = 'EBudgie'
+include ':react-native-push-notification'
+project(':react-native-push-notification').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-push-notification/android')
 include ':reactNativeMPAndroidChart'
 project(':reactNativeMPAndroidChart').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-mp-android-chart/android')
 include ':react-native-uuid-generator'

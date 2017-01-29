@@ -135,6 +135,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-push-notification')
     compile project(':reactNativeMPAndroidChart')
     compile project(':react-native-uuid-generator')
     compile project(':react-native-device-info')
