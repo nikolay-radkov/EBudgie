@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   ScrollView,
   StyleSheet,
@@ -11,6 +12,8 @@ import moment from 'moment';
 import _ from 'lodash';
 import ReportPieChart from '../components/Charts/ReportPieChart';
 
+import { pushRoute } from '../boundActionCreators/navigation';
+import { setDetailedReportRange } from '../actionCreators/detailedReport';
 import colors from '../themes/Colors';
 import metrics from '../themes/Metrics';
 
@@ -39,6 +42,24 @@ const styles = StyleSheet.create({
 });
 
 class ReportsContainer extends Component {
+  constructor() {
+    super();
+
+    this.goToDetailedReports = this.goToDetailedReports.bind(this);
+  }
+
+  goToDetailedReports(date) {
+    const { push, setRange } = this.props;
+    const from  = moment(date).startOf('month');
+    const to  = moment(date).endOf('month');
+
+    setRange(from, to);
+
+    push({
+      key: 'detailed_report'
+    });
+  }
+
   render() {
     const {
       currentReport,
@@ -69,7 +90,7 @@ class ReportsContainer extends Component {
         <ListItem
           key={i}
           leftIcon={leftIcon}
-          onPress={() => alert('clicked')}
+          onPress={() => this.goToDetailedReports(report.date)}
           subtitle={
             <View>
               <Text>Expenses: {report.expenseSum}{currency}</Text>
@@ -105,6 +126,8 @@ ReportsContainer.propTypes = {
   pastReports: PropTypes.array,
   currentReport: PropTypes.object,
   currency: PropTypes.string,
+  push: PropTypes.func.isRequired,
+  setRange: PropTypes.func.isRequired,
 };
 
 function getCurrentReport(ebudgie, from, to, salary) {
@@ -184,6 +207,13 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    push: bindActionCreators(pushRoute, dispatch),
+    setRange: bindActionCreators(setDetailedReportRange, dispatch),
+  };
+}
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(ReportsContainer);

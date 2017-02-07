@@ -38,6 +38,9 @@ const TitleHeaderComponent = ({
       case 'settings':
         title = 'Settings';
         break;
+      case 'detailed_report':
+        title = 'Detailed Reports';
+        break;
       default:
        title = 'Not found';
     }
@@ -45,7 +48,7 @@ const TitleHeaderComponent = ({
 
   return (
     <NavigationHeader.Title textStyle={{
-      color: '#FFFFFF'
+      color: '#FFFFFF',
     }}>
       {title}
     </NavigationHeader.Title>
