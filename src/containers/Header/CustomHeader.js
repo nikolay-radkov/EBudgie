@@ -9,6 +9,7 @@ import { popRoute, pushRoute } from '../../boundActionCreators/navigation';
 import RightHeaderComponent from './RightHeaderComponent';
 import LeftHeaderComponent from './LeftHeaderComponent';
 import TitleHeaderComponent from './TitleHeaderComponent';
+import metrics from '../../themes/Metrics';
 
 const {
   Header: NavigationHeader,
@@ -33,10 +34,24 @@ class CustomHeader extends Component {
     return <RightHeaderComponent {...props} />;
   }
 
+  _getElevationValue = (route) => {
+    let elevation = metrics.elevation;
+
+    switch (route.key) {
+      case 'detailed_report':
+        elevation = 0;
+        break;
+    }
+
+    return elevation;
+  }
+
   render() {
     let navigation;
 
     const { route } = this.props.scene;
+
+    const elevation = this._getElevationValue(route);
 
     if (route.key === 'login') {
       navigation = null;
@@ -45,13 +60,14 @@ class CustomHeader extends Component {
         <NavigationHeader
           style={{
             backgroundColor: '#023365',
-            paddingTop: 20
+            paddingTop: 20,
+            elevation: elevation,
           }}
           {...this.props}
           renderLeftComponent={this._renderLeftComponent}
           renderRightComponent={this._renderRightComponent}
           renderTitleComponent={this._renderTitleComponent}
-          />
+        />
       );
     }
 

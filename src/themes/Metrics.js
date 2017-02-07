@@ -4,6 +4,7 @@ const { width, height } = Dimensions.get('window');
 
 // Used via Metrics.baseMargin
 const metrics = {
+  elevation: 4,
   marginHorizontal: 10,
   marginVertical: 10,
   section: 25,
