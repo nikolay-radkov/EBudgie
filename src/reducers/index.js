@@ -9,6 +9,7 @@ import editSalaryForm from './editSalaryForm';
 import addIncomeForm from './addIncomeForm';
 import addExpenseForm from './addExpenseForm';
 import calendar from './calendar';
+import detailedReport from './detailedReport';
 
 const rootReducer = combineReducers({
   navigation,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   addIncomeForm,
   addExpenseForm,
   calendar,
+  detailedReport,
 });
 
 export default rootReducer;
