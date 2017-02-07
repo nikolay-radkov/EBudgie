@@ -4,16 +4,16 @@ PushNotification.configure({
 
     // (optional) Called when Token is generated (iOS and Android)
     onRegister: function(token) {
-        alert('TOKEN:' + JSON.stringify(token));
+        // alert('TOKEN:' + JSON.stringify(token));
     },
 
     // (required) Called when a remote or local notification is opened or received
     onNotification: function(notification) {
-        alert('NOTIFICATION:' + JSON.stringify(notification));
+        // alert('NOTIFICATION:' + JSON.stringify(notification));
     },
 
     onError: function(err) {
-      alert('Error: ' + JSON.stringify(err));
+    //   alert('Error: ' + JSON.stringify(err));
     },
     // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications)
     senderID: "233384230013",
