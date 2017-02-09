@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { TabViewAnimated, TabBar } from 'react-native-tab-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import RadarChart from './RadarChart';
+import PieChart from './PieChart';
+import StackedBarChart from './StackedBarChart';
+
 import colors from '../../themes/Colors';
 
 const styles = StyleSheet.create({
@@ -79,11 +83,11 @@ class DetailedMonthReportContainer extends Component {
   _renderScene = ({ route }) => {
     switch (route.key) {
       case '1':
-        return <View style={[styles.page, { backgroundColor: '#ff4081' }]} />;
+        return <RadarChart />;
       case '2':
-        return <View style={[styles.page, { backgroundColor: '#673ab7' }]} />;
+        return <PieChart />;
       case '3':
-        return <View style={[styles.page, { backgroundColor: '#002346' }]} />;
+        return <StackedBarChart />;
       default:
         return null;
     }

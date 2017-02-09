@@ -10,10 +10,11 @@ import {
 import { List, ListItem } from 'react-native-elements';
 import moment from 'moment';
 import _ from 'lodash';
-import ReportPieChart from '../components/Charts/ReportPieChart';
 
+import ReportPieChart from '../components/Charts/ReportPieChart';
 import { pushRoute } from '../boundActionCreators/navigation';
 import { setDetailedReportRange } from '../actionCreators/detailedReport';
+import { getReportForRange, getPastReports } from '../services/events';
 import colors from '../themes/Colors';
 import metrics from '../themes/Metrics';
 
@@ -38,6 +39,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold'
+  },
+  pie: {
+    height: 200
   }
 });
 
@@ -106,7 +110,8 @@ class ReportsContainer extends Component {
       <ScrollView >
         <ReportPieChart
           currency={currency}
-          currentReport={currentReport} />
+          currentReport={currentReport}
+          style={styles.pie} />
         <View style={styles.headerContainer}>
           <Text style={styles.header}>Past Reports</Text>
         </View>
@@ -130,74 +135,13 @@ ReportsContainer.propTypes = {
   setRange: PropTypes.func.isRequired,
 };
 
-function getCurrentReport(ebudgie, from, to, salary) {
-  const incomes = _.filter(ebudgie.incomes, (income) => {
-    return moment(from) < moment(income.date) && moment(income.date) < moment(to);
-  });
-
-  const expenses = _.filter(ebudgie.expenses, (expense) => {
-    return moment(from) < moment(expense.date) && moment(expense.date) < moment(to);
-  });
-
-  const incomeSum = _.sumBy(incomes, 'value');
-  const expenseSum = _.sumBy(expenses, 'value');
-
-  const report = {
-    incomeSum,
-    expenseSum,
-    result: salary.value + incomeSum + expenseSum,
-    date: from,
-  };
-
-  return report;
-}
-
-function getPastReports(ebudgie, salaries) {
-  const now = moment();
-  let firstIncome = now;
-
-  for (let i = 0; i < ebudgie.incomes.length; i++) {
-    firstIncome = moment.min(firstIncome, moment(ebudgie.incomes[i].date));
-  }
-
-  let firstExpense = moment();
-
-  for (let i = 0; i < ebudgie.expenses.length; i++) {
-    firstExpense = moment.min(firstExpense, moment(ebudgie.expenses[i].date));
-  }
-
-  let current = moment.min(firstExpense, firstIncome);
-
-  const reports = [];
-
-  while (current < now.startOf('month')) {
-    const start = moment(current).startOf('month');
-    const end = moment(current).endOf('month');
-    let salary = _.findLast(salaries, (s) => {
-      return start < moment(s.date) && moment(s.date) < end;
-    });
-
-    salary = _.first(salaries) || 0;
-
-    reports.push(getCurrentReport(
-      ebudgie,
-      start,
-      end,
-      salary));
-
-    current = current.add(1, 'months');
-  }
-
-  return reports;
-}
-
 function mapStateToProps(state) {
   const { salaries } = state.ebudgie;
   const currentSalary = salaries[salaries.length - 1] || {};
 
   return {
     currency: state.ebudgie.currency,
-    currentReport: getCurrentReport(
+    currentReport: getReportForRange(
       state.ebudgie,
       moment().startOf('month'),
       moment().endOf('month'),
@@ -213,6 +157,7 @@ function mapDispatchToProps(dispatch) {
     setRange: bindActionCreators(setDetailedReportRange, dispatch),
   };
 }
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
