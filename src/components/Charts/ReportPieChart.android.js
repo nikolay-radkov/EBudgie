@@ -7,13 +7,13 @@ import colors from '../../themes/Colors';
 const styles = StyleSheet.create({
   container: {
     elevation: 5,
-    height: 200
   }
 });
 
 const ReportPieChart = ({
   currentReport,
   currency,
+  style
 }) => {
   const legend = {
     enabled: true,
@@ -63,7 +63,7 @@ const ReportPieChart = ({
       legend={legend}
       logEnabled
       maxAngle={360}
-      style={styles.container}
+      style={[styles.container, style]}
       transparentCircleAlpha={20}
       transparentCircleColor={colors.dark}
       transparentCircleRadius={45}
