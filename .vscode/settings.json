@@ -1,0 +1,8 @@
+{
+    "vsicons.presets.angular": false,
+    "editor.renderWhitespace": "all",
+    "window.reopenFolders": "all",
+    "window.restoreFullscreen": true,
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": true
+  }

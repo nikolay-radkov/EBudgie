@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import moment from 'moment';
 import _ from 'lodash';
 
 import { RadarChart } from 'react-native-mp-android-chart';

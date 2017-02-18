@@ -5,11 +5,11 @@ import DefaultCategories from '../constants/DefaultCategories';
 
 export const filterEventsForRange = (ebudgie, from, to) => {
   const incomes = _.filter(ebudgie.incomes, (income) => {
-    return moment(from) < moment(income.date) && moment(income.date) < moment(to);
+    return moment(from) <= moment(income.date) && moment(income.date) <= moment(to);
   });
 
   const expenses = _.filter(ebudgie.expenses, (expense) => {
-    return moment(from) < moment(expense.date) && moment(expense.date) < moment(to);
+    return moment(from) <= moment(expense.date) && moment(expense.date) <= moment(to);
   });
 
   return {
@@ -152,3 +152,34 @@ export const getMonthReportForCategories = (ebudgie, from, to) => {
 
   return result;
 };
+
+export const getMonthReportForDays = (ebudgie, from, to) => {
+  const { incomes, expenses } = filterEventsForRange(ebudgie, from, to);
+
+  const result = {
+    days: [],
+    values: []
+  };
+
+  let currentDate = moment(from);
+
+  const daysBetween = Math.abs(moment(from).diff(moment(to), 'days'));
+
+  let i = 0;
+  do {
+    let date = moment(currentDate);
+    let dayStart = moment(date.startOf('date'));
+    let dayEnd = moment(date.endOf('date'));
+    let filteredData = filterEventsForRange(ebudgie, dayStart, dayEnd);
+    const incomeSum = _.sumBy(filteredData.incomes, 'value') || 0;
+    const expenseSum = _.sumBy(filteredData.expenses, 'value') || 0;
+
+    result.values.push([incomeSum, expenseSum]);
+    result.days.push(currentDate.format('DD MMM'));
+    currentDate.add(1, 'days');
+    i++;
+  } while (i <= daysBetween);
+
+  //.format('DD MMM')
+  return result;
+}

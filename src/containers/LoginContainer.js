@@ -54,9 +54,9 @@ class LoginContainer extends Component {
     RNAccountKit.loginWithPhone()
       .then((token) => {
         if (!token) {
-          console.log('Login cancelled');
+          //console.log('Login cancelled');
         } else {
-          console.log(`Logged with phone. Token: ${token}`);
+          //console.log(`Logged with phone. Token: ${token}`);
           this.goToHome(token.clientId);
         }
       });
@@ -66,9 +66,9 @@ class LoginContainer extends Component {
     RNAccountKit.loginWithEmail()
       .then((token) => {
         if (!token) {
-          console.log('Login cancelled');
+          //console.log('Login cancelled');
         } else {
-          console.log(`Logged with email. Token: ${token}`);
+          //console.log(`Logged with email. Token: ${token}`);
           this.goToHome(token.clientId);
         }
       });

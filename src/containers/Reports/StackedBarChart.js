@@ -5,12 +5,15 @@ import {
   Text,
   View
 } from 'react-native';
-
+import { connect } from 'react-redux';
 import {BarChart} from 'react-native-mp-android-chart';
+import _ from 'lodash';
+
+import { getMonthReportForDays } from '../../services/events';
 
 class StackedBarChartScreen extends React.Component {
 
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
@@ -25,14 +28,14 @@ class StackedBarChartScreen extends React.Component {
       },
       data: {
         datasets: [{
-          yValues: [[40, 30, 20], [10, 20, 10], [30, 20, 50], [30, 50, 10]],
+          yValues: props.values,
           label: 'Stacked Bar dataset',
           config: {
-            colors: ['#C0FF8C', '#FFF78C', '#FFD08C'],
-            stackLabels: ['Engineering', 'Sales', 'Marketing']
+            colors: ['#C0FF8C', '#FFF78C'],
+            stackLabels: ['Incomes', 'Expenses']
           }
         }],
-        xValues: ['Q1', 'Q2', 'Q3', 'Q4']
+        xValues: props.days
       }
     };
   }
@@ -41,10 +44,10 @@ class StackedBarChartScreen extends React.Component {
     return (
       <View style={styles.container}>
         <BarChart
-          style={styles.chart}
           data={this.state.data}
-          legend={this.state.legend}
           drawValueAboveBar={false}
+          legend={this.state.legend}
+          style={styles.chart}
         />
       </View>
     );
@@ -61,4 +64,23 @@ const styles = StyleSheet.create({
   }
 });
 
-export default StackedBarChartScreen;
+function mapStateToProps(state) {
+  const { from, to } = state.detailedReport;
+  const { days, values } = getMonthReportForDays(state.ebudgie, from, to);
+
+  return {
+    days,
+    values
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(StackedBarChartScreen);
