@@ -3,7 +3,8 @@ import SplashScreen from 'react-native-splash-screen';
 import {
   BackAndroid,
   NavigationExperimental,
-  StyleSheet
+  StyleSheet,
+  AsyncStorage
 } from 'react-native';
 const {
   CardStack: NavigationCardStack
@@ -11,7 +12,8 @@ const {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { pushRoute, popRoute } from '../boundActionCreators/navigation';
+import { pushRoute, popRoute, replaceRoute } from '../boundActionCreators/navigation';
+import { createNewPouchDB } from '../boundActionCreators/pouchdb';
 import getRoute from '../getRoute';
 import CustomHeader from './Header/CustomHeader';
 
@@ -33,23 +35,36 @@ class NavigationRootContainer extends Component {
     this._handleNavigate = this._handleNavigate.bind(this);
     this._handleBackAction = this._handleBackAction.bind(this);
     this._renderHeader = this._renderHeader.bind(this);
+    this.goToHome = this.goToHome.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     BackAndroid.addEventListener('hardwareBackPress', this._handleBackAction);
 
-    setTimeout(() => SplashScreen.hide(), 1000);
+    const isUserLogged = await AsyncStorage.getItem('isLogged');
+
+    if (isUserLogged) {
+      const dbName = await AsyncStorage.getItem('dbName');
+      await this.goToHome(dbName);
+    }
+
+    SplashScreen.hide();
   }
 
   componentWillUnmount() {
     BackAndroid.removeEventListener('hardwareBackPress', this._handleBackAction);
   }
 
+  async goToHome(dbName = 'unauthorized') {
+    await this.props.createPouchDB(dbName);
+    this.props.replace({ key: 'home' });
+  }
+
   _renderHeader(sceneProps) {
     return (
       <CustomHeader
         {...sceneProps}
-        />
+      />
     );
   }
 
@@ -101,7 +116,7 @@ class NavigationRootContainer extends Component {
         renderHeader={this._renderHeader}
         renderScene={this._renderScene}
         style={styles.navigationStyles}
-        />
+      />
     );
   }
 }
@@ -111,6 +126,8 @@ NavigationRootContainer.propTypes = {
   navigation: PropTypes.object.isRequired,
   push: PropTypes.func.isRequired,
   pop: PropTypes.func.isRequired,
+  replace: React.PropTypes.func.isRequired,
+  createPouchDB: React.PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -123,7 +140,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     push: pushRoute,
-    pop: popRoute
+    pop: popRoute,
+    replace: replaceRoute,
+    createPouchDB: createNewPouchDB
   }, dispatch);
 }
 

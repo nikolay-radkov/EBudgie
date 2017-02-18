@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, StatusBar, StyleSheet } from 'react-native';
+import { View, Image, StatusBar, StyleSheet, AsyncStorage } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RNAccountKit from 'react-native-facebook-account-kit';
@@ -50,35 +50,44 @@ class LoginContainer extends Component {
     this.skip = this.skip.bind(this);
   }
 
-  loginWithPhone() {
-    RNAccountKit.loginWithPhone()
-      .then((token) => {
-        if (!token) {
-          //console.log('Login cancelled');
-        } else {
-          //console.log(`Logged with phone. Token: ${token}`);
-          this.goToHome(token.clientId);
-        }
-      });
+  async loginWithPhone() {
+    try {
+      const token = RNAccountKit.loginWithPhone();
+      if (!token) {
+        //console.log('Login cancelled');
+      } else {
+        //console.log(`Logged with phone. Token: ${token}`);
+        await this.goToHome(token.clientId);
+      }
+    } catch (e) {
+      // TODO: show alert
+    }
   }
 
-  loginWithEmail() {
-    RNAccountKit.loginWithEmail()
-      .then((token) => {
-        if (!token) {
-          //console.log('Login cancelled');
-        } else {
-          //console.log(`Logged with email. Token: ${token}`);
-          this.goToHome(token.clientId);
-        }
-      });
+  async loginWithEmail() {
+    try {
+      const token = RNAccountKit.loginWithEmail()
+
+      if (!token) {
+        //console.log('Login cancelled');
+      } else {
+        //console.log(`Logged with email. Token: ${token}`);
+        await this.goToHome(token.clientId);
+      }
+    } catch (e) {
+      // TODO: show alert
+    }
   }
 
-  goToHome(dbName = 'unauthorized') {
-    this.props.createNewPouchDB(dbName)
-      .then(() => {
-        this.props.replaceRoute({ key: 'home' });
-      });
+  async goToHome(dbName = 'unauthorized') {
+    try {
+      await this.props.createNewPouchDB(dbName)
+      await AsyncStorage.setItem('isLogged', 'true');
+      await AsyncStorage.setItem('dbName', dbName);
+      this.props.replaceRoute({ key: 'home' });
+    } catch (e) {
+      // TODO: show alert
+    }
   }
 
   skip() {

@@ -15,7 +15,6 @@ const initialState = {
   routes: [
     {
       key: 'login',
-      title: 'Welcome home',
     },
   ],
 };

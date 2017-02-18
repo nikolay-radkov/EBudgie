@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   View,
   StyleSheet,
+  AsyncStorage,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -51,8 +52,11 @@ class SettingsComponent extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  logout() {
+  async logout() {
     const { resetEbudgie, resetPouchdb, reset } = this.props;
+
+    await AsyncStorage.removeItem('isLogged');
+    await AsyncStorage.removeItem('dbName');
 
     resetEbudgie();
     resetPouchdb();
