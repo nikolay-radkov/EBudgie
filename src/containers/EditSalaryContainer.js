@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   View,
-  StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
 import {
@@ -18,10 +17,6 @@ import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
 import * as actions from '../actionCreators/editSalaryForm';
 import { popRoute } from '../boundActionCreators/navigation';
-
-const styles = StyleSheet.create({
-
-});
 
 class EditSalary extends Component {
   constructor() {

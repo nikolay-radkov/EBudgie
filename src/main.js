@@ -6,7 +6,7 @@ import store from './store';
 import NavigationRootContainer from './containers/NavigationRootContainer';
 import theme from './themes/ApplicationStyles';
 import colors from './themes/Colors';
-import PushNotification from './config/gcm';
+// import PushNotification from './config/gcm';
 
 const EBudgie = () => {
   return (

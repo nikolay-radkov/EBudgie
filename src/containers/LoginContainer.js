@@ -39,7 +39,7 @@ const buttonProps = {
   large: true,
   iconRight: true,
   raised: true,
-}
+};
 
 class LoginContainer extends Component {
   constructor(state) {

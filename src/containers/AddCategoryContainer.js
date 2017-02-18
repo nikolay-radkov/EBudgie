@@ -91,7 +91,6 @@ class AddCategoryContainer extends Component {
       setCategoryColor,
       setCategoryTitle,
       setCategoryIcon,
-      addNewCategory
     } = this.props;
 
     return (

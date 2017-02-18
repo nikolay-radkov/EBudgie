@@ -151,7 +151,7 @@ class SettingsComponent extends Component {
               <View style={styles.imageStyle}>
                 <Icon
                   color={colors.main}
-                  name={ebudgie.notificationsEnabled ? "notifications" : "notifications-off"}
+                  name={ebudgie.notificationsEnabled ? 'notifications' : 'notifications-off'}
                   size={iconSize} />
               </View>
             }

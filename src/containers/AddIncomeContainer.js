@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   View,
-  StyleSheet,
   TouchableWithoutFeedback,
   Picker,
 } from 'react-native';
@@ -16,22 +15,18 @@ import _ from 'lodash';
 import dismissKeyboard from 'dismissKeyboard';
 import UUIDGenerator from 'react-native-uuid-generator';
 import moment from 'moment';
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
 
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
 import * as actions from '../actionCreators/addIncomeForm';
 import { popRoute } from '../boundActionCreators/navigation';
 
-const styles = StyleSheet.create({
-
-});
-
 class AddIncomeContainer extends Component {
   constructor() {
     super();
 
-    this.state = { date: "2016-05-15" }
+    this.state = { date: '2016-05-15' };
     this.saveItem = this.saveItem.bind(this);
   }
 
@@ -80,7 +75,6 @@ class AddIncomeContainer extends Component {
       items,
       setIncomeDate,
     } = this.props;
-    const today = moment().format();
 
     const categoryOptions = categories.map((category) => (
       <Picker.Item key={category.id} label={category.title} value={category.id} />

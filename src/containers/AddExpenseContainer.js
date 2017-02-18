@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   View,
-  StyleSheet,
   TouchableWithoutFeedback,
   Picker,
 } from 'react-native';
@@ -23,15 +22,10 @@ import colors from '../themes/Colors';
 import * as actions from '../actionCreators/addExpenseForm';
 import { popRoute } from '../boundActionCreators/navigation';
 
-const styles = StyleSheet.create({
-
-});
-
 class AddExpenseContainer extends Component {
   constructor() {
     super();
 
-    this.state = { date: "2016-05-15" }
     this.saveItem = this.saveItem.bind(this);
   }
 
@@ -80,7 +74,6 @@ class AddExpenseContainer extends Component {
       items,
       setExpenseDate,
     } = this.props;
-    const today = moment().format();
 
     const categoryOptions = categories.map((category) => (
       <Picker.Item key={category.id} label={category.title} value={category.id} />

@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
   StyleSheet,
-  Text,
   View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 
 import { RadarChart } from 'react-native-mp-android-chart';
@@ -60,16 +58,22 @@ class RadarChartScreen extends React.Component {
     return (
       <View style={styles.container}>
         <RadarChart
-          style={styles.chart}
           data={this.state.data}
           description={{ text: '' }}
           legend={this.state.legend}
           skipWebLineCount={1}
+          style={styles.chart}
         />
       </View>
     );
   }
 }
+
+RadarChartScreen.propTypes = {
+  categories: PropTypes.array,
+  incomes: PropTypes.array,
+  expenses: PropTypes.array,
+};
 
 const styles = StyleSheet.create({
   container: {

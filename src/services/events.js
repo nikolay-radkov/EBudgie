@@ -32,7 +32,7 @@ export const getReportForRange = (ebudgie, from, to, salary) => {
   };
 
   return report;
-}
+};
 
 export const getPastReports = (ebudgie, salaries) => {
   const now = moment();
@@ -154,8 +154,6 @@ export const getMonthReportForCategories = (ebudgie, from, to) => {
 };
 
 export const getMonthReportForDays = (ebudgie, from, to) => {
-  const { incomes, expenses } = filterEventsForRange(ebudgie, from, to);
-
   const result = {
     days: [],
     values: []
@@ -182,4 +180,4 @@ export const getMonthReportForDays = (ebudgie, from, to) => {
 
   //.format('DD MMM')
   return result;
-}
+};

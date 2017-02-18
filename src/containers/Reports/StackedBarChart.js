@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
-  Text,
   View
 } from 'react-native';
 import { connect } from 'react-redux';
-import {BarChart} from 'react-native-mp-android-chart';
-import _ from 'lodash';
+import { BarChart } from 'react-native-mp-android-chart';
 
 import { getMonthReportForDays } from '../../services/events';
 
@@ -20,7 +17,7 @@ class StackedBarChartScreen extends React.Component {
       legend: {
         enabled: true,
         textSize: 14,
-        form: "SQUARE",
+        form: 'SQUARE',
         formSize: 14,
         xEntrySpace: 10,
         yEntrySpace: 5,
@@ -53,6 +50,11 @@ class StackedBarChartScreen extends React.Component {
     );
   }
 }
+
+StackedBarChartScreen.propTypes = {
+  values: PropTypes.array,
+  days: PropTypes.array,
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   View,
-  StyleSheet,
   TouchableWithoutFeedback,
-  Text,
   Picker,
 } from 'react-native';
 import {
@@ -20,10 +18,6 @@ import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
 import * as actions from '../actionCreators/addItemForm';
 import { popRoute } from '../boundActionCreators/navigation';
-
-const styles = StyleSheet.create({
-
-});
 
 class AddItemContainer extends Component {
   constructor() {

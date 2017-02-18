@@ -8,7 +8,8 @@
     "android:production": "node node_modules/react-native/local-cli/cli.js run-android --configuration Release",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "ios:production": "node node_modules/react-native/local-cli/cli.js run-ios --configuration Release",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src/**/*.js"
   },
   "dependencies": {
     "moment": "^2.17.1",

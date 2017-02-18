@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import moment from 'moment';
-import _ from 'lodash';
 
 import ReportPieChart from '../components/Charts/ReportPieChart';
 import { pushRoute } from '../boundActionCreators/navigation';

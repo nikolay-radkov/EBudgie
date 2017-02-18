@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 import {
   NEW_CALENDAR,
   SET_CALENDAR_DATE,
