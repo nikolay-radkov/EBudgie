@@ -70,7 +70,7 @@ export const getPastReports = (ebudgie, salaries) => {
     current = current.add(1, 'months');
   }
 
-  return reports;
+  return _.orderBy(reports, 'date', 'desc');
 };
 
 export const getMonthReportForCategories = (ebudgie, from, to) => {
@@ -178,6 +178,5 @@ export const getMonthReportForDays = (ebudgie, from, to) => {
     i++;
   } while (i <= daysBetween);
 
-  //.format('DD MMM')
   return result;
 };
