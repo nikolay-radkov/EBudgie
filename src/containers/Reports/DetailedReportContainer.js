@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { BackAndroid, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { TabViewAnimated, TabBar } from 'react-native-tab-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -36,16 +36,43 @@ class DetailedMonthReportContainer extends Component {
   state = {
     index: 0,
     routes: [
-      {
-        key: '1', title: 'First'
-      },
+      { key: '1', title: 'First' },
       { key: '2', title: 'Second' },
       { key: '3', title: 'Third' },
     ],
+    visitedRoutes: [0]
   };
 
+  componentDidMount() {
+    BackAndroid.addEventListener('hardwareBackPress', this._handleBackAction);
+  }
+
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this._handleBackAction);
+  }
+
+  _handleBackAction = () => {
+    const { visitedRoutes } = this.state;
+    visitedRoutes.pop();
+
+    if (visitedRoutes.length !== 0) {
+
+      this.setState({
+        index: visitedRoutes[visitedRoutes.length - 1],
+        visitedRoutes
+      });
+      return true;
+    }
+  }
+
   _handleChangeTab = (index) => {
-    this.setState({ index });
+    const { visitedRoutes } = this.state;
+debugger;
+    visitedRoutes.push(index);
+    this.setState({
+      visitedRoutes,
+      index
+    });
   };
 
   _renderHeader = (props) => {
