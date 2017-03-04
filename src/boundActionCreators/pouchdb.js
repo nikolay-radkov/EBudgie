@@ -5,6 +5,7 @@ import { loadEBudgie } from '../actionCreators/ebudgie';
 import createPouchDB from '../config/pouchdb';
 import * as pouchdbService from '../services/pouchdbService';
 
+
 export const createNewPouchDB = (dbName) => {
   return async (dispatch) => {
     const instance = createPouchDB(dbName);
@@ -20,7 +21,7 @@ export const createNewPouchDB = (dbName) => {
       const ebudgie = await pouchdbService.getDocument(uuid);
       dispatch(loadEBudgie(ebudgie));
 
-      return Promise.resolve();
+      return Promise.resolve(ebudgie);
     } catch (e) {
       return Promise.resolve();
     }
