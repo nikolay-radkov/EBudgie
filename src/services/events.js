@@ -2,6 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import DefaultCategories from '../constants/DefaultCategories';
+import { mapReportForDownload } from './mapIdToObject';
 
 export const filterEventsForRange = (ebudgie, from, to) => {
   const incomes = _.filter(ebudgie.incomes, (income) => {
@@ -179,4 +180,16 @@ export const getMonthReportForDays = (ebudgie, from, to) => {
   } while (i <= daysBetween);
 
   return result;
+};
+
+export const getReportForDownload = (ebudgie, from, to) => {
+  const { incomes, expenses } = filterEventsForRange(ebudgie, from, to);
+
+  let mappedIncomes = _.map(incomes, (i) => mapReportForDownload(ebudgie.categories, ebudgie.items, i));
+  let mappedExpenses = _.map(expenses, (i) => mapReportForDownload(ebudgie.categories, ebudgie.items, i));
+
+  return {
+    incomes: mappedIncomes,
+    expenses: mappedExpenses,
+  };
 };
