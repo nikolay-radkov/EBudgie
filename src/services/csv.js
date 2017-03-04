@@ -31,7 +31,7 @@ export default function csv(columns, datas, separator = ',', noHeader = false) {
       }
     }
   }
-debugger;
+
   if (Array.isArray(datas)) {
     datas.map(v => {
       if (Array.isArray(v)) {
