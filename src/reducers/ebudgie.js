@@ -11,6 +11,7 @@ import {
   SET_CURRENCY,
   TOGGLE_PUSH_NOTIFICATIONS,
   RESET_EBUDGIE,
+  INITIAL_LOAD,
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
   language: 'en',
   currency: '$',
   notificationsEnabled: true,
+  didInitialLoad: false,
 };
 
 export default (state = initialState, action) => {
@@ -36,6 +38,20 @@ export default (state = initialState, action) => {
   } = state;
 
   switch (action.type) {
+    case INITIAL_LOAD:
+    debugger;
+      return {
+        ...state,
+        categories: [
+          ...categories,
+          ...action.categories
+        ],
+        items: [
+          ...items,
+          ...action.items
+        ],
+        didInitialLoad: true,
+      };
     case NEW_POUCHDB:
       return {
         ...state,

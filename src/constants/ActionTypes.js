@@ -31,6 +31,7 @@ export const NEW_ITEM = 'NEW_ITEM';
 export const LOAD_EBUDGIE = 'LOAD_EBUDGIE';
 export const UPDATE_REV = 'UPDATE_REV';
 export const RESET_EBUDGIE = 'RESET_EBUDGIE';
+export const INITIAL_LOAD = 'INITIAL_LOAD';
 
 // Edit Salary
 export const SET_SALARY_VALUE = 'SET_SALARY_VALUE';

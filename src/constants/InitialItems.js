@@ -1,0 +1,97 @@
+export default [{
+  id: 'b1971664-2fc3-4085-b958-f6eb33a99301',
+  categoryId: 'c5aa3a03-78f9-403d-8e50-4252d9320201',
+  name: 'Bread',
+}, {
+  id: '40420a90-5a7b-4c38-ba1c-9c7a35e4b587',
+  categoryId: 'c5aa3a03-78f9-403d-8e50-4252d9320201',
+  name: 'Milk',
+}, {
+  id: 'c7d83bc2-53f7-483b-892e-ff14d4703a0d',
+  categoryId: 'c5aa3a03-78f9-403d-8e50-4252d9320201',
+  name: 'Meat',
+}, {
+  id: '0f97a038-b52e-4964-b942-fdac6f478df5',
+  categoryId: '61438cbf-bb22-4bac-a8cf-6dc9b73178fa',
+  name: 'Electricity',
+}, {
+  id: '2fa20983-4652-4291-9648-fd56073af56e',
+  categoryId: '61438cbf-bb22-4bac-a8cf-6dc9b73178fa',
+  name: 'Water',
+}, {
+  id: '9a022608-68e0-4755-a8e6-93469757246f',
+  categoryId: '2df5daa0-c1ab-47c6-83ca-94541b8a93f3',
+  name: 'Restaurant eat',
+}, {
+  id:'2c8e88c3-52c7-4579-85c8-1618356d1055',
+  categoryId: '2df5daa0-c1ab-47c6-83ca-94541b8a93f3',
+  name: 'McDonalds',
+}, {
+  id: '907bbdee-a6c9-4dc5-8eb1-56e83dc64404',
+  categoryId: 'b531a637-834d-499c-975b-afc26024c97b',
+  name: 'Disco',
+}, {
+  id: '87689d0b-924e-456a-bfff-20f5983f2eb9',
+  categoryId: 'b531a637-834d-499c-975b-afc26024c97b',
+  name: 'Football',
+}, {
+  id: '43ff662e-5a78-43eb-bc87-45e5945b0417',
+  categoryId: 'aa42710e-bae4-4bd2-92c0-cfbd2d19fe89',
+  name: 'Birthday',
+}, {
+  id: '1b88c894-2ca9-49cb-9c81-5cabf14fe420',
+  categoryId: 'aa42710e-bae4-4bd2-92c0-cfbd2d19fe89',
+  name: 'Christmas',
+}, {
+  id: '39e48e06-deba-4c03-a2d4-708eacb02bff',
+  categoryId: '6aabd4fb-06f8-4daf-89fa-007f89d7a82d',
+  name: 'Jacket',
+}, {
+  id: '123d4a4e-97e8-4066-a1fe-74857cb9dbdb',
+  categoryId: '6aabd4fb-06f8-4daf-89fa-007f89d7a82d',
+  name: 'T-Shirt',
+}, {
+  id: '711ae1dd-8c64-4ed2-8660-5c599d62db1f',
+  categoryId: '64124f71-fa2a-4300-af8a-cee474ca1c37',
+  name: 'Gas',
+}, {
+  id: '540f0740-f4c1-414b-beb6-333198501071',
+  categoryId: '64124f71-fa2a-4300-af8a-cee474ca1c37',
+  name: 'Repair',
+}, {
+  id: 'a3599c60-2cdc-4a5f-b276-35b6cad6f474',
+  categoryId: '1b65c133-bf9b-4e03-823c-472632624919',
+  name: 'Monthly card',
+}, {
+  id: 'd0897f69-b6f3-4876-9311-7a94f47a8d48',
+  categoryId: '1b65c133-bf9b-4e03-823c-472632624919',
+  name: 'Ticket',
+}, {
+  id: '17c28522-62a4-4a9d-a254-7822e51761f2',
+  categoryId: '7b5ac4e7-214f-4c65-a5a0-05ab79df0745',
+  name: 'Hotel room',
+}, {
+  id: 'ee13cdbe-9000-4fc5-9535-031edb028330',
+  categoryId: '7b5ac4e7-214f-4c65-a5a0-05ab79df0745',
+  name: 'Bag',
+}, {
+  id: '36d7df6f-888e-4e3f-ae4a-0ac8b5675a2f',
+  categoryId: '7b5ac4e7-214f-4c65-a5a0-05ab79df0745',
+  name: 'Map',
+}, {
+  id: 'c9e2f11d-7d9c-4996-affe-e91ae29063e5',
+  categoryId: 'cc265a4d-e989-428d-97ef-07cd44821eba',
+  name: 'Medicine',
+}, {
+  id: '44286fd7-bccb-46b5-a170-d38a922c3282',
+  categoryId: 'f2e207b2-274f-4c8a-aedc-dc714379211a',
+  name: 'Book',
+}, {
+  id: 'dbb15fd5-e02c-4da5-bc67-40488345eb7a',
+  categoryId: 'f2e207b2-274f-4c8a-aedc-dc714379211a',
+  name: 'Course',
+}, {
+  id: 'edb0f1d9-7ec3-48e9-a064-d983f92f4460',
+  categoryId: '9f5203ad-f4c1-4535-b5f3-dd5186ac7e81',
+  name: 'Other',
+}];

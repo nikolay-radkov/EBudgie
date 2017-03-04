@@ -1,0 +1,61 @@
+export default [{
+  id: 'c5aa3a03-78f9-403d-8e50-4252d9320201',
+  title: 'Groceries',
+  color: '#DAA520',
+  icon: 'local-grocery-store',
+}, {
+  id: '61438cbf-bb22-4bac-a8cf-6dc9b73178fa',
+  title: 'Household',
+  color: '#008000',
+  icon: 'home',
+}, {
+  id: '2df5daa0-c1ab-47c6-83ca-94541b8a93f3',
+  title: 'Eating Out',
+  color: '#FF69B4',
+  icon: 'restaurant-menu',
+}, {
+  id: 'b531a637-834d-499c-975b-afc26024c97b',
+  title: 'Fun',
+  color: '#F08080',
+  icon: 'music-note',
+}, {
+  id: 'aa42710e-bae4-4bd2-92c0-cfbd2d19fe89',
+  title: 'Gifts',
+  color: '#FFB6C1',
+  icon: 'card-giftcard',
+}, {
+  id: '6aabd4fb-06f8-4daf-89fa-007f89d7a82d',
+  title: 'Clothing',
+  color: '#9370DB',
+  icon: 'accessibility',
+}, {
+  id: '64124f71-fa2a-4300-af8a-cee474ca1c37',
+  title: 'Car',
+  color: '#191970',
+  icon: 'directions-car',
+}, {
+  id: '1b65c133-bf9b-4e03-823c-472632624919',
+  title: 'Transport',
+  color: '#F4A460',
+  icon: 'directions-transit',
+}, {
+  id: '7b5ac4e7-214f-4c65-a5a0-05ab79df0745',
+  title: 'Travel',
+  color: '#87CEEB',
+  icon: 'airplanemode-active',
+}, {
+  id: 'cc265a4d-e989-428d-97ef-07cd44821eba',
+  title: 'Medical',
+  color: '#B22222',
+  icon: 'local-pharmacy',
+}, {
+  id: 'f2e207b2-274f-4c8a-aedc-dc714379211a',
+  title: 'Education',
+  color: '#BDB76B',
+  icon: 'library-books',
+}, {
+  id: '9f5203ad-f4c1-4535-b5f3-dd5186ac7e81',
+  title: 'Other',
+  color: '#FFD700',
+  icon: 'devices-other',
+}];

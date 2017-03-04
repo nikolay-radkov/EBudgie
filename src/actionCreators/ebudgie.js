@@ -1,4 +1,12 @@
-import { LOAD_EBUDGIE, UPDATE_REV } from '../constants/ActionTypes';
+import { LOAD_EBUDGIE, INITIAL_LOAD, UPDATE_REV } from '../constants/ActionTypes';
+
+export const initialLoad = (categories, items) => {
+  return {
+    type: INITIAL_LOAD,
+    categories,
+    items
+  };
+}
 
 export const loadEBudgie = (ebudgie) => {
   return {
