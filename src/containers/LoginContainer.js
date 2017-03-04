@@ -7,8 +7,11 @@ import { Button } from 'react-native-elements';
 
 import { replaceRoute } from '../boundActionCreators/navigation';
 import { createNewPouchDB } from '../boundActionCreators/pouchdb';
+import { initialLoad } from '../actionCreators/ebudgie';
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
+import categories from '../constants/InitialCategories';
+import items from '../constants/InitialItems';
 
 const styles = StyleSheet.create({
   container: {
@@ -52,7 +55,7 @@ class LoginContainer extends Component {
 
   async loginWithPhone() {
     try {
-      const token = RNAccountKit.loginWithPhone();
+      const token = await RNAccountKit.loginWithPhone();
       if (!token) {
         //console.log('Login cancelled');
       } else {
@@ -66,7 +69,7 @@ class LoginContainer extends Component {
 
   async loginWithEmail() {
     try {
-      const token = RNAccountKit.loginWithEmail()
+      const token = await RNAccountKit.loginWithEmail()
 
       if (!token) {
         //console.log('Login cancelled');
@@ -80,11 +83,17 @@ class LoginContainer extends Component {
   }
 
   async goToHome(dbName = 'unauthorized') {
+    const { createPouchDB, replace, load } = this.props;
+
     try {
-      await this.props.createNewPouchDB(dbName)
+      const ebudgie = await createPouchDB(dbName);
+
+      if (!ebudgie || !ebudgie.didInitialLoad) {
+        load(categories, items);
+      }
       await AsyncStorage.setItem('isLogged', 'true');
       await AsyncStorage.setItem('dbName', dbName);
-      this.props.replaceRoute({ key: 'home' });
+      replace({ key: 'home' });
     } catch (e) {
       // TODO: show alert
     }
@@ -118,8 +127,9 @@ class LoginContainer extends Component {
 }
 
 LoginContainer.propTypes = {
-  replaceRoute: React.PropTypes.func.isRequired,
-  createNewPouchDB: React.PropTypes.func.isRequired,
+  replace: React.PropTypes.func.isRequired,
+  createPouchDB: React.PropTypes.func.isRequired,
+  load: React.PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -130,8 +140,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    replaceRoute,
-    createNewPouchDB
+    replace: replaceRoute,
+    createPouchDB: createNewPouchDB,
+    load: initialLoad,
   }, dispatch);
 }
 

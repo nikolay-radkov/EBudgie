@@ -7,7 +7,8 @@ import {
   NEW_EXPENSE,
   SET_LANGUAGE,
   SET_CURRENCY,
-  TOGGLE_PUSH_NOTIFICATIONS
+  TOGGLE_PUSH_NOTIFICATIONS,
+  INITIAL_LOAD,
 } from '../constants/ActionTypes';
 
 import { updateRev } from '../actionCreators/ebudgie';
@@ -24,6 +25,7 @@ const storage = store => next => async action => {
     case SET_LANGUAGE:
     case SET_CURRENCY:
     case TOGGLE_PUSH_NOTIFICATIONS:
+    case INITIAL_LOAD:
       const state = store.getState();
       const ebudgie = state.ebudgie;
 
