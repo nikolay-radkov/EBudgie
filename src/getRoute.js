@@ -11,6 +11,7 @@ import AddExpense from './containers/AddExpenseContainer';
 import Reports from './containers/ReportsContainer';
 import Settings from './containers/SettingsContainer';
 import DetailedReport from './containers/Reports/DetailedReportContainer';
+import ReportDownloader from './containers/ReportDownloaderContainer';
 
 export default (key, params) => {
   switch (key) {
@@ -34,6 +35,8 @@ export default (key, params) => {
       return (<Settings />);
     case 'scene_detailed_report':
       return (<DetailedReport />);
+    case 'scene_report_downloader':
+      return (<ReportDownloader />);
     default:
       return <NotFound />;
   }

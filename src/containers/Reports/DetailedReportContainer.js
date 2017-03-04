@@ -67,7 +67,7 @@ class DetailedMonthReportContainer extends Component {
 
   _handleChangeTab = (index) => {
     const { visitedRoutes } = this.state;
-debugger;
+
     visitedRoutes.push(index);
     this.setState({
       visitedRoutes,

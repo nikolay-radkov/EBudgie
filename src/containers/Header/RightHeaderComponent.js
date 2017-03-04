@@ -7,7 +7,7 @@ import { pushRoute } from '../../boundActionCreators/navigation';
 
 const RightHeaderComponent = ({
   scene,
-  push
+  push,
 }) => {
   const { route } = scene;
   let rightButton = null;
@@ -26,7 +26,21 @@ const RightHeaderComponent = ({
               color: '#FFFFFF'
             }}
             onPress={onRightButtonPress}
-            />
+          />
+        );
+        break;
+      case 'reports':
+        onRightButtonPress = () => push({
+          key: 'report_downloader'
+        });
+        rightButton = (
+          <HeaderButton
+            iconProps={{
+              name: 'file-download',
+              color: '#FFFFFF'
+            }}
+            onPress={onRightButtonPress}
+          />
         );
         break;
     }
@@ -37,11 +51,13 @@ const RightHeaderComponent = ({
 
 RightHeaderComponent.propTypes = {
   scene: PropTypes.object,
-  push: PropTypes.func.isRequired
+  push: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ push: pushRoute }, dispatch);
+  return bindActionCreators({
+    push: pushRoute,
+  }, dispatch);
 }
 
 export default connect(

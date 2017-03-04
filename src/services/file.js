@@ -30,7 +30,7 @@ export const readFile = async (filename, encoding = 'utf8') => {
     const data = await RNFS.readFile(path, 'base64')
 
     await Share.open({
-      message: 'Hello, here is the report you\'ve asked for',
+      message: 'Hello, here is the report you\'ve asked for.',
       url: `data:text/csv;base64,${data}`,
       subject: `${filename}.csv`,
     });
