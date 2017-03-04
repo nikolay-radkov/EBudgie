@@ -4,6 +4,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.github.reactNativeMPAndroidChart.MPAndroidChartPackage;
+import cl.json.RNSharePackage;
+import com.rnfs.RNFSPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.reactlibrary.RNUUIDGeneratorPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -16,7 +19,6 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.github.reactNativeMPAndroidChart.MPAndroidChartPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,13 +38,15 @@ public class MainApplication extends Application implements ReactApplication {
 
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new MPAndroidChartPackage(),
+            new RNSharePackage(),
+            new RNFSPackage(),
             new ReactNativePushNotificationPackage(),
             new RNUUIDGeneratorPackage(),
             new RNDeviceInfo(),
             new RNAccountKitPackage(),
             new SplashScreenReactPackage(),
-            new VectorIconsPackage(),
-            new MPAndroidChartPackage()
+            new VectorIconsPackage()
       );
     }
   };
