@@ -6,7 +6,7 @@ export const initialLoad = (categories, items) => {
     categories,
     items
   };
-}
+};
 
 export const loadEBudgie = (ebudgie) => {
   return {

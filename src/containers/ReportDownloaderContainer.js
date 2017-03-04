@@ -75,7 +75,7 @@ class ReportDownloaderComponent extends Component {
     } = this.props;
 
     const data = csv(['date', 'category', 'item', 'value'], events);
-    await saveFile(data, `report-${moment().format('YYYY-MM-DD')}`)
+    await saveFile(data, `report-${moment().format('YYYY-MM-DD')}`);
     resetReportForm();
     pop();
   }

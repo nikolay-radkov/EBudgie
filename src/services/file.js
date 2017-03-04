@@ -6,7 +6,7 @@ export const saveFile = async (data, filename) => {
   try {
     const path = `${RNFS.DocumentDirectoryPath}/${filename}.csv`;
 
-    await RNFS.writeFile(path, data, 'utf8')
+    await RNFS.writeFile(path, data, 'utf8');
     await readFile(filename);
   } catch (e) {
     handleDownloadError();
@@ -27,7 +27,7 @@ function handleDownloadError() {
 export const readFile = async (filename, encoding = 'utf8') => {
   try {
     const path = `${RNFS.DocumentDirectoryPath}/${filename}.csv`;
-    const data = await RNFS.readFile(path, 'base64')
+    const data = await RNFS.readFile(path, 'base64');
 
     await Share.open({
       message: 'Hello, here is the report you\'ve asked for.',

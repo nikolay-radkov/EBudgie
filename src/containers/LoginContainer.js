@@ -69,7 +69,7 @@ class LoginContainer extends Component {
 
   async loginWithEmail() {
     try {
-      const token = await RNAccountKit.loginWithEmail()
+      const token = await RNAccountKit.loginWithEmail();
 
       if (!token) {
         //console.log('Login cancelled');
