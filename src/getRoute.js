@@ -9,6 +9,7 @@ import EditSalary from './containers/EditSalaryContainer';
 import AddIncome from './containers/AddIncomeContainer';
 import AddExpense from './containers/AddExpenseContainer';
 import EditExpense from './containers/EditExpenseContainer';
+import EditIncome from './containers/EditIncomeContainer';
 import Reports from './containers/ReportsContainer';
 import Settings from './containers/SettingsContainer';
 import DetailedReport from './containers/Reports/DetailedReportContainer';
@@ -40,6 +41,8 @@ export default (key, params) => {
       return (<ReportDownloader />);
     case 'scene_edit_expense':
       return (<EditExpense />);
+    case 'scene_edit_income':
+      return (<EditIncome />);
     default:
       return <NotFound />;
   }

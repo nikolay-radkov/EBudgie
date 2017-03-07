@@ -10,6 +10,7 @@ import { pushRoute } from '../boundActionCreators/navigation';
 import { setExpenseDate } from '../actionCreators/addExpenseForm';
 import { setIncomeDate } from '../actionCreators/addIncomeForm';
 import { populateEditExpenseForm } from '../actionCreators/editExpenseForm';
+import { populateEditIncomeForm } from '../actionCreators/editIncomeForm';
 import { setCalendarDate, createNewCalendar } from '../actionCreators/calendar';
 import Menu from '../components/Drawer/Menu';
 import Overview from '../components/Overview';
@@ -38,6 +39,7 @@ class HomeContainer extends Component {
     this.onDateSelect = this.onDateSelect.bind(this);
     this.getCalendar = this.getCalendar.bind(this);
     this.editExpense = this.editExpense.bind(this);
+    this.editIncome = this.editIncome.bind(this);
   }
 
   addExpense() {
@@ -59,11 +61,12 @@ class HomeContainer extends Component {
     this.goTo('edit_expense');
   }
 
-  // editIncome(id) {
-  //   const { prepareEditIncomeForm } = this.props;
-  //   prepareEditIncomeForm(id);
-  //   this.goTo('edit_income');
-  // }
+  editIncome(id) {
+    const { prepareEditIncomeForm, incomes} = this.props;
+    const incomeToEdit = _.find(incomes, (i) => i.id === id);
+    prepareEditIncomeForm(incomeToEdit);
+    this.goTo('edit_income');
+  }
 
   getDrawer(drawer) {
     const { createDrawer } = this.props;
@@ -142,6 +145,7 @@ class HomeContainer extends Component {
           addExpense={this.addExpense}
           addIncome={this.addIncome}
           editExpense={this.editExpense}
+          editIncome={this.editIncome}
           events={selectedEvents}
           eventsDate={eventsDate}
           getCalendar={this.getCalendar}
@@ -170,6 +174,7 @@ HomeContainer.propTypes = {
   calendar: PropTypes.object,
   selectedEvents: PropTypes.array,
   prepareEditExpenseForm: PropTypes.func.isRequired,
+  prepareEditIncomeForm: PropTypes.func.isRequired,
   expenses: PropTypes.array,
   incomes: PropTypes.array,
 };
@@ -275,6 +280,7 @@ function mapDispatchToProps(dispatch) {
     createCalendar: createNewCalendar,
     selectCalendarDate: setCalendarDate,
     prepareEditExpenseForm: populateEditExpenseForm,
+    prepareEditIncomeForm: populateEditIncomeForm,
   }, dispatch);
 }
 
