@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   NEW_POUCHDB,
   NEW_ITEM,
@@ -12,6 +14,8 @@ import {
   TOGGLE_PUSH_NOTIFICATIONS,
   RESET_EBUDGIE,
   INITIAL_LOAD,
+  EDIT_EXPENSE,
+  DELETE_EXPENSE,
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -127,6 +131,24 @@ export default (state = initialState, action) => {
       };
     case RESET_EBUDGIE:
       return initialState;
+    case EDIT_EXPENSE:
+      const mappedExpenses = _.map(expenses, (e) =>{
+        if (e.id === action.expense.id) {
+          return action.expense;
+        }
+
+        return e;
+      });
+      return {
+        ...state,
+        expenses: mappedExpenses,
+      }
+    case DELETE_EXPENSE:
+      const filteredExpenses = _.filter(expenses, (e) => e.id !== action.id);
+      return {
+        ...state,
+        expenses: filteredExpenses,
+      };
     default:
       return state;
   }
