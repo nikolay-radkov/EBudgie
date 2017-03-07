@@ -33,7 +33,9 @@ const Overview = ({
   addExpense,
   addIncome,
   getCalendar,
-  events
+  events,
+  editIncome,
+  editExpense,
 }) => {
   const today = moment();
 
@@ -111,7 +113,13 @@ const Overview = ({
                     name: l.icon,
                     color: l.color
                   }}
-                  onPress={() => alert(JSON.stringify(l))}
+                  onPress={() => {
+                    if (l.value >= 0) {
+                      editIncome(l.id);
+                    } else {
+                      editExpense(l.id);
+                    }
+                  }}
                   roundAvatar
                   subtitle={l.item}
                   title={l.category}
@@ -138,6 +146,8 @@ Overview.propTypes = {
   addIncome: PropTypes.func.isRequired,
   getCalendar: PropTypes.func.isRequired,
   events: PropTypes.array,
+  editExpense: PropTypes.func,
+  editIncome: PropTypes.func,
 };
 
 export default Overview;
