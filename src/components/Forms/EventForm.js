@@ -22,10 +22,13 @@ import colors from '../../themes/Colors';
 import { popRoute } from '../../boundActionCreators/navigation';
 
 class EventForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.saveItem = this.saveItem.bind(this);
+    this.state = {
+      defaultInputValue: props.eventForm.value ? `${props.eventForm.value}` : '',
+    }
   }
 
   componentWillUnmount() {
@@ -38,20 +41,25 @@ class EventForm extends Component {
       newEvent,
       pop,
       categories,
-      items
+      items,
     } = this.props;
 
     const {
+      id,
       categoryId,
       itemId,
       value,
-      date
+      date,
     } = this.props.eventForm;
 
     const selectedCategoryId = categoryId ? categoryId : categories[0].id;
     const selectedItemId = itemId ? itemId : items[0].id;
+    let uuid = id;
 
-    const uuid = await UUIDGenerator.getRandomUUID();
+    if (!id) {
+      uuid = await UUIDGenerator.getRandomUUID();
+    }
+
     newEvent({
       id: uuid,
       value: parseFloat(value),
@@ -72,6 +80,8 @@ class EventForm extends Component {
       categories,
       items,
       setEventDate,
+      buttonText,
+      buttonIcon
     } = this.props;
 
     const categoryOptions = categories.map((category) => (
@@ -80,11 +90,13 @@ class EventForm extends Component {
     const itemOptions = items.map((item) => (
       <Picker.Item key={item.id} label={item.name} value={item.id} />
     ));
+
     return (
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <View style={[theme.container,]}>
           <FormLabel>Value</FormLabel>
           <FormInput
+            defaultValue={this.state.defaultInputValue}
             keyboardType="numeric"
             onChangeText={setEventValue}
             onSubmitEditing={() => dismissKeyboard()} />
@@ -128,10 +140,10 @@ class EventForm extends Component {
             <Button
               backgroundColor={colors.main}
               borderRadius={10}
-              icon={{ name: 'save' }}
+              icon={{ name: buttonIcon }}
               iconRight
               onPress={this.saveItem}
-              title="Save" />
+              title={buttonText} />
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -150,6 +162,8 @@ EventForm.propTypes = {
   pop: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   items: PropTypes.array.isRequired,
+  buttonIcon: PropTypes.string,
+  buttonText: PropTypes.string,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -168,6 +182,8 @@ function mapStateToProps(state, ownProps) {
   return {
     categories,
     items,
+    buttonIcon: ownProps.buttonIcon || 'save',
+    buttonText: ownProps.buttonText || 'Save',
   };
 }
 
