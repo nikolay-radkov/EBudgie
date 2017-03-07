@@ -10,7 +10,7 @@ import {
 export const setIncomeValue = (value) => {
   return {
     type: SET_INCOME_VALUE,
-    value
+    value: Math.abs(value),
   };
 };
 

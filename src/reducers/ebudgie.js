@@ -16,6 +16,8 @@ import {
   INITIAL_LOAD,
   EDIT_EXPENSE,
   DELETE_EXPENSE,
+  EDIT_INCOME,
+  DELETE_INCOME,
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -132,7 +134,7 @@ export default (state = initialState, action) => {
     case RESET_EBUDGIE:
       return initialState;
     case EDIT_EXPENSE:
-      const mappedExpenses = _.map(expenses, (e) =>{
+      const mappedExpenses = _.map(expenses, (e) => {
         if (e.id === action.expense.id) {
           return action.expense;
         }
@@ -142,12 +144,30 @@ export default (state = initialState, action) => {
       return {
         ...state,
         expenses: mappedExpenses,
-      }
+      };
     case DELETE_EXPENSE:
       const filteredExpenses = _.filter(expenses, (e) => e.id !== action.id);
       return {
         ...state,
         expenses: filteredExpenses,
+      };
+    case EDIT_INCOME:
+      const mappedIncomes = _.map(incomes, (i) => {
+        if (i.id === action.income.id) {
+          return action.income;
+        }
+
+        return i;
+      });
+      return {
+        ...state,
+        incomes: mappedIncomes,
+      };
+    case DELETE_INCOME:
+      const filteredIncomes = _.filter(incomes, (i) => i.id !== action.id);
+      return {
+        ...state,
+        incomes: filteredIncomes,
       };
     default:
       return state;
