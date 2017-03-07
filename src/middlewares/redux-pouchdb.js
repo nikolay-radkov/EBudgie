@@ -9,6 +9,8 @@ import {
   SET_CURRENCY,
   TOGGLE_PUSH_NOTIFICATIONS,
   INITIAL_LOAD,
+  EDIT_EXPENSE,
+  DELETE_EXPENSE,
 } from '../constants/ActionTypes';
 
 import { updateRev } from '../actionCreators/ebudgie';
@@ -26,6 +28,8 @@ const storage = store => next => async action => {
     case SET_CURRENCY:
     case TOGGLE_PUSH_NOTIFICATIONS:
     case INITIAL_LOAD:
+    case EDIT_EXPENSE:
+    case DELETE_EXPENSE:
       const state = store.getState();
       const ebudgie = state.ebudgie;
 

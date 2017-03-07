@@ -44,6 +44,9 @@ const TitleHeaderComponent = ({
       case 'report_downloader':
         title = 'Report downloader';
         break;
+      case 'edit_expense':
+        title = 'Edit expense';
+        break;
       default:
        title = 'Not found';
     }

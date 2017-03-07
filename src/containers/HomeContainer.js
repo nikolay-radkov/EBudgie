@@ -9,6 +9,7 @@ import { createNewDrawer } from '../boundActionCreators/drawer';
 import { pushRoute } from '../boundActionCreators/navigation';
 import { setExpenseDate } from '../actionCreators/addExpenseForm';
 import { setIncomeDate } from '../actionCreators/addIncomeForm';
+import { populateEditExpenseForm } from '../actionCreators/editExpenseForm';
 import { setCalendarDate, createNewCalendar } from '../actionCreators/calendar';
 import Menu from '../components/Drawer/Menu';
 import Overview from '../components/Overview';
@@ -36,6 +37,7 @@ class HomeContainer extends Component {
     this.addIncome = this.addIncome.bind(this);
     this.onDateSelect = this.onDateSelect.bind(this);
     this.getCalendar = this.getCalendar.bind(this);
+    this.editExpense = this.editExpense.bind(this);
   }
 
   addExpense() {
@@ -49,6 +51,19 @@ class HomeContainer extends Component {
     prepareIncomeDate(selectedDate);
     this.goTo('add_income');
   }
+
+  editExpense(id) {
+    const { prepareEditExpenseForm, expenses} = this.props;
+    const expenseToEdit = _.find(expenses, (e) => e.id === id);
+    prepareEditExpenseForm(expenseToEdit);
+    this.goTo('edit_expense');
+  }
+
+  // editIncome(id) {
+  //   const { prepareEditIncomeForm } = this.props;
+  //   prepareEditIncomeForm(id);
+  //   this.goTo('edit_income');
+  // }
 
   getDrawer(drawer) {
     const { createDrawer } = this.props;
@@ -126,6 +141,7 @@ class HomeContainer extends Component {
         <Overview
           addExpense={this.addExpense}
           addIncome={this.addIncome}
+          editExpense={this.editExpense}
           events={selectedEvents}
           eventsDate={eventsDate}
           getCalendar={this.getCalendar}
@@ -153,6 +169,9 @@ HomeContainer.propTypes = {
   createCalendar: PropTypes.func.isRequired,
   calendar: PropTypes.object,
   selectedEvents: PropTypes.array,
+  prepareEditExpenseForm: PropTypes.func.isRequired,
+  expenses: PropTypes.array,
+  incomes: PropTypes.array,
 };
 
 function calculateCurrentIncome(incomes) {
@@ -208,6 +227,7 @@ function getSelectedEvents(selectedDate, ebudgie) {
 
   const events = _.map(incomes.concat(expenses), event => {
     const mappedEvent = {
+      id: event.id,
       value: event.value,
       date: event.date,
     };
@@ -227,10 +247,12 @@ function getSelectedEvents(selectedDate, ebudgie) {
 }
 
 function mapStateToProps(state) {
-  const { salaries } = state.ebudgie;
+  const { salaries, expenses, incomes } = state.ebudgie;
   const currentSalary = salaries[salaries.length - 1] || {};
 
   return {
+    expenses,
+    incomes,
     currency: state.ebudgie.currency,
     categoriesCount: state.ebudgie.categories.length,
     itemsCount: state.ebudgie.items.length,
@@ -252,6 +274,7 @@ function mapDispatchToProps(dispatch) {
     prepareIncomeDate: setIncomeDate,
     createCalendar: createNewCalendar,
     selectCalendarDate: setCalendarDate,
+    prepareEditExpenseForm: populateEditExpenseForm,
   }, dispatch);
 }
 
