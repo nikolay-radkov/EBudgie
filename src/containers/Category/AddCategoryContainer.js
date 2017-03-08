@@ -6,11 +6,11 @@ import { Button } from 'react-native-elements';
 import dismissKeyboard from 'dismissKeyboard';
 import UUIDGenerator from 'react-native-uuid-generator';
 
-import ColorPickerModal from '../components/Modal/ColorPickerModal';
-import IconPickerModal from '../components/Modal/IconPickerModal';
-import * as actions from '../actionCreators/addCategoryForm';
-import { popRoute } from '../boundActionCreators/navigation';
-import colors from '../themes/Colors';
+import ColorPickerModal from '../../components/Modal/ColorPickerModal';
+import IconPickerModal from '../../components/Modal/IconPickerModal';
+import * as actions from '../../actionCreators/addCategoryForm';
+import { popRoute } from '../../boundActionCreators/navigation';
+import colors from '../../themes/Colors';
 
 import {
   FormLabel,

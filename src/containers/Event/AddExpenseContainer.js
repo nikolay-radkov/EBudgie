@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as actions from '../actionCreators/addExpenseForm';
-import EventForm from '../components/Forms/EventForm';
+import * as actions from '../../actionCreators/addExpenseForm';
+import EventForm from '../../components/Forms/EventForm';
 
 class AddExpenseContainer extends Component {
   render() {

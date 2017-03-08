@@ -14,10 +14,10 @@ import {
 import dismissKeyboard from 'dismissKeyboard';
 import UUIDGenerator from 'react-native-uuid-generator';
 
-import theme from '../themes/ApplicationStyles';
-import colors from '../themes/Colors';
-import * as actions from '../actionCreators/addItemForm';
-import { popRoute } from '../boundActionCreators/navigation';
+import theme from '../../themes/ApplicationStyles';
+import colors from '../../themes/Colors';
+import * as actions from '../../actionCreators/addItemForm';
+import { popRoute } from '../../boundActionCreators/navigation';
 
 class AddItemContainer extends Component {
   constructor() {
