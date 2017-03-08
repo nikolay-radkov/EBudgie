@@ -84,6 +84,20 @@ const RightHeaderComponent = ({
           />
         );
         break;
+      case 'categories':
+        onRightButtonPress = () => push({
+          key: 'add_category'
+        });
+        rightButton = (
+          <HeaderButton
+            iconProps={{
+              name: 'add',
+              color: '#FFFFFF'
+            }}
+            onPress={onRightButtonPress}
+          />
+        );
+        break;
     }
   }
 

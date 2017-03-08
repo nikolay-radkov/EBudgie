@@ -4,6 +4,7 @@ import Login from './containers/LoginContainer';
 import Home from './containers/HomeContainer';
 import AddItem from './containers/Item/AddItemContainer';
 import AddCategory from './containers/Category/AddCategoryContainer';
+import Categories from './containers/Category/CategoriesContainer';
 import NotFound from './containers/NotFoundComponent';
 import EditSalary from './containers/EditSalaryContainer';
 import AddIncome from './containers/Event/AddIncomeContainer';
@@ -43,6 +44,8 @@ export default (key, params) => {
       return (<EditExpense />);
     case 'scene_edit_income':
       return (<EditIncome />);
+    case 'scene_categories':
+      return (<Categories />);
     default:
       return <NotFound />;
   }

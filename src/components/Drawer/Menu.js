@@ -43,10 +43,10 @@ const Menu = ({
     route: 'add_income'
   }, {
     icon: 'library-add',
-    name: 'Add new category',
+    name: 'See categories',
     subtitle: `${categoriesCount} categories now`,
     color: colors.positive,
-    route: 'add_category'
+    route: 'categories'
   }, {
     icon: 'add',
     name: 'Add new item',
