@@ -3,6 +3,7 @@ import {
   Text,
   StyleSheet,
   View,
+  TouchableHighlight,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 
@@ -31,26 +32,31 @@ const CategoryCard = ({
   icon,
   size,
   title,
-  subtitle
+  subtitle,
+  onPress,
 }) => (
-    <View style={styles.category}>
-      <View>
-        <Icon
-          color={color}
-          name={icon}
-          reverse
-          size={size}
-        />
-      </View>
-      <View style={styles.full}>
-        <View style={styles.full}>
-          <Text>{title}</Text>
+    <TouchableHighlight
+      onPress={onPress}
+    >
+      <View style={styles.category}>
+        <View>
+          <Icon
+            color={color}
+            name={icon}
+            reverse
+            size={size}
+          />
         </View>
         <View style={styles.full}>
-          <Text style={styles.subtitle}>{subtitle}</Text>
+          <View style={styles.full}>
+            <Text>{title}</Text>
+          </View>
+          <View style={styles.full}>
+            <Text style={styles.subtitle}>{subtitle}</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableHighlight>
   );
 
 CategoryCard.propTypes = {

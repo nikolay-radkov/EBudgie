@@ -13,6 +13,8 @@ import {
   DELETE_EXPENSE,
   EDIT_INCOME,
   DELETE_INCOME,
+  EDIT_CATEGORY,
+  DELETE_CATEGORY
 } from '../constants/ActionTypes';
 
 import { updateRev } from '../actionCreators/ebudgie';
@@ -34,6 +36,8 @@ const storage = store => next => async action => {
     case DELETE_EXPENSE:
     case EDIT_INCOME:
     case DELETE_INCOME:
+    case EDIT_CATEGORY:
+    case DELETE_CATEGORY:
       const state = store.getState();
       const ebudgie = state.ebudgie;
 
