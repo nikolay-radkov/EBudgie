@@ -28,7 +28,7 @@ class EventForm extends Component {
     this.saveItem = this.saveItem.bind(this);
     this.state = {
       defaultInputValue: props.eventForm.value ? `${props.eventForm.value}` : '',
-    }
+    };
   }
 
   componentWillUnmount() {
