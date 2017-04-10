@@ -1,11 +1,13 @@
 import {
-  SET_CATEGORY_TITLE,
-  SET_CATEGORY_COLOR,
-  SET_CATEGORY_ICON,
-  RESET_ADD_CATEGORY_FORM
+  EDIT_CATEGORY_TITLE,
+  EDIT_CATEGORY_ICON,
+  EDIT_CATEGORY_COLOR,
+  RESET_EDIT_CATEGORY_FORM,
+  POPULATE_EDIT_CATEGORY_FORM,
 } from '../constants/ActionTypes';
 
 const initialState = {
+  id: null,
   color: 'white',
   title: null,
   icon: 'adb',
@@ -13,22 +15,27 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_CATEGORY_TITLE:
+    case POPULATE_EDIT_CATEGORY_FORM:
+      return {
+        ...state,
+        ...action.category,
+      };
+    case EDIT_CATEGORY_TITLE:
       return {
         ...state,
         title: action.title
       };
-    case SET_CATEGORY_COLOR:
-      return {
-        ...state,
-        color: action.color
-      };
-    case SET_CATEGORY_ICON:
+    case EDIT_CATEGORY_ICON:
       return {
         ...state,
         icon: action.icon
       };
-    case RESET_ADD_CATEGORY_FORM:
+    case EDIT_CATEGORY_COLOR:
+      return {
+        ...state,
+        color: action.color
+      };
+    case RESET_EDIT_CATEGORY_FORM:
       return {
         ...initialState
       };

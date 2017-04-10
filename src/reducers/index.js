@@ -13,6 +13,8 @@ import detailedReport from './detailedReport';
 import reportForm from './reportForm';
 import editExpenseForm from './editExpenseForm';
 import editIncomeForm from './editIncomeForm';
+import editCategoryForm from './editCategoryForm';
+import modals from './modals';
 
 const rootReducer = combineReducers({
   navigation,
@@ -29,6 +31,8 @@ const rootReducer = combineReducers({
   reportForm,
   editExpenseForm,
   editIncomeForm,
+  editCategoryForm,
+  modals,
 });
 
 export default rootReducer;
