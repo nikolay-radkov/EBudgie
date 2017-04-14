@@ -14,7 +14,7 @@ import reportForm from './reportForm';
 import editExpenseForm from './editExpenseForm';
 import editIncomeForm from './editIncomeForm';
 import editCategoryForm from './editCategoryForm';
-import editItem from './editItemForm';
+import editItemForm from './editItemForm';
 import modals from './modals';
 
 const rootReducer = combineReducers({
@@ -33,7 +33,7 @@ const rootReducer = combineReducers({
   editExpenseForm,
   editIncomeForm,
   editCategoryForm,
-  editItem,
+  editItemForm,
   modals,
 });
 
