@@ -49,10 +49,10 @@ const Menu = ({
     route: 'categories'
   }, {
     icon: 'add',
-    name: 'Add new item',
+    name: 'See items',
     subtitle: `${itemsCount} items now`,
     color: colors.warm,
-    route: 'add_item'
+    route: 'items'
   }, {
     icon: 'repeat',
     name: 'Change montly salary',

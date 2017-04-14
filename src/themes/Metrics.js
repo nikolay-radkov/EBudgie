@@ -29,7 +29,8 @@ const metrics = {
     medium: 40,
     large: 60,
     logo: 300
-  }
+  },
+  borderWidth: 2,
 };
 
 export default metrics;

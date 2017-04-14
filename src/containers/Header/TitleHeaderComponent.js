@@ -56,6 +56,9 @@ const TitleHeaderComponent = ({
       case 'edit_category':
         title = 'Edit category';
         break;
+      case 'items':
+        title = 'Items';
+        break;
       default:
         title = 'Not found';
     }

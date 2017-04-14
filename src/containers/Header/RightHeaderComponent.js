@@ -122,6 +122,20 @@ const RightHeaderComponent = ({
           );
         }
         break;
+      case 'items':
+        onRightButtonPress = () => push({
+          key: 'add_item'
+        });
+        rightButton = (
+          <HeaderButton
+            iconProps={{
+              name: 'add',
+              color: '#FFFFFF'
+            }}
+            onPress={onRightButtonPress}
+          />
+        );
+        break;
     }
   }
 
