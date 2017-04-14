@@ -4,6 +4,7 @@ import Calendar from 'react-native-calendar';
 import moment from 'moment';
 import { View } from 'react-native';
 import { Button, List, ListItem } from 'react-native-elements';
+
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
 
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 0,
     marginRight: 0,
-  }
+  },
 });
 
 const Overview = ({
@@ -43,6 +44,37 @@ const Overview = ({
     <ScrollView style={[theme.container, styles.scrollView]}>
       <Calendar
         customStyle={{
+          calendarContainer: {
+            backgroundColor: colors.snow,
+            flex: 1
+          },
+          calendarControls: {
+            backgroundColor: colors.main,
+          },
+          title: {
+            color: colors.snow,
+          },
+          controlButtonText: {
+            color: colors.snow,
+          },
+          dayButtonFiller: {
+            backgroundColor: colors.silver,
+          },
+          monthContainer: {
+            marginBottom: 10,
+          },
+          selectedDayCircle: {
+            backgroundColor: colors.main,
+          },
+          dayHeading: {
+            color: colors.snow,
+          },
+          calendarHeading: {
+            backgroundColor: colors.main,
+            borderTopWidth: 1,
+            borderBottomWidth: 1,
+            borderColor: colors.snow,
+          },
           day: {
             fontSize: 15,
             textAlign: 'center'
@@ -70,7 +102,7 @@ const Overview = ({
         titleFormat={'MMMM YYYY'}
         today={today}
         weekStart={1}
-        />
+      />
       <View style={styles.buttons}>
         <Button
           backgroundColor={colors.fire}
@@ -123,8 +155,8 @@ const Overview = ({
                   roundAvatar
                   subtitle={l.item}
                   title={l.category}
-                  titleStyle={{color: colors.snow}}
-                  />
+                  titleStyle={{ color: colors.snow }}
+                />
               ))
             }
           </List>
