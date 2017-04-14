@@ -8,15 +8,17 @@ import {
 import { Icon } from 'react-native-elements';
 
 import colors from '../themes/Colors';
+import metrics from '../themes/Metrics';
 
 const styles = StyleSheet.create({
   category: {
     flexDirection: 'row',
     backgroundColor: colors.silver,
-    borderWidth: 2,
+    borderWidth: metrics.borderWidth,
     borderColor: colors.snow,
     margin: 2,
-    elevation: 1
+    elevation: 1,
+    borderRadius: metrics.buttonRadius,
   },
   full: {
     flex: 1,
