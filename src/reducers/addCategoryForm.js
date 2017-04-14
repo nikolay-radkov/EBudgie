@@ -6,7 +6,7 @@ import {
 } from '../constants/ActionTypes';
 
 const initialState = {
-  color: 'white',
+  color: 'black',
   title: null,
   icon: 'adb',
 };

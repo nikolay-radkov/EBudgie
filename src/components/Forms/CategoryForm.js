@@ -11,6 +11,7 @@ import IconPickerModal from '../../components/Modal/IconPickerModal';
 import * as actions from '../../actionCreators/modals';
 import { popRoute } from '../../boundActionCreators/navigation';
 import colors from '../../themes/Colors';
+import metrics from '../../themes/Metrics';
 
 import {
   FormLabel,
@@ -84,9 +85,8 @@ class CategoryContainer extends Component {
 
   render() {
     const {
-      color,
       icon,
-      iconColor,
+      color,
     } = this.props.categoryForm;
 
     const {
@@ -126,10 +126,11 @@ class CategoryContainer extends Component {
               backgroundColor: color,
               padding: 10,
               width: 50,
-              borderRadius: 50
+              borderRadius: 50,
+              elevation: metrics.elevation,
             }}>
               <Icon
-                color={iconColor}
+                color={colors.snow}
                 name={icon}
                 size={30}
               />
