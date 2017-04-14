@@ -59,6 +59,9 @@ const TitleHeaderComponent = ({
       case 'items':
         title = 'Items';
         break;
+      case 'edit_item':
+        title = 'Edit item';
+        break;
       default:
         title = 'Not found';
     }

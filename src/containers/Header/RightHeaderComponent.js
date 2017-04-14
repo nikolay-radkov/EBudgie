@@ -8,6 +8,7 @@ import { pushRoute, popRoute } from '../../boundActionCreators/navigation';
 import { deleteExpense, resetEditExpenseForm } from '../../actionCreators/editExpenseForm';
 import { deleteIncome, resetEditIncomeForm } from '../../actionCreators/editIncomeForm';
 import { deleteCategory, resetEditCategoryForm } from '../../actionCreators/editCategoryForm';
+import { deleteItem, resetEditItemForm } from '../../actionCreators/editItemForm';
 
 const RightHeaderComponent = ({
   scene,
@@ -23,6 +24,10 @@ const RightHeaderComponent = ({
   resetEditCategory,
   editCategoryFormId,
   showCategoryDeleteButton,
+  removeItem,
+  resetEditItem,
+  editItemFormId,
+  showItemDeleteButton,
 }) => {
   const { route } = scene;
   let rightButton = null;
@@ -136,6 +141,24 @@ const RightHeaderComponent = ({
           />
         );
         break;
+      case 'edit_item':
+        if (showItemDeleteButton) {
+          onRightButtonPress = () => {
+            removeItem(editItemFormId);
+            pop();
+            resetEditItem();
+          };
+          rightButton = (
+            <HeaderButton
+              iconProps={{
+                name: 'delete-forever',
+                color: '#FFFFFF'
+              }}
+              onPress={onRightButtonPress}
+            />
+          );
+        }
+        break;
     }
   }
 
@@ -156,10 +179,19 @@ RightHeaderComponent.propTypes = {
   resetEditCategory: PropTypes.func.isRequired,
   editCategoryFormId: PropTypes.string,
   showCategoryDeleteButton: PropTypes.bool,
+  removeItem: PropTypes.func.isRequired,
+  resetEditItem: PropTypes.func.isRequired,
+  editItemFormId: PropTypes.string,
+  showItemDeleteButton: PropTypes.bool,
 };
 
 function getItemsForGategoryId(items, categoryId) {
   return _.filter(items, (i) => i.categoryId === categoryId);
+}
+
+function getEventsForItemId(incomes, expenses, itemId) {
+  return _.filter(incomes, (i) => i.itemId === itemId)
+    .concat(_.filter(expenses, (e) => e.itemId === itemId));
 }
 
 function mapStateToProps(state) {
@@ -171,11 +203,21 @@ function mapStateToProps(state) {
     showCategoryDeleteButton = items.length === 0;
   }
 
+  const editItemFormId = _.get(state.editItemForm, 'id', '');
+  let showItemDeleteButton = false;
+
+  if (editItemFormId) {
+    const items = getEventsForItemId(state.ebudgie.incomes, state.ebudgie.expenses, editItemFormId);
+    showItemDeleteButton = items.length === 0;
+  }
+
   return {
     editExpenseFormId: _.get(state.editExpenseForm, 'id', ''),
     editIncomeFormId: _.get(state.editIncomeForm, 'id', ''),
     editCategoryFormId,
     showCategoryDeleteButton,
+    editItemFormId,
+    showItemDeleteButton,
   };
 }
 
@@ -189,6 +231,8 @@ function mapDispatchToProps(dispatch) {
     resetEditIncome: resetEditIncomeForm,
     removeCategory: deleteCategory,
     resetEditCategory: resetEditCategoryForm,
+    removeItem: deleteItem,
+    resetEditItem: resetEditItemForm,
   }, dispatch);
 }
 
