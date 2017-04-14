@@ -5,7 +5,6 @@ import {
 } from '../constants/ActionTypes';
 
 const initialState = {
-  offset: null,
   name: null,
   categoryId: null,
 };
