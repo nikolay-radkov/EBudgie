@@ -1,6 +1,6 @@
 import {
   EDIT_ITEM_NAME,
-  EDIT_ITEM_ITEM,
+  EDIT_ITEM_CATEGORY,
   RESET_EDIT_ITEM_FORM,
   POPULATE_EDIT_ITEM_FORM,
 } from '../constants/ActionTypes';
@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
         ...state,
         name: action.name
       };
-    case EDIT_ITEM_ITEM:
+    case EDIT_ITEM_CATEGORY:
       return {
         ...state,
         categoryId: action.categoryId
