@@ -4,6 +4,7 @@ import Login from './containers/LoginContainer';
 import Home from './containers/HomeContainer';
 import AddItem from './containers/Item/AddItemContainer';
 import Items from './containers/Item/ItemsContainer';
+import EditItem from './containers/Item/EditItemContainer';
 import AddCategory from './containers/Category/AddCategoryContainer';
 import Categories from './containers/Category/CategoriesContainer';
 import EditCategory from './containers/Category/EditCategoryContainer';
@@ -52,6 +53,8 @@ export default (key, params) => {
       return (<EditCategory />);
     case 'scene_items':
       return (<Items />);
+    case 'scene_edit_item':
+      return (<EditItem />);
     default:
       return <NotFound />;
   }
