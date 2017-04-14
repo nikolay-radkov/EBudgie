@@ -20,6 +20,8 @@ import {
   DELETE_INCOME,
   EDIT_CATEGORY,
   DELETE_CATEGORY,
+  EDIT_ITEM,
+  DELETE_ITEM,
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -188,6 +190,24 @@ export default (state = initialState, action) => {
       return {
         ...state,
         categories: filteredCategories,
+      };
+    case EDIT_ITEM:
+      const mappedItems = _.map(items, (i) => {
+        if (i.id === action.item.id) {
+          return action.item;
+        }
+
+        return i;
+      });
+      return {
+        ...state,
+        items: mappedItems,
+      };
+    case DELETE_ITEM:
+      const filteredItems = _.filter(items, (i) => i.id !== action.id);
+      return {
+        ...state,
+        items: filteredItems,
       };
     default:
       return state;

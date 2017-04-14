@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   id: null,
-  color: 'white',
+  color: 'black',
   title: null,
   icon: 'adb',
 };
