@@ -1,3 +1,5 @@
+import './config/i18n';
+
 import React from 'react';
 import { View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
