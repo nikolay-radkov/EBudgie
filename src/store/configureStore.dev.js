@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
 import reduxPouchdb from '../middlewares/redux-pouchdb';
+import i18n from '../middlewares/i18n';
 import rootReducer from '../reducers';
 
 export default function configureStore(initialState) {
@@ -15,7 +16,8 @@ export default function configureStore(initialState) {
   const middlewares = [
     thunk,
     logger,
-    reduxPouchdb
+    reduxPouchdb,
+    i18n,
   ];
 
   const store = createStore(

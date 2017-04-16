@@ -6,13 +6,15 @@ import {
 import thunk from 'redux-thunk';
 
 import reduxPouchdb from '../middlewares/redux-pouchdb';
+import i18n from '../middlewares/i18n';
 import rootReducer from '../reducers';
 
 export default function configureStore(initialState) {
 
   const middlewares = [
     thunk,
-    reduxPouchdb
+    reduxPouchdb,
+    i18n,
   ];
 
   const store = createStore(rootReducer, initialState, compose(

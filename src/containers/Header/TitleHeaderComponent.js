@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { NavigationExperimental } from 'react-native';
+import i18n from 'react-native-i18n';
 
 const {
   Header: NavigationHeader,
@@ -15,7 +16,7 @@ const TitleHeaderComponent = ({
   if (route.key !== 'login') {
     switch (route.key) {
       case 'home':
-        title = 'Home';
+        title = i18n.t('HOME');
         break;
       case 'add_item':
         title = 'Add item';
