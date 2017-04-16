@@ -40,6 +40,10 @@
 		0A37C89FC0394E289AC9DC31 /* libRNUUIDGenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5C303DF6A54EC49975727E /* libRNUUIDGenerator.a */; };
 		A443E54EC7EB4CA4886D5B1D /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7A319CF2F248D89F09BF78 /* libRNFS.a */; };
 		064A5FED2A7B478789728AEE /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46335B51DE8E480397D92679 /* libRNShare.a */; };
+		2687318EE0784B72BF5ABAF6 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E8217B2F47F4FB8B15D87F1 /* libReact.a */; };
+		A99EF2DAE4B142EDACD4CF12 /* libyoga.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4826ACA468A84042BE5167C0 /* libyoga.a */; };
+		8561E54783954CADB2382D61 /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1F458802C2B4F398E6655DB /* libcxxreact.a */; };
+		65DE5C308BB24F9F8FB21768 /* libjschelpers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 142F839D8DCA415489BAE22D /* libjschelpers.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -286,6 +290,11 @@
 		EC7A319CF2F248D89F09BF78 /* libRNFS.a */ = {isa = PBXFileReference; name = "libRNFS.a"; path = "libRNFS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		47EEA89C663E487CA2A0B0F6 /* RNShare.xcodeproj */ = {isa = PBXFileReference; name = "RNShare.xcodeproj"; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		46335B51DE8E480397D92679 /* libRNShare.a */ = {isa = PBXFileReference; name = "libRNShare.a"; path = "libRNShare.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		39CFFF62596D4AF580CC58B5 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; name = "RNI18n.xcodeproj"; path = "../node_modules/react-native-i18n/RNI18n.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		7E8217B2F47F4FB8B15D87F1 /* libReact.a */ = {isa = PBXFileReference; name = "libReact.a"; path = "libReact.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		4826ACA468A84042BE5167C0 /* libyoga.a */ = {isa = PBXFileReference; name = "libyoga.a"; path = "libyoga.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		E1F458802C2B4F398E6655DB /* libcxxreact.a */ = {isa = PBXFileReference; name = "libcxxreact.a"; path = "libcxxreact.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		142F839D8DCA415489BAE22D /* libjschelpers.a */ = {isa = PBXFileReference; name = "libjschelpers.a"; path = "libjschelpers.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +328,10 @@
 				0A37C89FC0394E289AC9DC31 /* libRNUUIDGenerator.a in Frameworks */,
 				A443E54EC7EB4CA4886D5B1D /* libRNFS.a in Frameworks */,
 				064A5FED2A7B478789728AEE /* libRNShare.a in Frameworks */,
+				2687318EE0784B72BF5ABAF6 /* libReact.a in Frameworks */,
+				A99EF2DAE4B142EDACD4CF12 /* libyoga.a in Frameworks */,
+				8561E54783954CADB2382D61 /* libcxxreact.a in Frameworks */,
+				65DE5C308BB24F9F8FB21768 /* libjschelpers.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +483,7 @@
 				D5661C6741354E97B48E9162 /* RNUUIDGenerator.xcodeproj */,
 				4DF51B505E6749A0816F7366 /* RNFS.xcodeproj */,
 				47EEA89C663E487CA2A0B0F6 /* RNShare.xcodeproj */,
+				39CFFF62596D4AF580CC58B5 /* RNI18n.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -959,6 +973,10 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EBudgie.app/EBudgie";
@@ -975,6 +993,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);

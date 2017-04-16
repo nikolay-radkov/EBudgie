@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.github.reactNativeMPAndroidChart.MPAndroidChartPackage;
 import cl.json.RNSharePackage;
 import com.rnfs.RNFSPackage;
@@ -38,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
 
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeI18n(),
             new MPAndroidChartPackage(),
             new RNSharePackage(),
             new RNFSPackage(),

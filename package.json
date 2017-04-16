@@ -24,6 +24,7 @@
     "react-native-elements": "^0.9.1",
     "react-native-facebook-account-kit": "^0.5.2",
     "react-native-fs": "^2.1.0-rc.1",
+    "react-native-i18n": "^1.0.0",
     "react-native-modal-picker": "git+https://github.com/nikolay-radkov/react-native-modal-picker.git",
     "react-native-mp-android-chart": "^0.2.0",
     "react-native-push-notification": "^2.2.1",
