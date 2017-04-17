@@ -4,7 +4,6 @@ import {
   View
 } from 'react-native';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import ReportPieChart from '../../components/Charts/ReportPieChart';
 import { getReportForRange } from '../../services/events';

@@ -106,7 +106,7 @@ const ItemCard = ({
       </View>
     </View>
   );
-}
+};
 
 ItemCard.propTypes = {
   onPress: React.PropTypes.func,

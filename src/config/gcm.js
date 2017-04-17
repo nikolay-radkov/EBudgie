@@ -12,7 +12,7 @@ PushNotification.configure({
         // alert('NOTIFICATION:' + JSON.stringify(notification));
     },
 
-    onError: function(err) {
+    onError: function(err) { // eslint-disable-line
     //   alert('Error: ' + JSON.stringify(err));
     },
     // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications)

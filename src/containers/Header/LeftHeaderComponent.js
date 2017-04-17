@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import HeaderButton from '../../components/Header/HeaderButton';
 import { pushRoute, popRoute } from '../../boundActionCreators/navigation';
+import colors from '../../themes/Colors';
 
 const toggleDrawer = (drawer) => {
   if (drawer) {
@@ -29,10 +30,10 @@ const LeftHeaderComponent = ({
           <HeaderButton
             iconProps={{
               name: 'menu',
-              color: '#FFFFFF'
+              color: colors.snow
             }}
             onPress={onLeftButtonPress}
-            />
+          />
         );
         break;
       case 'add_item':
@@ -41,10 +42,10 @@ const LeftHeaderComponent = ({
           <HeaderButton
             iconProps={{
               name: 'arrow-back',
-              color: '#FFFFFF'
+              color: colors.snow
             }}
             onPress={onLeftButtonPress}
-            />
+          />
         );
         break;
       default:
@@ -53,10 +54,10 @@ const LeftHeaderComponent = ({
           <HeaderButton
             iconProps={{
               name: 'arrow-back',
-              color: '#FFFFFF'
+              color: colors.snow
             }}
             onPress={onLeftButtonPress}
-            />
+          />
         );
     }
   }

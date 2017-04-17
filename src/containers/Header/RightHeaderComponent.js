@@ -9,6 +9,7 @@ import { deleteExpense, resetEditExpenseForm } from '../../actionCreators/editEx
 import { deleteIncome, resetEditIncomeForm } from '../../actionCreators/editIncomeForm';
 import { deleteCategory, resetEditCategoryForm } from '../../actionCreators/editCategoryForm';
 import { deleteItem, resetEditItemForm } from '../../actionCreators/editItemForm';
+import colors from '../../themes/Colors';
 
 const RightHeaderComponent = ({
   scene,
@@ -43,7 +44,7 @@ const RightHeaderComponent = ({
           <HeaderButton
             iconProps={{
               name: 'settings',
-              color: '#FFFFFF'
+              color: colors.snow
             }}
             onPress={onRightButtonPress}
           />
@@ -57,7 +58,7 @@ const RightHeaderComponent = ({
           <HeaderButton
             iconProps={{
               name: 'file-download',
-              color: '#FFFFFF'
+              color: colors.snow
             }}
             onPress={onRightButtonPress}
           />
@@ -73,7 +74,7 @@ const RightHeaderComponent = ({
           <HeaderButton
             iconProps={{
               name: 'delete-forever',
-              color: '#FFFFFF'
+              color: colors.snow
             }}
             onPress={onRightButtonPress}
           />
@@ -89,7 +90,7 @@ const RightHeaderComponent = ({
           <HeaderButton
             iconProps={{
               name: 'delete-forever',
-              color: '#FFFFFF'
+              color: colors.snow
             }}
             onPress={onRightButtonPress}
           />
@@ -103,7 +104,7 @@ const RightHeaderComponent = ({
           <HeaderButton
             iconProps={{
               name: 'add',
-              color: '#FFFFFF'
+              color: colors.snow
             }}
             onPress={onRightButtonPress}
           />
@@ -120,7 +121,7 @@ const RightHeaderComponent = ({
             <HeaderButton
               iconProps={{
                 name: 'delete-forever',
-                color: '#FFFFFF'
+                color: colors.snow
               }}
               onPress={onRightButtonPress}
             />
@@ -135,7 +136,7 @@ const RightHeaderComponent = ({
           <HeaderButton
             iconProps={{
               name: 'add',
-              color: '#FFFFFF'
+              color: colors.snow
             }}
             onPress={onRightButtonPress}
           />
@@ -152,7 +153,7 @@ const RightHeaderComponent = ({
             <HeaderButton
               iconProps={{
                 name: 'delete-forever',
-                color: '#FFFFFF'
+                color: colors.snow
               }}
               onPress={onRightButtonPress}
             />
