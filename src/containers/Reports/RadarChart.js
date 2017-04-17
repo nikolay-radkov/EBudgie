@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import i18n from 'react-native-i18n';
 
 import { RadarChart } from 'react-native-mp-android-chart';
 
@@ -33,7 +34,7 @@ class RadarChartScreen extends React.Component {
       data: {
         datasets: [{
           yValues: incomes,
-          label: 'Incomes',
+          label: i18n.t('INCOMES'),
           config: {
             color: '#8CEAFF',
             drawFilled: true,
@@ -41,7 +42,7 @@ class RadarChartScreen extends React.Component {
           }
         }, {
           yValues: expenses,
-          label: 'Expenses',
+          label: i18n.t('EXPENSES'),
           config: {
             color: 'red',
             drawFilled: true,

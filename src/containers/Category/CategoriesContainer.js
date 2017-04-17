@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
+import i18n from 'react-native-i18n';
 
 import colors from '../../themes/Colors';
 import CategoryCard from '../../components/CategoryCard';
@@ -41,7 +42,9 @@ class CategoriesContainer extends Component {
           key={i}
           onPress={() => this.editCategory(c.id)}
           size={16}
-          subtitle={`${c.itemsCount} items`}
+          subtitle={i18n.t('CATEGORY_CARD_COUNT', {
+            count: c.itemsCount
+          })}
           title={c.title}
         />
       );
@@ -55,7 +58,9 @@ class CategoriesContainer extends Component {
           key={i}
           onPress={() => this.editCategory(c.id)}
           size={16}
-          subtitle={`${c.itemsCount} items`}
+          subtitle={i18n.t('CATEGORY_CARD_COUNT', {
+            count: c.itemsCount
+          })}
           title={c.title}
         />
       );

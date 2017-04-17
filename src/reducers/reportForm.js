@@ -1,7 +1,6 @@
 import moment from 'moment';
 
 import {
-  SET_REPORT_FORM_DECIMAL_SEPARATOR,
   SET_REPORT_FORM_DELIMITER_CHARACTER,
   SET_REPORT_FORM_FROM_DATE,
   SET_REPORT_FORM_TO_DATE,
@@ -10,7 +9,6 @@ import {
 } from '../constants/ActionTypes';
 
 const initialState = {
-  decimalSeparator: '.',
   delimiterCharacter: ';',
   isRangeEvents: false,
   fromDate: moment().subtract(1, 'years').format('YYYY-MM-DD'),
@@ -19,11 +17,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_REPORT_FORM_DECIMAL_SEPARATOR:
-      return {
-        ...state,
-        decimalSeparator: action.decimalSeparator
-      };
     case SET_REPORT_FORM_DELIMITER_CHARACTER:
       return {
         ...state,

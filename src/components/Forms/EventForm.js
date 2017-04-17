@@ -16,6 +16,7 @@ import dismissKeyboard from 'dismissKeyboard';
 import UUIDGenerator from 'react-native-uuid-generator';
 import moment from 'moment';
 import DatePicker from 'react-native-datepicker';
+import i18n from 'react-native-i18n';
 
 import theme from '../../themes/ApplicationStyles';
 import colors from '../../themes/Colors';
@@ -94,29 +95,29 @@ class EventForm extends Component {
     return (
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <View style={[theme.container,]}>
-          <FormLabel>Value</FormLabel>
+          <FormLabel>{i18n.t('VALUE')}</FormLabel>
           <FormInput
             defaultValue={this.state.defaultInputValue}
             keyboardType="numeric"
             onChangeText={setEventValue}
             onSubmitEditing={() => dismissKeyboard()} />
-          <FormLabel>Category</FormLabel>
+          <FormLabel>{i18n.t('CATEGORY')}</FormLabel>
           <Picker
             onValueChange={setEventCategory}
             selectedValue={eventForm.categoryId}>
             {categoryOptions}
           </Picker>
-          <FormLabel>Item</FormLabel>
+          <FormLabel>{i18n.t('ITEM')}</FormLabel>
           <Picker
             onValueChange={setEventItem}
             selectedValue={eventForm.itemId}>
             {itemOptions}
           </Picker>
-          <FormLabel>Date</FormLabel>
+          <FormLabel>{i18n.t('DATE')}</FormLabel>
           <DatePicker
             // style={{ width: 200 }}
-            cancelBtnText="Cancel"
-            confirmBtnText="Confirm"
+            cancelBtnText={i18n.t('CANCEL')}
+            confirmBtnText={i18n.t('CONFIRM')}
             customStyles={{
               dateIcon: {
                 position: 'absolute',
@@ -132,7 +133,7 @@ class EventForm extends Component {
             format="YYYY-MM-DD"
             mode="date"
             onDateChange={setEventDate}
-            placeholder="select date"
+            placeholder={i18n.t('SELECT_DATE')}
           />
           <View style={{
             flexDirection: 'row-reverse'
@@ -181,9 +182,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     categories,
-    items,
-    buttonIcon: ownProps.buttonIcon || 'save',
-    buttonText: ownProps.buttonText || 'Save',
+    items
   };
 }
 

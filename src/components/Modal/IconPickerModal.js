@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ScrollView, Animated, StyleSheet, Dimensions, TouchableHighlight, View, Text } from 'react-native';
 import dismissKeyboard from 'dismissKeyboard';
+import i18n from 'react-native-i18n';
 
 import materialIconCategories from '../../constants/MaterialIconCategories';
 import IconCategory from './IconCategory';
@@ -78,7 +79,7 @@ class IconPickerModal extends Component {
             onPress={this.closeModal}
             style={styles.closeButton}
             underlayColor="transparent">
-            <Text style={styles.closeButtonText}>Choose</Text>
+            <Text style={styles.closeButtonText}>{i18n.t('CHOOSE')}</Text>
           </TouchableHighlight>
         </View>
 

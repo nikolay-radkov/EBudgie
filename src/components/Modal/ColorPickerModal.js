@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Animated, StyleSheet, Dimensions, TouchableHighlight, View, Text } from 'react-native';
 import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
 import dismissKeyboard from 'dismissKeyboard';
+import i18n from 'react-native-i18n';
 
 class ColorPickerModal extends Component {
   constructor() {
@@ -52,7 +53,7 @@ class ColorPickerModal extends Component {
             onPress={this.closeModal}
             style={styles.closeButton}
             underlayColor="transparent">
-            <Text style={styles.closeButtonText}>Choose</Text>
+            <Text style={styles.closeButtonText}>{i18n.t('CHOOSE')}</Text>
           </TouchableHighlight>
         </View>
         <TriangleColorPicker

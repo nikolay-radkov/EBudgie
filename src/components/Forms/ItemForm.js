@@ -13,6 +13,7 @@ import {
 } from 'react-native-elements';
 import dismissKeyboard from 'dismissKeyboard';
 import UUIDGenerator from 'react-native-uuid-generator';
+import i18n from 'react-native-i18n';
 
 import theme from '../../themes/ApplicationStyles';
 import colors from '../../themes/Colors';
@@ -79,12 +80,12 @@ class ItemForm extends Component {
     return (
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <View style={[theme.container,]}>
-          <FormLabel>Name</FormLabel>
+          <FormLabel>{i18n.t('NAME')}</FormLabel>
           <FormInput
             defaultValue={this.state.defaultInputValue}
             onChangeText={setItemName}
             onSubmitEditing={() => dismissKeyboard()} />
-          <FormLabel>Category</FormLabel>
+          <FormLabel>{i18n.t('CATEGORY')}</FormLabel>
           <Picker
             onValueChange={setItemCategory}
             selectedValue={itemForm.categoryId}>

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import i18n from 'react-native-i18n';
 
 import * as actions from '../../actionCreators/addCategoryForm';
 import CategoryForm from '../../components/Forms/CategoryForm';
@@ -19,7 +20,7 @@ class AddCategoryContainer extends Component {
     return (
       <CategoryForm
         buttonIcon="save"
-        buttonText="Save"
+        buttonText={i18n.t('SAVE')}
         categoryForm={addCategoryForm}
         newCategory={addNewCategory}
         resetCategoryForm={resetAddCategoryForm}

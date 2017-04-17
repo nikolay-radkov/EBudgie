@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { NavigationExperimental } from 'react-native';
 import i18n from 'react-native-i18n';
 
+import colors from '../../themes/Colors';
+
 const {
   Header: NavigationHeader,
 } = NavigationExperimental;
@@ -19,58 +21,58 @@ const TitleHeaderComponent = ({
         title = i18n.t('HOME');
         break;
       case 'add_item':
-        title = 'Add item';
+        title = i18n.t('ADD_ITEM');
         break;
       case 'add_category':
-        title = 'Add category';
+        title = i18n.t('ADD_CATEGORY');
         break;
       case 'edit_salary':
-        title = 'Monthly salary';
+        title = i18n.t('MONTHLY_SALARY');
         break;
       case 'add_income':
-        title = 'Add income';
+        title = i18n.t('ADD_INCOME');
         break;
       case 'add_expense':
-        title = 'Add expense';
+        title = i18n.t('ADD_EXPENSE');
         break;
       case 'reports':
-        title = 'Reports';
+        title = i18n.t('REPORTS');
         break;
       case 'settings':
-        title = 'Settings';
+        title = i18n.t('SETTINGS');
         break;
       case 'detailed_report':
-        title = 'Detailed Reports';
+        title = i18n.t('DETAILED_REPORTS');
         break;
       case 'report_downloader':
-        title = 'Report downloader';
+        title = i18n.t('REPORT_DOWNLOADER');
         break;
       case 'edit_expense':
-        title = 'Edit expense';
+        title = i18n.t('EDIT_EXPENSE');
         break;
       case 'edit_income':
-        title = 'Edit income';
+        title = i18n.t('EDIT_INCOME');
         break;
       case 'categories':
-        title = 'Categories';
+        title = i18n.t('CATEGORIES');
         break;
       case 'edit_category':
-        title = 'Edit category';
+        title = i18n.t('EDIT_CATEGORY');
         break;
       case 'items':
-        title = 'Items';
+        title = i18n.t('ITEMS');
         break;
       case 'edit_item':
-        title = 'Edit item';
+        title = i18n.t('EDIT_ITEM');
         break;
       default:
-        title = 'Not found';
+        title = i18n.t('NOT_FOUND');
     }
   }
 
   return (
     <NavigationHeader.Title textStyle={{
-      color: '#FFFFFF',
+      color: colors.snow,
     }}>
       {title}
     </NavigationHeader.Title>

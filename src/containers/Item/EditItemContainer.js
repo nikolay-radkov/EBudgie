@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import i18n from 'react-native-i18n';
 
 import * as actions from '../../actionCreators/editItemForm';
 import ItemForm from '../../components/Forms/ItemForm';
@@ -18,7 +19,7 @@ class EditItemContainer extends Component {
     return (
       <ItemForm
         buttonIcon="edit"
-        buttonText="Edit"
+        buttonText={i18n.t('EDIT')}
         itemForm={editItemForm}
         newItem={editItem}
         resetItemForm={resetEditItemForm}

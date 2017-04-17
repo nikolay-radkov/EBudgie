@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import moment from 'moment';
+import i18n from 'react-native-i18n';
 
 import ReportPieChart from '../components/Charts/ReportPieChart';
 import { pushRoute } from '../boundActionCreators/navigation';
@@ -53,8 +54,8 @@ class ReportsContainer extends Component {
 
   goToDetailedReports(date) {
     const { push, setRange } = this.props;
-    const from  = moment(date).startOf('month');
-    const to  = moment(date).endOf('month');
+    const from = moment(date).startOf('month');
+    const to = moment(date).endOf('month');
 
     setRange(from, to);
 
@@ -96,12 +97,12 @@ class ReportsContainer extends Component {
           onPress={() => this.goToDetailedReports(report.date)}
           subtitle={
             <View>
-              <Text>Expenses: {report.expenseSum}{currency}</Text>
-              <Text>Incomes: {report.incomeSum}{currency}</Text>
+              <Text>{i18n.t('EXPENSES')}: {report.expenseSum}{currency}</Text>
+              <Text>{i18n.t('INCOMES')}: {report.incomeSum}{currency}</Text>
             </View>
           }
           title={`${report.date.format('YYYY MMMM')} (${report.result}${currency})`}
-          />
+        />
       );
     });
 
@@ -112,14 +113,14 @@ class ReportsContainer extends Component {
           currentReport={currentReport}
           style={styles.pie} />
         <View style={styles.headerContainer}>
-          <Text style={styles.header}>Past Reports</Text>
+          <Text style={styles.header}>{i18n.t('PAST_REPORTS')}</Text>
         </View>
         {
           listItems.length !== 0 ?
             <List containerStyle={styles.list}>
               {listItems}
             </List>
-            : <Text style={styles.noReports}> No past reports</Text>
+            : <Text style={styles.noReports}>{i18n.t('NO_PAST_REPORTS')}</Text>
         }
       </ScrollView>
     );

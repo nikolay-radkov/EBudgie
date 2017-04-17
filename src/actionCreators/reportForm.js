@@ -1,5 +1,4 @@
 import {
-  SET_REPORT_FORM_DECIMAL_SEPARATOR,
   SET_REPORT_FORM_DELIMITER_CHARACTER,
   SET_REPORT_FORM_FROM_DATE,
   SET_REPORT_FORM_TO_DATE,
@@ -8,12 +7,6 @@ import {
   NEW_REPORT_FORM,
 } from '../constants/ActionTypes';
 
-export const setReportFormDecimalSeparator = (decimalSeparator) => {
-  return {
-    type: SET_REPORT_FORM_DECIMAL_SEPARATOR,
-    decimalSeparator
-  };
-};
 
 export const setReportFormDelimiterCharacter = (delimiterCharacter) => {
   return {

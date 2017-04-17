@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import i18n from 'react-native-i18n';
 
 import * as actions from '../../actionCreators/addIncomeForm';
 import EventForm from '../../components/Forms/EventForm';
@@ -19,6 +20,8 @@ class AddIncomeContainer extends Component {
 
     return (
       <EventForm
+        buttonIcon="save"
+        buttonText={i18n.t('SAVE')}
         eventForm={addIncomeForm}
         newEvent={addNewIncome}
         resetEventForm={resetAddIncomeForm}
@@ -26,7 +29,7 @@ class AddIncomeContainer extends Component {
         setEventDate={setIncomeDate}
         setEventItem={setIncomeItem}
         setEventValue={setIncomeValue}
-        />
+      />
     );
   }
 }

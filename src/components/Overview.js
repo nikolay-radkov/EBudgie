@@ -4,6 +4,7 @@ import Calendar from 'react-native-calendar';
 import moment from 'moment';
 import { View } from 'react-native';
 import { Button, List, ListItem } from 'react-native-elements';
+import i18n from 'react-native-i18n';
 
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
@@ -86,13 +87,13 @@ const Overview = ({
           },
         }}
         eventDates={eventsDate}
-        nextButtonText={'Next'}
+        nextButtonText={i18n.t('NEXT')}
         onDateSelect={onDateSelect}
         onSwipeNext={onSwipeNext}
         onSwipePrev={onSwipePrev}
         onTouchNext={onTouchNext}
         onTouchPrev={onTouchPrev}
-        prevButtonText={'Prev'}
+        prevButtonText={i18n.t('PREV')}
         ref={getCalendar}
         scrollEnabled
         selectedDate={selectedDate}
@@ -110,7 +111,7 @@ const Overview = ({
           icon={{ name: 'money-off' }}
           onPress={addExpense}
           raised
-          title="Add Expense" />
+          title={i18n.t('ADD_EXPENSE')} />
         <Button
           backgroundColor={colors.warm}
           buttonStyle={styles.button}
@@ -118,7 +119,7 @@ const Overview = ({
           iconRight
           onPress={addIncome}
           raised
-          title="Add Income" />
+          title={i18n.t('ADD_INCOME')} />
       </View>
       {selectedDate && !!events.length &&
         <View>

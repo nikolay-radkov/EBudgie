@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { StyleSheet } from 'react-native';
 import { PieChart } from 'react-native-mp-android-chart';
+import i18n from 'react-native-i18n';
 
 import colors from '../../themes/Colors';
 
@@ -27,18 +28,20 @@ const ReportPieChart = ({
   const data = {
     datasets: [{
       yValues: [currentReport.result, Math.abs(currentReport.expenseSum), currentReport.incomeSum],
-      label: 'Budget',
+      label: i18n.t('BUDGET'),
       config: {
         colors: [colors.success, colors.error, colors.warm],
         sliceSpace: 2,
         selectionShift: 20,
       }
     }],
-    xValues: ['Budget left', 'Expenses', 'Incomes'],
+    xValues: [i18n.t('BUDGET_LEFT'), i18n.t('EXPENSES'), i18n.t('INCOMES')],
   };
 
   const description = {
-    text: `Monthly budget for ${currentReport.date.format('MMMM YYYY')}`,
+    text: i18n.t('PIE_CHART_DESCRIPTION', {
+      month: currentReport.date.format('MMMM YYYY')
+    }),
     textSize: 12,
     textColor: 'darkgray',
     fontFamily: 'monospace',
@@ -67,13 +70,14 @@ const ReportPieChart = ({
       transparentCircleAlpha={20}
       transparentCircleColor={colors.dark}
       transparentCircleRadius={45}
-      />
+    />
   );
 };
 
 ReportPieChart.propTypes = {
   currentReport: PropTypes.object.isRequired,
   currency: PropTypes.string.isRequired,
+  style: PropTypes.any,
 };
 
 export default ReportPieChart;

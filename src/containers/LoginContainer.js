@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RNAccountKit from 'react-native-facebook-account-kit';
 import { Button } from 'react-native-elements';
+import i18n from 'react-native-i18n';
 
 import { replaceRoute } from '../boundActionCreators/navigation';
 import { createNewPouchDB } from '../boundActionCreators/pouchdb';
@@ -114,12 +115,12 @@ class LoginContainer extends Component {
             {...buttonProps}
             icon={{ name: 'email' }}
             onPress={this.loginWithEmail}
-            title="Login with Email" />
+            title={i18n.t('LOGIN_WITH_EMAIL')} />
           <Button
             {...buttonProps}
             icon={{ name: 'phone' }}
             onPress={this.loginWithPhone}
-            title="Login with Phone" />
+            title={i18n.t('LOGIN_WITH_PHONE')} />
         </View>
       </View>
     );

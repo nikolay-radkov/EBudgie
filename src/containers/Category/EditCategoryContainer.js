@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import i18n from 'react-native-i18n';
 
 import * as actions from '../../actionCreators/editCategoryForm';
 import CategoryForm from '../../components/Forms/CategoryForm';
@@ -19,7 +20,7 @@ class EditCategoryContainer extends Component {
     return (
       <CategoryForm
         buttonIcon="edit"
-        buttonText="Edit"
+        buttonText={i18n.t('EDIT')}
         categoryForm={editCategoryForm}
         newCategory={editCategory}
         resetCategoryForm={resetEditCategoryForm}

@@ -13,6 +13,7 @@ import SettingsList from 'react-native-settings-list';
 import { Icon } from 'react-native-elements';
 import _ from 'lodash';
 import moment from 'moment';
+import i18n from 'react-native-i18n';
 
 import * as actions from '../actionCreators/reportForm';
 import { popRoute } from '../boundActionCreators/navigation';
@@ -54,16 +55,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const decimalSeparators = [
-  { key: '0', section: true, label: 'Choose decimal separator' },
-  { key: '.', label: 'Decimal point \'.\'' },
-  { key: ',', label: 'Decimal comma \',\'' },
-];
-
 const delimiterCharacters = [
-  { key: '0', section: true, label: 'Choose delimiter character' },
-  { key: ',', label: 'Comma \',\'' },
-  { key: ';', label: 'Semicolon \';\'' },
+  { key: '0', section: true, label:  i18n.t('CHOOSE_DELIMITER_CHARACTER') },
+  { key: ',', label: i18n.t('COMMA') },
+  { key: ';', label: i18n.t('SEMICOLON') },
 ];
 
 class ReportDownloaderComponent extends Component {
@@ -89,7 +84,6 @@ class ReportDownloaderComponent extends Component {
 
     const {
       reportForm,
-      setReportFormDecimalSeparator,
       setReportFormDelimiterCharacter,
       toggleReportFormIsRangeEvents,
       setReportFormFromDate,
@@ -100,19 +94,14 @@ class ReportDownloaderComponent extends Component {
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <View style={[theme.container,]}>
           <ModalPicker
-            data={decimalSeparators}
-            onChange={(option) => setReportFormDecimalSeparator(option.key)}
-            ref={ref => { this.decimalModal = ref; }}
-            style={styles.hiddenModal} />
-          <ModalPicker
             data={delimiterCharacters}
             onChange={(option) => setReportFormDelimiterCharacter(option.key)}
             ref={ref => { this.delimiterModal = ref; }}
             style={styles.hiddenModal} />
 
           <DatePicker
-            cancelBtnText="Cancel"
-            confirmBtnText="Confirm"
+            cancelBtnText={i18n.t('CANCEL')}
+            confirmBtnText={i18n.t('CONFIRM')}
             customStyles={{
               dateIcon: {
                 position: 'absolute',
@@ -128,14 +117,14 @@ class ReportDownloaderComponent extends Component {
             format="YYYY-MM-DD"
             mode="date"
             onDateChange={setReportFormFromDate}
-            placeholder="select date"
+            placeholder={i18n.t('SELECT_DATE')}
             ref={ref => { this.fromDateModal = ref; }}
             style={styles.hiddenModal}
           />
 
           <DatePicker
-            cancelBtnText="Cancel"
-            confirmBtnText="Confirm"
+            cancelBtnText={i18n.t('CANCEL')}
+            confirmBtnText={i18n.t('CONFIRM')}
             customStyles={{
               dateIcon: {
                 position: 'absolute',
@@ -151,7 +140,7 @@ class ReportDownloaderComponent extends Component {
             format="YYYY-MM-DD"
             mode="date"
             onDateChange={setReportFormToDate}
-            placeholder="select date"
+            placeholder={i18n.t('SELECT_DATE')}
             ref={ref => { this.toDateModal = ref; }}
             style={styles.hiddenModal}
           />
@@ -161,22 +150,7 @@ class ReportDownloaderComponent extends Component {
             defaultItemSize={50}>
             <SettingsList.Item
               {...headerProps}
-              title="File Settings"
-            />
-            <SettingsList.Item
-              hasNavArrow={false}
-              icon={
-                <View style={styles.imageStyle}>
-                  <Icon
-                    color={colors.main}
-                    name="more-horiz"
-                    size={iconSize} />
-                </View>
-              }
-              onPress={() => this.decimalModal.open()}
-              title="Decimal separator"
-              titleInfo={reportForm.decimalSeparator}
-              titleStyle={styles.title}
+              title={i18n.t('FILE_SETTINGS')}
             />
             <SettingsList.Item
               hasNavArrow={false}
@@ -189,7 +163,7 @@ class ReportDownloaderComponent extends Component {
                 </View>
               }
               onPress={() => this.delimiterModal.open()}
-              title="Delimiter character"
+              title={i18n.t('DELIMITER_CHARACTER')}
               titleInfo={reportForm.delimiterCharacter}
               titleStyle={styles.title}
             />
@@ -197,7 +171,7 @@ class ReportDownloaderComponent extends Component {
             <SettingsList.Header headerStyle={styles.devider} />
             <SettingsList.Item
               {...headerProps}
-              title="Events"
+              title={i18n.t('EVENTS')}
             />
             <SettingsList.Item
               hasNavArrow={false}
@@ -212,7 +186,7 @@ class ReportDownloaderComponent extends Component {
               }
               switchOnValueChange={toggleReportFormIsRangeEvents}
               switchState={reportForm.isRangeEvents}
-              title="Report for time period"
+              title={i18n.t('REPORT_FOR_TIME_PERIOD')}
               titleStyle={styles.title}
             />
             {
@@ -228,7 +202,7 @@ class ReportDownloaderComponent extends Component {
                   </View>
                 }
                 onPress={() => this.fromDateModal.onPressDate()}
-                title="From Date"
+                title={i18n.t('FROM_DATE')}
                 titleInfo={reportForm.fromDate}
                 titleStyle={styles.title}
               />
@@ -246,7 +220,7 @@ class ReportDownloaderComponent extends Component {
                   </View>
                 }
                 onPress={() => this.toDateModal.onPressDate()}
-                title="To date"
+                title={i18n.t('TO_DATE')}
                 titleInfo={reportForm.toDate}
                 titleStyle={styles.title}
               />
@@ -263,7 +237,7 @@ class ReportDownloaderComponent extends Component {
                 </View>
               }
               onPress={this.saveReport}
-              title="Download CSV"
+              title={i18n.t('DOWNLOAD_CSV')}
               titleStyle={styles.title}
             />
           </SettingsList>
@@ -275,7 +249,6 @@ class ReportDownloaderComponent extends Component {
 
 ReportDownloaderComponent.propTypes = {
   reportForm: PropTypes.object.isRequired,
-  setReportFormDecimalSeparator: PropTypes.func.isRequired,
   setReportFormDelimiterCharacter: PropTypes.func.isRequired,
   toggleReportFormIsRangeEvents: PropTypes.func.isRequired,
   setReportFormFromDate: PropTypes.func.isRequired,

@@ -7,6 +7,7 @@ import {
   List,
   ListItem
 } from 'react-native-elements';
+import i18n from 'react-native-i18n';
 
 import theme from '../../themes/ApplicationStyles';
 import colors from '../../themes/Colors';
@@ -31,37 +32,50 @@ const Menu = ({
 }) => {
   const list = [{
     icon: 'money-off',
-    name: 'Add new expense',
-    subtitle: `Current: ${currentExpense}${currency}`,
+    name: i18n.t('ADD_NEW_EXPENSE'),
+    subtitle: i18n.t('DRAWER_EXPENSES_DESCRIPTION', {
+      expense: currentExpense,
+      currency
+    }),
     color: colors.error,
     route: 'add_expense'
   }, {
     icon: 'attach-money',
-    name: 'Add new income',
-    subtitle: `Current: ${currentIncome}${currency}`,
+    name: i18n.t('ADD_NEW_INCOME'),
+    subtitle: i18n.t('DRAWER_INCOMES_DESCRIPTION', {
+      income: currentIncome,
+      currency
+    }),
     color: colors.success,
     route: 'add_income'
   }, {
     icon: 'library-add',
-    name: 'See categories',
-    subtitle: `${categoriesCount} categories now`,
+    name: i18n.t('SEE_CATEGORIES'),
+    subtitle: i18n.t('DRAWER_CATEGORIES_DESCRIPTION', {
+      count: categoriesCount
+    }),
     color: colors.positive,
     route: 'categories'
   }, {
     icon: 'add',
-    name: 'See items',
-    subtitle: `${itemsCount} items now`,
+    name: i18n.t('SEE_ITEMS'),
+    subtitle: i18n.t('DRAWER_ITEMS_DESCRIPTION', {
+      count: itemsCount
+    }),
     color: colors.warm,
     route: 'items'
   }, {
     icon: 'repeat',
-    name: 'Change montly salary',
-    subtitle: `Current: ${currentSalary}${currency}`,
+    name: i18n.t('CHANGE_MONTHLY_SALARY'),
+    subtitle: i18n.t('DRAWER_SALARY_DESCRIPTION', {
+      salary: currentSalary,
+      currency
+    }),
     color: colors.panther,
     route: 'edit_salary'
   }, {
     icon: 'timeline',
-    name: 'See reports',
+    name: i18n.t('SEE_REPORTS'),
     color: colors.cloud,
     route: 'reports'
   }];
@@ -82,7 +96,7 @@ const Menu = ({
               roundAvatar
               subtitle={l.subtitle}
               title={l.name}
-              />
+            />
           ))
         }
       </List>

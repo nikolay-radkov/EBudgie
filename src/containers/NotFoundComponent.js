@@ -7,6 +7,7 @@ import {
   StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
+import i18n from 'react-native-i18n';
 
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
@@ -41,7 +42,7 @@ class NotFoundComponent extends Component {
         </View>
         <View style={styles.messageContainer}>
           <Text style={styles.message}>
-            The resource could not be found
+            {i18n.t('NOT_FOUND_DESCRIPTION')}
           </Text>
         </View>
       </View>

@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { BarChart } from 'react-native-mp-android-chart';
+import i18n from 'react-native-i18n';
 
 import { getMonthReportForDays } from '../../services/events';
 
@@ -26,10 +27,10 @@ class StackedBarChartScreen extends React.Component {
       data: {
         datasets: [{
           yValues: props.values,
-          label: 'Stacked Bar dataset',
+          label: i18n.t('STACK_BAR_DESCRIPTION'),
           config: {
             colors: ['#C0FF8C', '#FFF78C'],
-            stackLabels: ['Incomes', 'Expenses']
+            stackLabels: [i18n.t('INCOMES'), i18n.t('EXPENSES')]
           }
         }],
         xValues: props.days

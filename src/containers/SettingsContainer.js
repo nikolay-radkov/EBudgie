@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import SettingsList from 'react-native-settings-list';
 import { Icon } from 'react-native-elements';
 import ModalPicker from 'react-native-modal-picker';
+import i18n from 'react-native-i18n';
 
 import * as actions from '../actionCreators/settings';
 import { resetRoutes } from '../boundActionCreators/navigation';
@@ -80,15 +81,15 @@ class SettingsComponent extends Component {
     } = this.props;
 
     const languages = [
-      { key: '0', section: true, label: 'Choose Language' },
+      { key: '0', section: true, label: i18n.t('CHOOSE_LANGUAGE') },
       { key: 'en', label: 'English' },
-      { key: 'bg', label: 'Bulgarian' },
+      { key: 'bg', label: 'Български' },
     ];
 
     const currencies = [
-      { key: '0', section: true, label: 'Choose Currency' },
-      { key: '$', label: 'Dollar $' },
-      { key: 'lev', label: 'Bulgarian lev' },
+      { key: '0', section: true, label: i18n.t('CHOOSE_CURRENCY') },
+      { key: '$', label: i18n.t('AMERICAN_DOLLAR') },
+      { key: 'lev', label: i18n.t('BULGARIAN_LEV') },
     ];
 
     return (
@@ -97,13 +98,13 @@ class SettingsComponent extends Component {
           data={languages}
           initValue={ebudgie.language}
           onChange={(option) => setLanguage(option.key)}
-          ref={ref => { this.languageModal = ref; } }
-          style={styles.hiddenModal}/>
+          ref={ref => { this.languageModal = ref; }}
+          style={styles.hiddenModal} />
         <ModalPicker
           data={currencies}
           initValue={ebudgie.currency}
           onChange={(option) => setCurrency(option.key)}
-          ref={ref => { this.currencyModal = ref; } }
+          ref={ref => { this.currencyModal = ref; }}
           style={styles.hiddenModal} />
 
         <SettingsList
@@ -111,8 +112,8 @@ class SettingsComponent extends Component {
           defaultItemSize={50}>
           <SettingsList.Item
             {...headerProps}
-            title="Appearance"
-            />
+            title={i18n.t('APPEARANCE')}
+          />
           <SettingsList.Item
             hasNavArrow={false}
             icon={
@@ -124,10 +125,10 @@ class SettingsComponent extends Component {
               </View>
             }
             onPress={() => this.languageModal.open()}
-            title="Language"
+            title={i18n.t('LANGUAGE')}
             titleInfo={ebudgie.language}
             titleStyle={styles.title}
-            />
+          />
           <SettingsList.Item
             hasNavArrow={false}
             icon={
@@ -139,15 +140,15 @@ class SettingsComponent extends Component {
               </View>
             }
             onPress={() => this.currencyModal.open()}
-            title="Currency"
+            title={i18n.t('CURRENCY')}
             titleInfo={ebudgie.currency}
             titleStyle={styles.title}
-            />
+          />
           <SettingsList.Header headerStyle={styles.devider} />
           <SettingsList.Item
             {...headerProps}
-            title="Device"
-            />
+            title={i18n.t('DEVICE')}
+          />
           <SettingsList.Item
             hasNavArrow={false}
             hasSwitch
@@ -161,15 +162,15 @@ class SettingsComponent extends Component {
             }
             switchOnValueChange={togglePushNotifications}
             switchState={ebudgie.notificationsEnabled}
-            title="Push Notifications"
+            title={i18n.t('PUSH_NOTIFICATIONS')}
             titleStyle={styles.title}
-            />
+          />
 
           <SettingsList.Header headerStyle={styles.devider} />
           <SettingsList.Item
             {...headerProps}
-            title="Account"
-            />
+            title={i18n.t('ACCOUNT')}
+          />
           <SettingsList.Item
             hasNavArrow
             icon={
@@ -181,9 +182,9 @@ class SettingsComponent extends Component {
               </View>
             }
             onPress={this.logout}
-            title="Log Out"
+            title={i18n.t('LOG_OUT')}
             titleStyle={styles.title}
-            />
+          />
         </SettingsList>
       </View>
     );

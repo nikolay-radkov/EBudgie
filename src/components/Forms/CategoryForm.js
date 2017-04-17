@@ -5,6 +5,7 @@ import { View, Animated, Dimensions, TouchableWithoutFeedback } from 'react-nati
 import { Button } from 'react-native-elements';
 import dismissKeyboard from 'dismissKeyboard';
 import UUIDGenerator from 'react-native-uuid-generator';
+import i18n from 'react-native-i18n';
 
 import ColorPickerModal from '../../components/Modal/ColorPickerModal';
 import IconPickerModal from '../../components/Modal/IconPickerModal';
@@ -121,7 +122,7 @@ class CategoryContainer extends Component {
               icon={{ name: 'format-color-fill' }}
               iconLeft
               onPress={openColorPicker}
-              title="Color" />
+              title={i18n.t('COLOR')} />
             <View style={{
               backgroundColor: color,
               padding: 10,
@@ -145,10 +146,10 @@ class CategoryContainer extends Component {
               }}
               iconRight
               onPress={openIconPicker}
-              title="Icon" />
+              title={i18n.t('ICON')} />
 
           </View>
-          <FormLabel>Title</FormLabel>
+          <FormLabel>{i18n.t('TITLE')}</FormLabel>
           <FormInput
             defaultValue={this.state.defaultInputValue}
             onChangeText={setCategoryTitle}

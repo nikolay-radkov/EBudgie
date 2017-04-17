@@ -12,6 +12,7 @@ import {
 } from 'react-native-elements';
 import dismissKeyboard from 'dismissKeyboard';
 import moment from 'moment';
+import i18n from 'react-native-i18n';
 
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
@@ -56,7 +57,7 @@ class EditSalary extends Component {
     return (
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <View style={[theme.container,]}>
-          <FormLabel>Value</FormLabel>
+          <FormLabel>{i18n.t('VALUE')}</FormLabel>
           <FormInput
             keyboardType="numeric"
             onChangeText={setSalaryValue}
@@ -70,7 +71,7 @@ class EditSalary extends Component {
               icon={{ name: 'save' }}
               iconRight
               onPress={this.saveItem}
-              title="Save" />
+              title={i18n.t('SAVE')} />
           </View>
         </View>
       </TouchableWithoutFeedback>
