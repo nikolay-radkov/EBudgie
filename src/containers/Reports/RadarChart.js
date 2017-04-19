@@ -86,12 +86,18 @@ const styles = StyleSheet.create({
   }
 });
 
+function mapCategories(categories) {
+  return _.map(categories, (c) => {
+    return c.hasTranslation ? i18n.t(c.category) : c.category;
+  });
+}
+
 function mapStateToProps(state) {
   const { from, to } = state.detailedReport;
   const { incomes, expenses } = getMonthReportForCategories(state.ebudgie, from, to);
 
   return {
-    categories: _.map(incomes, (i) => i.category),
+    categories: mapCategories(incomes),
     incomes: _.map(incomes, (i) => i.value),
     expenses: _.map(expenses, (i) => i.value),
   };

@@ -77,4 +77,8 @@ export default {
   'CHOOSE_DELIMITER_CHARACTER': 'Choose delimiter character',
   'COMMA': 'Comma ,',
   'SEMICOLON': 'Semicolon ;',
+
+  'OTHER': 'Other',
+  'MISC': 'Misc',
+  'TAXES': 'Taxes',
 };

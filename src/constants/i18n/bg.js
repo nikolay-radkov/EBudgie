@@ -77,4 +77,8 @@ export default {
   'CHOOSE_DELIMITER_CHARACTER': 'Избери символ за разделител',
   'COMMA': 'Запетая ,',
   'SEMICOLON': 'Точка и запетая ;',
+
+  'OTHER': 'Други',
+  'MISC': 'Разни',
+  'TAXES': 'Данъци',
 };

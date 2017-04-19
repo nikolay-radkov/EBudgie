@@ -1,10 +1,13 @@
 export default [{
-  category: 'Other',
+  category: 'OTHER',
+  hasTranslation: true,
   value: 0,
 }, {
-  category: 'Misc',
+  category: 'MISC',
+  hasTranslation: true,
   value: 0,
 }, {
-  category: 'Taxes',
+  category: 'TAXES',
+  hasTranslation: true,
   value: 0,
 }];
