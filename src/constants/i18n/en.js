@@ -77,8 +77,19 @@ export default {
   'CHOOSE_DELIMITER_CHARACTER': 'Choose delimiter character',
   'COMMA': 'Comma ,',
   'SEMICOLON': 'Semicolon ;',
-
   'OTHER': 'Other',
   'MISC': 'Misc',
   'TAXES': 'Taxes',
+
+  'GROCERIES': 'Groceries',
+  'HOUSEHOLD': 'Household',
+  'EATING_OUT': 'Eating out',
+  'FUN': 'Fun',
+  'GIFTS': 'Gifts',
+  'CLOTHING': 'Clothing',
+  'CAR': 'Car',
+  'TRANSPORT': 'Transport',
+  'TRAVEL': 'Travel',
+  'MEDICAL': 'Medical',
+  'EDUCATION': 'Education',
 };

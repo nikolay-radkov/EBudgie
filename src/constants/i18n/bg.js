@@ -77,8 +77,19 @@ export default {
   'CHOOSE_DELIMITER_CHARACTER': 'Избери символ за разделител',
   'COMMA': 'Запетая ,',
   'SEMICOLON': 'Точка и запетая ;',
-
   'OTHER': 'Други',
   'MISC': 'Разни',
   'TAXES': 'Данъци',
+
+  'GROCERIES': 'Хранителни стоки',
+  'HOUSEHOLD': 'Къща',
+  'EATING_OUT': 'Хранене навън',
+  'FUN': 'Забавления',
+  'GIFTS': 'Подаръци',
+  'CLOTHING': 'Дрехи',
+  'CAR': 'Кола',
+  'TRANSPORT': 'Транспорт',
+  'TRAVEL': 'Пътувани',
+  'MEDICAL': 'Медицина',
+  'EDUCATION': 'Образование',
 };

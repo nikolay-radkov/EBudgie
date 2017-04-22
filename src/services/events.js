@@ -79,9 +79,11 @@ export const getMonthReportForCategories = (ebudgie, from, to) => {
 
   let incomesCategories = _.chain(incomes)
     .map((el) => {
+      const category = _.find(ebudgie.categories, (c) => c.id === el.categoryId);
       return {
         ...el,
-        category: _.find(ebudgie.categories, (c) => c.id === el.categoryId).title,
+        category: category.title,
+        hasTranslation: category.hasTranslation,
       };
     })
     .groupBy('category')
@@ -89,9 +91,11 @@ export const getMonthReportForCategories = (ebudgie, from, to) => {
 
   let expensesCategories = _.chain(expenses)
     .map((el) => {
+      const category = _.find(ebudgie.categories, (c) => c.id === el.categoryId);
       return {
         ...el,
-        category: _.find(ebudgie.categories, (c) => c.id === el.categoryId).title,
+        category: category.title,
+        hasTranslation: category.hasTranslation,
       };
     })
     .groupBy('category')
@@ -103,28 +107,34 @@ export const getMonthReportForCategories = (ebudgie, from, to) => {
   };
 
   for (let i in incomesCategories) {
+    const hasTranslation = _.get(_.first(incomesCategories[i]), 'hasTranslation', false);
     result.incomes.push({
       category: i,
+      hasTranslation,
       value: _.sumBy(incomesCategories[i], 'value'),
     });
 
     if (!expensesCategories.hasOwnProperty(i)) {
       result.expenses.push({
         category: i,
+        hasTranslation,
         value: 0,
       });
     }
   }
 
   for (let i in expensesCategories) {
+    const hasTranslation = _.get(_.first(expensesCategories[i]), 'hasTranslation', false);
     result.expenses.push({
       category: i,
+      hasTranslation,
       value: Math.abs(_.sumBy(expensesCategories[i], 'value')),
     });
 
     if (!incomesCategories.hasOwnProperty(i)) {
       result.incomes.push({
         category: i,
+        hasTranslation,
         value: 0,
       });
     }
