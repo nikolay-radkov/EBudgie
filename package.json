@@ -8,6 +8,7 @@
     "android:production": "node node_modules/react-native/local-cli/cli.js run-android --configuration Release",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "ios:production": "node node_modules/react-native/local-cli/cli.js run-ios --configuration Release",
+    "clean": "cd ./android && ./gradlew clean && cd ..",
     "test": "jest",
     "lint": "eslint src/**/*.js"
   },
