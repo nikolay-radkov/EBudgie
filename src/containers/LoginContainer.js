@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, StatusBar, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Image, StatusBar, StyleSheet, AsyncStorage, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RNAccountKit from 'react-native-facebook-account-kit';
@@ -11,38 +11,82 @@ import { createNewPouchDB } from '../boundActionCreators/pouchdb';
 import { initialLoad } from '../actionCreators/ebudgie';
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
+import metrics from '../themes/Metrics';
 import categories from '../constants/InitialCategories';
 import items from '../constants/InitialItems';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.background,
-    paddingTop: 50 + StatusBar.currentHeight
+    backgroundColor: colors.snow,
+    paddingTop: StatusBar.currentHeight,
+  },
+  header: {
+    flex: 2,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
   },
   icon: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center'
+    resizeMode: 'contain',
+    width: 200,
+    height: 200,
+  },
+  title: {
+    textAlign: 'center',
+    color: colors.main,
+    fontSize: 40,
+  },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: -1,
+  },
+  backgroundImage: {
+    alignSelf: 'center',
+    resizeMode: 'cover',
   },
   buttonContainer: {
-    flex: 3,
-    justifyContent: 'center'
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: colors.main,
   },
   buttonStyle: {
-    marginBottom: 30,
+    marginBottom: 10,
     marginLeft: 50,
     marginRight: 50,
-  }
+    padding: 10,
+  },
+  footer: {
+    backgroundColor: colors.main,
+  },
 });
 
 const buttonProps = {
-  backgroundColor: colors.main,
-  borderRadius: 5,
+  borderRadius: 100,
   buttonStyle: styles.buttonStyle,
   fontWeight: 'bold',
   large: true,
   iconRight: true,
   raised: true,
+  elevation: metrics.elevation,
+};
+
+const emailButton = {
+  backgroundColor: colors.positive,
+  color: colors.snow,
+};
+
+const phoneButton = {
+  backgroundColor: colors.positive,
+  color: colors.snow,
+};
+
+const withoutAccountButton = {
+  // backgroundColor: colors.warm,
+  color: colors.snow,
 };
 
 class LoginContainer extends Component {
@@ -107,20 +151,38 @@ class LoginContainer extends Component {
   render() {
     return (
       <View style={[theme.container, styles.container]}>
-        <View onTouchStart={this.skip} style={styles.icon}>
-          <Image source={require('../images/budgie-icon.png')} />
+        <View style={styles.header}>
+          <Image
+            source={require('../images/budgie-icon.png')}
+            style={styles.icon} />
+          <Text style={styles.title}>EBudgie</Text>
+          <View style={styles.background}>
+            <Image
+              source={require('../images/stripes.png')}
+              style={styles.backgroundImage} />
+          </View>
         </View>
         <View style={styles.buttonContainer}>
           <Button
             {...buttonProps}
+            {...emailButton}
             icon={{ name: 'email' }}
             onPress={this.loginWithEmail}
             title={i18n.t('LOGIN_WITH_EMAIL')} />
           <Button
             {...buttonProps}
+            {...phoneButton}
             icon={{ name: 'phone' }}
             onPress={this.loginWithPhone}
             title={i18n.t('LOGIN_WITH_PHONE')} />
+        </View>
+        <View style={styles.footer}>
+          <Button
+            {...buttonProps}
+            {...withoutAccountButton}
+            icon={{ name: 'account-circle' }}
+            onPress={this.skip}
+            title={i18n.t('LOGIN_WITHOUT_ACCOUNT')} />
         </View>
       </View>
     );

@@ -113,4 +113,5 @@ export default {
   'MEDICINE': 'Medicine',
   'BOOK': 'Book',
   'COURSE': 'Course',
+  'LOGIN_WITHOUT_ACCOUNT': 'Login without account',
 };

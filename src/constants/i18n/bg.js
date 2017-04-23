@@ -113,4 +113,5 @@ export default {
   'MEDICINE': 'Лекарство',
   'BOOK': 'Книга',
   'COURSE': 'Курс',
+  'LOGIN_WITHOUT_ACCOUNT': 'Вход без акаунт',
 };

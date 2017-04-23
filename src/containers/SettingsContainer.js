@@ -89,7 +89,7 @@ class SettingsComponent extends Component {
     const currencies = [
       { key: '0', section: true, label: i18n.t('CHOOSE_CURRENCY') },
       { key: '$', label: i18n.t('AMERICAN_DOLLAR') },
-      { key: 'lev', label: i18n.t('BULGARIAN_LEV') },
+      { key: 'BGN', label: i18n.t('BULGARIAN_LEV') },
     ];
 
     return (
