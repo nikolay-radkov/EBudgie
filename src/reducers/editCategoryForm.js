@@ -11,6 +11,7 @@ const initialState = {
   color: 'black',
   title: null,
   icon: 'adb',
+  hasTranslation: false,
 };
 
 export default (state = initialState, action) => {
