@@ -9,6 +9,7 @@ const initialState = {
   id: null,
   name: null,
   categoryId: null,
+  hasTranslation: false,
 };
 
 export default (state = initialState, action) => {

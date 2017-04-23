@@ -7,6 +7,7 @@ import {
 const initialState = {
   name: null,
   categoryId: null,
+  hasTranslation: false,
 };
 
 export default (state = initialState, action) => {
