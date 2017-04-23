@@ -8,10 +8,11 @@ export default function csv(columns, datas, separator = ',', noHeader = false) {
   if (columns) {
     columnOrder = columns.map(v => {
       if (!noHeader) {
-        column.push(v);
+        column.push(v.label);
       }
-      return v;
+      return v.name;
     });
+
     if (column.length > 0) {
       content.push(column.join(separator));
     }

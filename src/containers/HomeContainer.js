@@ -15,6 +15,7 @@ import { setCalendarDate, createNewCalendar } from '../actionCreators/calendar';
 import Menu from '../components/Drawer/Menu';
 import Overview from '../components/Overview';
 import { translateOne } from '../services/translator';
+import { CATEGORY_PROP, ITEM_PROP } from '../constants/TranslationProps';
 
 // This should be a plain object
 const drawerStyles = {
@@ -241,12 +242,13 @@ function getSelectedEvents(selectedDate, ebudgie) {
     const category = _.find(ebudgie.categories, c => c.id === event.categoryId);
     const item = _.find(ebudgie.items, i => i.id === event.itemId);
 
-    const translatedCategory = translateOne(category, 'title');
+    const translatedCategory = translateOne(category, CATEGORY_PROP);
+    const translatedItem = translateOne(item, ITEM_PROP);
 
     mappedEvent.category = translatedCategory.title;
     mappedEvent.icon = translatedCategory.icon;
     mappedEvent.color = translatedCategory.color;
-    mappedEvent.item = item.name;
+    mappedEvent.item = translatedItem.name;
 
     return mappedEvent;
   });

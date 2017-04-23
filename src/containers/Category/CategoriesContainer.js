@@ -10,6 +10,7 @@ import CategoryCard from '../../components/CategoryCard';
 import { populateEditCategoryForm } from '../../actionCreators/editCategoryForm';
 import { pushRoute } from '../../boundActionCreators/navigation';
 import { translateMany } from '../../services/translator';
+import { CATEGORY_PROP } from '../../constants/TranslationProps';
 
 const styles = StyleSheet.create({
   container: {
@@ -108,9 +109,9 @@ function mapStateToProps(state) {
   });
 
   return {
-    categories: translateMany(categories, 'title'),
-    evenCategories: translateMany(evenCategories, 'title'),
-    oddCategories: translateMany(oddCategories, 'title'),
+    categories: translateMany(categories, CATEGORY_PROP),
+    evenCategories: translateMany(evenCategories, CATEGORY_PROP),
+    oddCategories: translateMany(oddCategories, CATEGORY_PROP),
   };
 }
 

@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 });
 
 const delimiterCharacters = [
-  { key: '0', section: true, label:  i18n.t('CHOOSE_DELIMITER_CHARACTER') },
+  { key: '0', section: true, label: i18n.t('CHOOSE_DELIMITER_CHARACTER') },
   { key: ',', label: i18n.t('COMMA') },
   { key: ';', label: i18n.t('SEMICOLON') },
 ];
@@ -69,7 +69,19 @@ class ReportDownloaderComponent extends Component {
       events,
     } = this.props;
 
-    const data = csv(['date', 'category', 'item', 'value'], events);
+    const data = csv([{
+      name: 'date',
+      label: i18n.t('DATE')
+    }, {
+      name: 'category',
+      label: i18n.t('CATEGORY')
+    }, {
+      name: 'item',
+      label: i18n.t('ITEM')
+    }, {
+      name: 'value',
+      label: i18n.t('VALUE')
+    }], events);
     await saveFile(data, `report-${moment().format('YYYY-MM-DD')}`);
     resetReportForm();
     pop();

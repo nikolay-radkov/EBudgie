@@ -19,6 +19,7 @@ import theme from '../../themes/ApplicationStyles';
 import colors from '../../themes/Colors';
 import { popRoute } from '../../boundActionCreators/navigation';
 import { translateMany } from '../../services/translator';
+import { CATEGORY_PROP } from '../../constants/TranslationProps';
 
 class ItemForm extends Component {
   constructor(props) {
@@ -123,7 +124,7 @@ ItemForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    categories: translateMany(state.ebudgie.categories, 'title'),
+    categories: translateMany(state.ebudgie.categories, CATEGORY_PROP),
   };
 }
 

@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import { CATEGORY_PROP, ITEM_PROP } from '../constants/TranslationProps';
+import { translateOne } from './translator';
 
 export const mapIdToItem = (items, itemId) => {
   return _.find(items, (item) => item.id === itemId);
@@ -11,12 +13,14 @@ export const mapIdToCategory = (categories, categoryId) => {
 export const mapReportForDownload = (categories, items, event) => {
   const category = mapIdToCategory(categories, event.categoryId);
   const item = mapIdToCategory(items, event.itemId);
+  const translatedCategory = translateOne(category, CATEGORY_PROP);
+  const translatedItem = translateOne(item, ITEM_PROP);
 
   return {
     date: event.date,
     value: event.value,
-    category: category.title,
-    item: item.name,
+    category: translatedCategory.title,
+    item: translatedItem.name,
   };
 };
 

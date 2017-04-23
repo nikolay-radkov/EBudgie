@@ -22,6 +22,7 @@ import theme from '../../themes/ApplicationStyles';
 import colors from '../../themes/Colors';
 import { popRoute } from '../../boundActionCreators/navigation';
 import { translateMany } from '../../services/translator';
+import { CATEGORY_PROP, ITEM_PROP } from '../../constants/TranslationProps';
 
 class EventForm extends Component {
   constructor(props) {
@@ -182,8 +183,8 @@ function mapStateToProps(state, ownProps) {
   });
 
   return {
-    categories: translateMany(categories, 'title'),
-    items
+    categories: translateMany(categories, CATEGORY_PROP),
+    items: translateMany(items, ITEM_PROP),
   };
 }
 

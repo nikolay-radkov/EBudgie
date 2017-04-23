@@ -8,7 +8,8 @@ import colors from '../../themes/Colors';
 import ItemCard from '../../components/ItemCard';
 import { populateEditItemForm } from '../../actionCreators/editItemForm';
 import { pushRoute } from '../../boundActionCreators/navigation';
-import { translateMany } from '../../services/translator';
+import { translateOne, translateMany } from '../../services/translator';
+import { CATEGORY_PROP, ITEM_PROP } from '../../constants/TranslationProps';
 
 const styles = StyleSheet.create({
   container: {
@@ -81,16 +82,16 @@ function mapStateToProps(state) {
   _.forEach(mappedCategories, (c) => {
     _.forEach(c.items, (i, index) => {
       if (index % 2 === 0) {
-        c.evenItems.push(i);
+        c.evenItems.push(translateOne(i, ITEM_PROP));
       } else {
-        c.oddItems.push(i);
+        c.oddItems.push(translateOne(i, ITEM_PROP));
       }
     });
   });
 
   return {
-    categories: translateMany(mappedCategories, 'title'),
-    items,
+    categories: translateMany(mappedCategories, CATEGORY_PROP),
+    items: translateMany(items, ITEM_PROP),
   };
 }
 
