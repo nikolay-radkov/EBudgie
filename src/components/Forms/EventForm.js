@@ -21,6 +21,7 @@ import i18n from 'react-native-i18n';
 import theme from '../../themes/ApplicationStyles';
 import colors from '../../themes/Colors';
 import { popRoute } from '../../boundActionCreators/navigation';
+import { translateMany } from '../../services/translator';
 
 class EventForm extends Component {
   constructor(props) {
@@ -181,7 +182,7 @@ function mapStateToProps(state, ownProps) {
   });
 
   return {
-    categories,
+    categories: translateMany(categories, 'title'),
     items
   };
 }

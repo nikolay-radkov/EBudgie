@@ -8,6 +8,7 @@ import colors from '../../themes/Colors';
 import ItemCard from '../../components/ItemCard';
 import { populateEditItemForm } from '../../actionCreators/editItemForm';
 import { pushRoute } from '../../boundActionCreators/navigation';
+import { translateMany } from '../../services/translator';
 
 const styles = StyleSheet.create({
   container: {
@@ -88,7 +89,7 @@ function mapStateToProps(state) {
   });
 
   return {
-    categories: mappedCategories,
+    categories: translateMany(mappedCategories, 'title'),
     items,
   };
 }

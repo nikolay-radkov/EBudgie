@@ -18,6 +18,7 @@ import i18n from 'react-native-i18n';
 import theme from '../../themes/ApplicationStyles';
 import colors from '../../themes/Colors';
 import { popRoute } from '../../boundActionCreators/navigation';
+import { translateMany } from '../../services/translator';
 
 class ItemForm extends Component {
   constructor(props) {
@@ -122,7 +123,7 @@ ItemForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    categories: state.ebudgie.categories
+    categories: translateMany(state.ebudgie.categories, 'title'),
   };
 }
 

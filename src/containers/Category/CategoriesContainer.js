@@ -9,6 +9,7 @@ import colors from '../../themes/Colors';
 import CategoryCard from '../../components/CategoryCard';
 import { populateEditCategoryForm } from '../../actionCreators/editCategoryForm';
 import { pushRoute } from '../../boundActionCreators/navigation';
+import { translateMany } from '../../services/translator';
 
 const styles = StyleSheet.create({
   container: {
@@ -107,9 +108,9 @@ function mapStateToProps(state) {
   });
 
   return {
-    categories,
-    evenCategories,
-    oddCategories,
+    categories: translateMany(categories, 'title'),
+    evenCategories: translateMany(evenCategories, 'title'),
+    oddCategories: translateMany(oddCategories, 'title'),
   };
 }
 

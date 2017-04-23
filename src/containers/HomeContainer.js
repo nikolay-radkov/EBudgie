@@ -14,6 +14,7 @@ import { populateEditIncomeForm } from '../actionCreators/editIncomeForm';
 import { setCalendarDate, createNewCalendar } from '../actionCreators/calendar';
 import Menu from '../components/Drawer/Menu';
 import Overview from '../components/Overview';
+import { translateOne } from '../services/translator';
 
 // This should be a plain object
 const drawerStyles = {
@@ -55,14 +56,14 @@ class HomeContainer extends Component {
   }
 
   editExpense(id) {
-    const { prepareEditExpenseForm, expenses} = this.props;
+    const { prepareEditExpenseForm, expenses } = this.props;
     const expenseToEdit = _.find(expenses, (e) => e.id === id);
     prepareEditExpenseForm(expenseToEdit);
     this.goTo('edit_expense');
   }
 
   editIncome(id) {
-    const { prepareEditIncomeForm, incomes} = this.props;
+    const { prepareEditIncomeForm, incomes } = this.props;
     const incomeToEdit = _.find(incomes, (i) => i.id === id);
     prepareEditIncomeForm(incomeToEdit);
     this.goTo('edit_income');
@@ -122,7 +123,7 @@ class HomeContainer extends Component {
         currentSalary={currentSalary}
         goTo={this.goTo}
         itemsCount={itemsCount}
-        />
+      />
     );
 
     return (
@@ -240,9 +241,11 @@ function getSelectedEvents(selectedDate, ebudgie) {
     const category = _.find(ebudgie.categories, c => c.id === event.categoryId);
     const item = _.find(ebudgie.items, i => i.id === event.itemId);
 
-    mappedEvent.category = category.title;
-    mappedEvent.icon = category.icon;
-    mappedEvent.color = category.color;
+    const translatedCategory = translateOne(category, 'title');
+
+    mappedEvent.category = translatedCategory.title;
+    mappedEvent.icon = translatedCategory.icon;
+    mappedEvent.color = translatedCategory.color;
     mappedEvent.item = item.name;
 
     return mappedEvent;

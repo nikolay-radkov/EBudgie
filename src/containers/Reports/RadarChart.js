@@ -6,10 +6,10 @@ import {
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import i18n from 'react-native-i18n';
-
 import { RadarChart } from 'react-native-mp-android-chart';
 
 import { getMonthReportForCategories } from '../../services/events';
+import { translateMany } from '../../services/translator';
 
 class RadarChartScreen extends React.Component {
 
@@ -87,8 +87,9 @@ const styles = StyleSheet.create({
 });
 
 function mapCategories(categories) {
-  return _.map(categories, (c) => {
-    return c.hasTranslation ? i18n.t(c.category) : c.category;
+  const translatedElements = translateMany(categories, 'category');
+  return _.map(translatedElements, (c) => {
+    return c.category;
   });
 }
 
