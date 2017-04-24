@@ -104,23 +104,25 @@ const Overview = ({
         today={today}
         weekStart={1}
       />
-      <View style={styles.buttons}>
-        <Button
-          backgroundColor={colors.fire}
-          buttonStyle={styles.button}
-          icon={{ name: 'money-off' }}
-          onPress={addExpense}
-          raised
-          title={i18n.t('ADD_EXPENSE')} />
-        <Button
-          backgroundColor={colors.warm}
-          buttonStyle={styles.button}
-          icon={{ name: 'attach-money' }}
-          iconRight
-          onPress={addIncome}
-          raised
-          title={i18n.t('ADD_INCOME')} />
-      </View>
+      {selectedDate &&
+        <View style={styles.buttons}>
+          <Button
+            backgroundColor={colors.fire}
+            buttonStyle={styles.button}
+            icon={{ name: 'money-off' }}
+            onPress={addExpense}
+            raised
+            title={i18n.t('ADD_EXPENSE')} />
+          <Button
+            backgroundColor={colors.warm}
+            buttonStyle={styles.button}
+            icon={{ name: 'attach-money' }}
+            iconRight
+            onPress={addIncome}
+            raised
+            title={i18n.t('ADD_INCOME')} />
+        </View>
+      }
       {selectedDate && !!events.length &&
         <View>
           <List containerStyle={styles.list}>
