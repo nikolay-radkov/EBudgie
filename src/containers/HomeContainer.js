@@ -54,13 +54,13 @@ class HomeContainer extends Component {
 
   addExpense() {
     const { prepareExpenseDate, selectedDate } = this.props;
-    prepareExpenseDate(selectedDate);
+    prepareExpenseDate(selectedDate || moment().format('YYYY-MM-DD'));
     this.goTo('add_expense');
   }
 
   addIncome() {
     const { prepareIncomeDate, selectedDate } = this.props;
-    prepareIncomeDate(selectedDate);
+    prepareIncomeDate(selectedDate || moment().format('YYYY-MM-DD'));
     this.goTo('add_income');
   }
 
