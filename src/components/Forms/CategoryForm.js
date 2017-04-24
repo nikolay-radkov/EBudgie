@@ -17,34 +17,34 @@ import metrics from '../../themes/Metrics';
 import {
   FormLabel,
   FormInput,
-  Icon
+  Icon,
+  FormValidationMessage,
 } from 'react-native-elements';
 
 class CategoryContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.closeAllModals = this.closeAllModals.bind(this);
-    this.saveCategory = this.saveCategory.bind(this);
     this.state = {
       defaultInputValue: props.categoryForm.title ? `${props.categoryForm.title}` : '',
+      errorMessage: null,
     };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     const { setOffset } = this.props;
     const offset = new Animated.Value(Dimensions.get('window').height);
 
     setOffset(offset);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     const { resetCategoryForm, resetModals } = this.props;
     resetCategoryForm();
     resetModals();
   }
 
-  closeAllModals() {
+  closeAllModals = () => {
     dismissKeyboard();
     const {
       closeColorPicker,
@@ -55,7 +55,32 @@ class CategoryContainer extends Component {
     closeIconPicker();
   }
 
-  async saveCategory() {
+  validateTitle = (value) => {
+    if (!value) {
+      this.setState({
+        errorMessage: i18n.t('TITLE_IS_REQUIRED'),
+      });
+      return false;
+    } else {
+      this.setState({
+        errorMessage: null
+      });
+
+      return true;
+    }
+  }
+
+  onChange = (newValue) => {
+    const { setCategoryTitle } = this.props;
+
+    if (!this.validateTitle(newValue)) {
+      return;
+    }
+
+    setCategoryTitle(newValue);
+  }
+
+  saveCategory = async () => {
     const {
       newCategory,
       pop
@@ -67,6 +92,10 @@ class CategoryContainer extends Component {
       icon,
       color
     } = this.props.categoryForm;
+
+    if (!this.validateTitle(title)) {
+      return;
+    }
 
     let uuid = id;
 
@@ -96,13 +125,14 @@ class CategoryContainer extends Component {
       iconModal,
     } = this.props.modals;
 
+    const { errorMessage, defaultInputValue } = this.state;
+
     const {
       openColorPicker,
       closeColorPicker,
       openIconPicker,
       closeIconPicker,
       setCategoryColor,
-      setCategoryTitle,
       setCategoryIcon,
       buttonIcon,
       buttonText,
@@ -151,16 +181,25 @@ class CategoryContainer extends Component {
           </View>
           <FormLabel>{i18n.t('TITLE')}</FormLabel>
           <FormInput
-            defaultValue={this.state.defaultInputValue}
-            onChangeText={setCategoryTitle}
+            defaultValue={defaultInputValue}
+            onChangeText={this.onChange}
             onSubmitEditing={() => dismissKeyboard()} />
+          {errorMessage && <FormValidationMessage>{errorMessage}</FormValidationMessage>}
           <View style={{
             flexDirection: 'row-reverse'
           }}>
             <Button
               backgroundColor={colors.main}
               borderRadius={10}
-              icon={{ name: buttonIcon }}
+              color={!errorMessage ? colors.snow : colors.error}
+              disabled={!!errorMessage}
+              disabledStyle={{
+                backgroundColor: colors.frost,
+              }}
+              icon={{
+                name: buttonIcon,
+                color: !errorMessage ? colors.snow : colors.error
+              }}
               iconRight
               onPress={this.saveCategory}
               title={buttonText} />

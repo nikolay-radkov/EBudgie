@@ -135,7 +135,6 @@ class ItemForm extends Component {
               disabled={!!errorMessage}
               disabledStyle={{
                 backgroundColor: colors.frost,
-                color: colors.warm,
               }}
               icon={{
                 name: buttonIcon,
