@@ -118,4 +118,6 @@ export default {
   'NAME_IS_REQUIRED': 'Name is required',
   'TITLE_IS_REQUIRED': 'Title is required',
   'INVALID_VALUE': 'Invalid value',
+  'SALARY': 'Salary',
+  'INVALID_SALARY': 'Invalid salary',
 };

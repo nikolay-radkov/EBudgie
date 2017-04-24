@@ -9,6 +9,7 @@ import {
   FormLabel,
   FormInput,
   Button,
+  FormValidationMessage,
 } from 'react-native-elements';
 import dismissKeyboard from 'dismissKeyboard';
 import moment from 'moment';
@@ -23,15 +24,42 @@ class EditSalary extends Component {
   constructor() {
     super();
 
-    this.saveItem = this.saveItem.bind(this);
+    this.state = {
+      errorMessage: null,
+    };
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     const { resetEditSalaryForm } = this.props;
     resetEditSalaryForm();
   }
 
-  async saveItem() {
+  validateValue = (value) => {
+    if (!value) {
+      this.setState({
+        errorMessage: i18n.t('INVALID_SALARY'),
+      });
+      return false;
+    } else {
+      this.setState({
+        errorMessage: null
+      });
+
+      return true;
+    }
+  }
+
+  onChange = (newValue) => {
+    const { setSalaryValue } = this.props;
+    const value = parseFloat(newValue);
+    if (!this.validateValue(value)) {
+      return;
+    }
+
+    setSalaryValue(value);
+  }
+
+  saveItem = async () => {
     const {
       editSalary,
       pop,
@@ -40,6 +68,10 @@ class EditSalary extends Component {
     const {
       value
     } = this.props.editSalaryForm;
+
+    if (!this.validateValue(value)) {
+      return;
+    }
 
     editSalary({
       value: parseFloat(value),
@@ -50,25 +82,32 @@ class EditSalary extends Component {
   }
 
   render() {
-    const {
-      setSalaryValue,
-    } = this.props;
+    const { errorMessage } = this.state;
 
     return (
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <View style={[theme.container,]}>
-          <FormLabel>{i18n.t('VALUE')}</FormLabel>
+          <FormLabel>{i18n.t('SALARY')}</FormLabel>
           <FormInput
             keyboardType="numeric"
-            onChangeText={setSalaryValue}
+            onChangeText={this.onChange}
             onSubmitEditing={() => dismissKeyboard()} />
+          {errorMessage && <FormValidationMessage>{errorMessage}</FormValidationMessage>}
           <View style={{
             flexDirection: 'row-reverse'
           }}>
             <Button
               backgroundColor={colors.main}
               borderRadius={10}
-              icon={{ name: 'save' }}
+              color={!errorMessage ? colors.snow : colors.error}
+              disabled={!!errorMessage}
+              disabledStyle={{
+                backgroundColor: colors.frost,
+              }}
+              icon={{
+                name: 'save',
+                color: !errorMessage ? colors.snow : colors.error
+              }}
               iconRight
               onPress={this.saveItem}
               title={i18n.t('SAVE')} />
