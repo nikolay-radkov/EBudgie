@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormInput,
   Button,
+  FormValidationMessage,
 } from 'react-native-elements';
 import _ from 'lodash';
 import dismissKeyboard from 'dismissKeyboard';
@@ -28,18 +29,52 @@ class EventForm extends Component {
   constructor(props) {
     super(props);
 
-    this.saveItem = this.saveItem.bind(this);
     this.state = {
       defaultInputValue: props.eventForm.value ? `${props.eventForm.value}` : '',
+      errorMessage: null,
     };
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     const { resetEventForm } = this.props;
     resetEventForm();
   }
 
-  async saveItem() {
+  componentDidMount = () => {
+    const { setEventDate } = this.props;
+    const { date } = this.props.eventForm;
+
+    if (!date) {
+      setEventDate(moment().format('YYYY-MM-DD'));
+    }
+  }
+
+  validateValue = (value) => {
+    if (!value) {
+      this.setState({
+        errorMessage: i18n.t('INVALID_VALUE'),
+      });
+      return false;
+    } else {
+      this.setState({
+        errorMessage: null
+      });
+
+      return true;
+    }
+  }
+
+  onChange = (newValue) => {
+    const { setEventValue } = this.props;
+    const value = parseFloat(newValue);
+    if (!this.validateValue(value)) {
+      return;
+    }
+
+    setEventValue(value);
+  }
+
+  saveItem = async () => {
     const {
       newEvent,
       pop,
@@ -54,6 +89,10 @@ class EventForm extends Component {
       value,
       date,
     } = this.props.eventForm;
+
+    if (!this.validateValue(value)) {
+      return;
+    }
 
     const selectedCategoryId = categoryId ? categoryId : categories[0].id;
     const selectedItemId = itemId ? itemId : items[0].id;
@@ -77,7 +116,6 @@ class EventForm extends Component {
   render() {
     const {
       eventForm,
-      setEventValue,
       setEventCategory,
       setEventItem,
       categories,
@@ -86,6 +124,8 @@ class EventForm extends Component {
       buttonText,
       buttonIcon
     } = this.props;
+
+    const { errorMessage, defaultInputValue } = this.state;
 
     const categoryOptions = categories.map((category) => (
       <Picker.Item key={category.id} label={category.title} value={category.id} />
@@ -99,10 +139,11 @@ class EventForm extends Component {
         <View style={[theme.container,]}>
           <FormLabel>{i18n.t('VALUE')}</FormLabel>
           <FormInput
-            defaultValue={this.state.defaultInputValue}
+            defaultValue={defaultInputValue}
             keyboardType="numeric"
-            onChangeText={setEventValue}
+            onChangeText={this.onChange}
             onSubmitEditing={() => dismissKeyboard()} />
+          {errorMessage && <FormValidationMessage>{errorMessage}</FormValidationMessage>}
           <FormLabel>{i18n.t('CATEGORY')}</FormLabel>
           <Picker
             onValueChange={setEventCategory}
@@ -143,7 +184,15 @@ class EventForm extends Component {
             <Button
               backgroundColor={colors.main}
               borderRadius={10}
-              icon={{ name: buttonIcon }}
+              color={!errorMessage ? colors.snow : colors.error}
+              disabled={!!errorMessage}
+              disabledStyle={{
+                backgroundColor: colors.frost,
+              }}
+              icon={{
+                name: buttonIcon,
+                color: !errorMessage ? colors.snow : colors.error
+              }}
               iconRight
               onPress={this.saveItem}
               title={buttonText} />

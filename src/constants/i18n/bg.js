@@ -117,4 +117,5 @@ export default {
   'OR': 'ИЛИ',
   'NAME_IS_REQUIRED': 'Името е задължително',
   'TITLE_IS_REQUIRED': 'Заглавието е задължително',
+  'INVALID_VALUE': 'Невалидна цена',
 };

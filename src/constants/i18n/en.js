@@ -117,4 +117,5 @@ export default {
   'OR': 'OR',
   'NAME_IS_REQUIRED': 'Name is required',
   'TITLE_IS_REQUIRED': 'Title is required',
+  'INVALID_VALUE': 'Invalid value',
 };
