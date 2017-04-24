@@ -115,4 +115,5 @@ export default {
   'COURSE': 'Course',
   'LOGIN_WITHOUT_ACCOUNT': 'Login without account',
   'OR': 'OR',
+  'NAME_IS_REQUIRED': 'Name is required',
 };

@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormInput,
   Button,
+  FormValidationMessage,
 } from 'react-native-elements';
 import dismissKeyboard from 'dismissKeyboard';
 import UUIDGenerator from 'react-native-uuid-generator';
@@ -25,18 +26,43 @@ class ItemForm extends Component {
   constructor(props) {
     super(props);
 
-    this.saveItem = this.saveItem.bind(this);
     this.state = {
       defaultInputValue: props.itemForm.name ? `${props.itemForm.name}` : '',
+      errorMessage: null,
     };
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     const { resetItemForm } = this.props;
     resetItemForm();
   }
 
-  async saveItem() {
+  validateName = (value) => {
+    if (!value) {
+      this.setState({
+        errorMessage: i18n.t('NAME_IS_REQUIRED'),
+      });
+      return false;
+    } else {
+      this.setState({
+        errorMessage: null
+      });
+
+      return true;
+    }
+  }
+
+  onChange = (newValue) => {
+    const { setItemName } = this.props;
+
+    if (!this.validateName(newValue)) {
+      return;
+    }
+
+    setItemName(newValue);
+  }
+
+  saveItem = async () => {
     const {
       newItem,
       pop,
@@ -48,6 +74,10 @@ class ItemForm extends Component {
       name,
       categoryId
     } = this.props.itemForm;
+
+    if (!this.validateName(name)) {
+      return;
+    }
 
     const selectedCategoryId = categoryId ? categoryId : categories[0].id;
     let uuid = id;
@@ -68,12 +98,13 @@ class ItemForm extends Component {
   render() {
     const {
       itemForm,
-      setItemName,
       setItemCategory,
       categories,
       buttonIcon,
       buttonText,
     } = this.props;
+
+    const { errorMessage, defaultInputValue } = this.state;
 
     const categoryOptions = categories.map((category) => (
       <Picker.Item key={category.id} label={category.title} value={category.id} />
@@ -84,9 +115,10 @@ class ItemForm extends Component {
         <View style={[theme.container,]}>
           <FormLabel>{i18n.t('NAME')}</FormLabel>
           <FormInput
-            defaultValue={this.state.defaultInputValue}
-            onChangeText={setItemName}
+            defaultValue={defaultInputValue}
+            onChangeText={this.onChange}
             onSubmitEditing={() => dismissKeyboard()} />
+          {errorMessage && <FormValidationMessage>{errorMessage}</FormValidationMessage>}
           <FormLabel>{i18n.t('CATEGORY')}</FormLabel>
           <Picker
             onValueChange={setItemCategory}
@@ -99,7 +131,16 @@ class ItemForm extends Component {
             <Button
               backgroundColor={colors.main}
               borderRadius={10}
-              icon={{ name: buttonIcon }}
+              color={!errorMessage ? colors.snow : colors.error}
+              disabled={!!errorMessage}
+              disabledStyle={{
+                backgroundColor: colors.frost,
+                color: colors.warm,
+              }}
+              icon={{
+                name: buttonIcon,
+                color: !errorMessage ? colors.snow : colors.error
+              }}
               iconRight
               onPress={this.saveItem}
               title={buttonText} />

@@ -115,4 +115,5 @@ export default {
   'COURSE': 'Курс',
   'LOGIN_WITHOUT_ACCOUNT': 'Вход без акаунт',
   'OR': 'ИЛИ',
+  'NAME_IS_REQUIRED': 'Името е задължително',
 };
