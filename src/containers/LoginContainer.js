@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import RNAccountKit from 'react-native-facebook-account-kit';
 import { Button } from 'react-native-elements';
 import i18n from 'react-native-i18n';
+import Hr from 'react-native-hr';
 
 import { replaceRoute } from '../boundActionCreators/navigation';
 import { createNewPouchDB } from '../boundActionCreators/pouchdb';
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight,
   },
   header: {
-    flex: 2,
+    flex: 3,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -49,18 +50,15 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   buttonContainer: {
-    flex: 1,
-    justifyContent: 'center',
+    flex: 2,
+    justifyContent: 'space-around',
     backgroundColor: colors.main,
   },
   buttonStyle: {
-    marginBottom: 10,
+    marginVertical: 20,
     marginLeft: 50,
     marginRight: 50,
     padding: 10,
-  },
-  footer: {
-    backgroundColor: colors.main,
   },
 });
 
@@ -85,7 +83,6 @@ const phoneButton = {
 };
 
 const withoutAccountButton = {
-  // backgroundColor: colors.warm,
   color: colors.snow,
 };
 
@@ -175,8 +172,14 @@ class LoginContainer extends Component {
             icon={{ name: 'phone' }}
             onPress={this.loginWithPhone}
             title={i18n.t('LOGIN_WITH_PHONE')} />
-        </View>
-        <View style={styles.footer}>
+          <View style={{
+            marginHorizontal: 20,
+          }}>
+            <Hr
+              lineColor={colors.snow}
+              text={i18n.t('OR')}
+              textColor={colors.snow} />
+          </View>
           <Button
             {...buttonProps}
             {...withoutAccountButton}

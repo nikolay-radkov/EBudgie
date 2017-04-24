@@ -114,4 +114,5 @@ export default {
   'BOOK': 'Book',
   'COURSE': 'Course',
   'LOGIN_WITHOUT_ACCOUNT': 'Login without account',
+  'OR': 'OR',
 };

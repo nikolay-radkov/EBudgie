@@ -114,4 +114,5 @@ export default {
   'BOOK': 'Книга',
   'COURSE': 'Курс',
   'LOGIN_WITHOUT_ACCOUNT': 'Вход без акаунт',
+  'OR': 'ИЛИ',
 };
