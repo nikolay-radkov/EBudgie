@@ -44,6 +44,14 @@ class HomeContainer extends Component {
     this.editIncome = this.editIncome.bind(this);
   }
 
+  componentWillMount = () => {
+    const { currentSalary, push } = this.props;
+
+    if (!(currentSalary && currentSalary > 0)) {
+      return push({ key: 'edit_salary' });
+    }
+  }
+
   addExpense() {
     const { prepareExpenseDate, selectedDate } = this.props;
     prepareExpenseDate(selectedDate);
