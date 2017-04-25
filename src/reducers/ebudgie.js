@@ -22,6 +22,7 @@ import {
   DELETE_CATEGORY,
   EDIT_ITEM,
   DELETE_ITEM,
+  NEW_THRESHOLD,
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
   salaries: [],
   incomes: [],
   expenses: [],
+  thresholds: [],
   language: 'en',
   currency: '$',
   notificationsEnabled: true,
@@ -44,7 +46,8 @@ export default (state = initialState, action) => {
     categories,
     salaries,
     incomes,
-    expenses
+    expenses,
+    thresholds,
   } = state;
 
   switch (action.type) {
@@ -208,6 +211,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         items: filteredItems,
+      };
+    case NEW_THRESHOLD:
+      return {
+        ...state,
+        thresholds: [
+          ...thresholds,
+          action.threshold
+        ]
       };
     default:
       return state;

@@ -17,6 +17,7 @@ import {
   DELETE_CATEGORY,
   EDIT_ITEM,
   DELETE_ITEM,
+  NEW_THRESHOLD,
 } from '../constants/ActionTypes';
 
 import { updateRev } from '../actionCreators/ebudgie';
@@ -42,6 +43,7 @@ const storage = store => next => async action => {
     case DELETE_CATEGORY:
     case EDIT_ITEM:
     case DELETE_ITEM:
+    case NEW_THRESHOLD:
       const state = store.getState();
       const ebudgie = state.ebudgie;
 

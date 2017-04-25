@@ -16,6 +16,7 @@ import editIncomeForm from './editIncomeForm';
 import editCategoryForm from './editCategoryForm';
 import editItemForm from './editItemForm';
 import modals from './modals';
+import addThresholdForm from './addThresholdForm';
 
 const rootReducer = combineReducers({
   navigation,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   editCategoryForm,
   editItemForm,
   modals,
+  addThresholdForm,
 });
 
 export default rootReducer;
