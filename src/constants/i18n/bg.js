@@ -120,4 +120,5 @@ export default {
   'INVALID_VALUE': 'Невалидна цена',
   'SALARY': 'Заплата',
   'INVALID_SALARY': 'Невалидна заплата',
+  'ADD_THRESHOLD': 'Добави месечна граница',
 };

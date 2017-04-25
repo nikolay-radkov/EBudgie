@@ -65,6 +65,9 @@ const TitleHeaderComponent = ({
       case 'edit_item':
         title = i18n.t('EDIT_ITEM');
         break;
+      case 'add_threshold':
+        title = i18n.t('ADD_THRESHOLD');
+        break;
       default:
         title = i18n.t('NOT_FOUND');
     }

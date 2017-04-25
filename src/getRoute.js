@@ -18,6 +18,7 @@ import Reports from './containers/ReportsContainer';
 import Settings from './containers/SettingsContainer';
 import DetailedReport from './containers/Reports/DetailedReportContainer';
 import ReportDownloader from './containers/ReportDownloaderContainer';
+import AddThreshold from './containers/Threshold/AddThresholdContainer';
 
 export default (key, params) => {
   switch (key) {
@@ -55,6 +56,8 @@ export default (key, params) => {
       return (<Items />);
     case 'scene_edit_item':
       return (<EditItem />);
+    case 'scene_add_threshold':
+      return (<AddThreshold />);
     default:
       return <NotFound />;
   }

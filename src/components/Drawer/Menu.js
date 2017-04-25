@@ -74,6 +74,11 @@ const Menu = ({
     color: colors.panther,
     route: 'edit_salary'
   }, {
+    icon: 'lock',
+    name: i18n.t('ADD_THRESHOLD'),
+    color: colors.bloodOrange,
+    route: 'add_threshold'
+  }, {
     icon: 'timeline',
     name: i18n.t('SEE_REPORTS'),
     color: colors.cloud,

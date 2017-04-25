@@ -120,4 +120,5 @@ export default {
   'INVALID_VALUE': 'Invalid value',
   'SALARY': 'Salary',
   'INVALID_SALARY': 'Invalid salary',
+  'ADD_THRESHOLD': 'Add threshold',
 };
