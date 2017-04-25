@@ -68,12 +68,11 @@ class ThresholdForm extends Component {
     const {
       newThreshold,
       pop,
-      categories,
     } = this.props;
 
     const {
       id,
-      categoryId,
+      categories,
       value,
       date,
     } = this.props.thresholdForm;
@@ -82,7 +81,6 @@ class ThresholdForm extends Component {
       return;
     }
 
-    const selectedCategoryId = categoryId ? categoryId : categories[0].id;
     let uuid = id;
 
     if (!id) {
@@ -92,8 +90,8 @@ class ThresholdForm extends Component {
     newThreshold({
       id: uuid,
       value: parseFloat(value),
-      categoryId: selectedCategoryId,
-      date: moment(date),
+      categories,
+      date: date ? moment(date) : moment(),
     });
 
     pop();
@@ -170,7 +168,9 @@ function mapStateToProps(state, ownProps) {
   const { ebudgie } = state;
 
   const categories = _.filter(ebudgie.categories, (c) => {
-    return (_.findIndex(ebudgie.items, (i) => i.categoryId === c.id) !== -1);
+    const hasCategories = _.findIndex(ebudgie.items, (i) => i.categoryId === c.id) !== -1;
+    const isNotUsed = _.findIndex(ownProps.thresholdForm.categories, (i) => i.categoryId === c.id) === -1;
+    return hasCategories && isNotUsed;
   });
 
   return {
