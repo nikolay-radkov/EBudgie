@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import {
   View,
   TouchableWithoutFeedback,
-  Picker,
+  Text,
+  ScrollView
 } from 'react-native';
 import {
   FormLabel,
@@ -23,6 +24,7 @@ import colors from '../../themes/Colors';
 import { popRoute } from '../../boundActionCreators/navigation';
 import { translateMany } from '../../services/translator';
 import { CATEGORY_PROP } from '../../constants/TranslationProps';
+import CategoryThresholdModal from '../Modal/CategoryThresholdModal';
 
 class ThresholdForm extends Component {
   constructor(props) {
@@ -99,54 +101,75 @@ class ThresholdForm extends Component {
 
   render() {
     const {
-      categories,
       buttonText,
-      buttonIcon
+      buttonIcon,
+      addCategoryThreshold,
+      thresholdForm,
+      categories,
+      removeCategoryThreshold
     } = this.props;
 
     const { errorMessage, defaultInputValue } = this.state;
 
-    const categoryOptions = categories.map((category) => (
-      <Picker.Item key={category.id} label={category.title} value={category.id} />
-    ));
-
     return (
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
-        <View style={[theme.container,]}>
-          <FormLabel>{i18n.t('VALUE')}</FormLabel>
-          <FormInput
-            defaultValue={defaultInputValue}
-            keyboardType="numeric"
-            onChangeText={this.onChange}
-            onSubmitEditing={() => dismissKeyboard()} />
-          {errorMessage && <FormValidationMessage>{errorMessage}</FormValidationMessage>}
-          {/*<FormLabel>{i18n.t('CATEGORY')}</FormLabel>
-          <Picker
-            onValueChange={setEventCategory}
-            selectedValue={thresholdForm.categoryId}>
-            {categoryOptions}
-          </Picker>*/}
-          <View style={{
-            flexDirection: 'row-reverse'
-          }}>
-            <Button
-              backgroundColor={colors.main}
-              borderRadius={10}
-              color={!errorMessage ? colors.snow : colors.error}
-              disabled={!!errorMessage}
-              disabledStyle={{
-                backgroundColor: colors.frost,
-              }}
-              icon={{
-                name: buttonIcon,
-                color: !errorMessage ? colors.snow : colors.error
-              }}
-              iconRight
-              onPress={this.saveItem}
-              title={buttonText} />
+        <ScrollView>
+          <View style={[theme.container,]}>
+            <CategoryThresholdModal
+              addCategoryThreshold={addCategoryThreshold}
+              categories={categories}
+              thresholdForm={thresholdForm}
+            />
+            <FormLabel>{i18n.t('CATEGORIES_THRESHOLD')}</FormLabel>
+            {thresholdForm.categories.map((c, index) => (
+              <View key={index}>
+                <Text>{c.categoryId}</Text>
+                <Text>{c.value}</Text>
+                <View style={{
+                  flexDirection: 'row-reverse'
+                }}>
+                  <Button
+                    backgroundColor={colors.error}
+                    borderRadius={50}
+                    color={colors.snow}
+                    icon={{
+                      name: 'delete',
+                      color: colors.snow
+                    }}
+                    onPress={() => removeCategoryThreshold(c.categoryId)}
+                    small />
+                </View>
+              </View>
+            ))}
+            <FormLabel>{i18n.t('VALUE')}</FormLabel>
+            <FormInput
+              defaultValue={defaultInputValue}
+              keyboardType="numeric"
+              onChangeText={this.onChange}
+              onSubmitEditing={() => dismissKeyboard()} />
+            {errorMessage && <FormValidationMessage>{errorMessage}</FormValidationMessage>}
+            <View style={{
+              flexDirection: 'row-reverse'
+            }}>
+              <Button
+                backgroundColor={colors.main}
+                borderRadius={10}
+                color={!errorMessage ? colors.snow : colors.error}
+                disabled={!!errorMessage}
+                disabledStyle={{
+                  backgroundColor: colors.frost,
+                }}
+                icon={{
+                  name: buttonIcon,
+                  color: !errorMessage ? colors.snow : colors.error
+                }}
+                iconRight
+                onPress={this.saveItem}
+                title={buttonText} />
+            </View>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
+        </ScrollView >
+      </TouchableWithoutFeedback >
     );
   }
 }
