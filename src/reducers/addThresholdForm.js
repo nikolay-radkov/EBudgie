@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
         ],
       };
     case REMOVE_CATEGORY_THRESHOLD:
-      const filteredCategories = _.filter(state.categories, (c) => c.id !== action.categoryId);
+      const filteredCategories = _.filter(state.categories, (c) => c.categoryId !== action.categoryId);
       return {
         ...state,
         categories: filteredCategories,
