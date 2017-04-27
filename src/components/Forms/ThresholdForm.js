@@ -163,6 +163,7 @@ class ThresholdForm extends Component {
                           color: colors.error,
                           fontSize: 20,
                           fontWeight: 'bold',
+                          lineHeight: 30,
                         }}>
                         {i18n.t('DELETE')}
                       </Text>
@@ -179,7 +180,7 @@ class ThresholdForm extends Component {
               keyboardType="numeric"
               onChangeText={this.onChange}
               onSubmitEditing={() => dismissKeyboard()}
-              textInputRef={ref => this.textInputRef = ref} />
+              textInputRef={ref => { this.textInputRef = ref; }} />
             {errorMessage && <FormValidationMessage>{errorMessage}</FormValidationMessage>}
             <View style={{
               flexDirection: 'row'
