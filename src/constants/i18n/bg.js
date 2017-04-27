@@ -121,4 +121,9 @@ export default {
   'SALARY': 'Заплата',
   'INVALID_SALARY': 'Невалидна заплата',
   'ADD_THRESHOLD': 'Добави месечна граница',
+  'CATEGORIES_THRESHOLD': 'Лимит на категори',
+  'DELETE': 'Изтрии',
+  'ADD': 'Добави',
+  'REFRESH': 'Обнови',
+  'GLOBAL_THRESHOLD': 'Общ лимит',
 };

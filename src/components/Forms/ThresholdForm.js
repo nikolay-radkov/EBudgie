@@ -12,6 +12,8 @@ import {
   FormInput,
   Button,
   FormValidationMessage,
+  List,
+  ListItem,
 } from 'react-native-elements';
 import _ from 'lodash';
 import dismissKeyboard from 'dismissKeyboard';
@@ -25,8 +27,11 @@ import { popRoute } from '../../boundActionCreators/navigation';
 import { translateMany } from '../../services/translator';
 import { CATEGORY_PROP } from '../../constants/TranslationProps';
 import CategoryThresholdModal from '../Modal/CategoryThresholdModal';
+import { mapArrayOfIdsToCategories } from '../../services/mapIdToObject';
 
 class ThresholdForm extends Component {
+  textInputRef = null;
+
   constructor(props) {
     super(props);
 
@@ -99,6 +104,16 @@ class ThresholdForm extends Component {
     pop();
   }
 
+  refreshGlobalThreshold = () => {
+    const { thresholdCategories, setGlobalThreshold } = this.props;
+    const value = _.sumBy(thresholdCategories, 'value');
+    setGlobalThreshold(value);
+
+    this.textInputRef.setNativeProps({
+      text: `${value}`,
+    });
+  }
+
   render() {
     const {
       buttonText,
@@ -106,68 +121,104 @@ class ThresholdForm extends Component {
       addCategoryThreshold,
       thresholdForm,
       categories,
-      removeCategoryThreshold
+      removeCategoryThreshold,
+      thresholdCategories,
+      currency,
     } = this.props;
 
     const { errorMessage, defaultInputValue } = this.state;
+    const showCategories = !!thresholdCategories && thresholdCategories.length > 0;
 
     return (
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <ScrollView>
           <View style={[theme.container,]}>
-            <CategoryThresholdModal
-              addCategoryThreshold={addCategoryThreshold}
-              categories={categories}
-              thresholdForm={thresholdForm}
-            />
-            {!!thresholdForm.categories && thresholdForm.categories.length > 0 &&
-              <FormLabel>{i18n.t('CATEGORIES_THRESHOLD')}</FormLabel>
-            }
-            {thresholdForm.categories.map((c, index) => (
-              <View key={index}>
-                <Text>{c.categoryId}</Text>
-                <Text>{c.value}</Text>
-                <View style={{
-                  flexDirection: 'row-reverse'
-                }}>
-                  <Button
-                    backgroundColor={colors.error}
-                    borderRadius={50}
-                    color={colors.snow}
-                    icon={{
-                      name: 'delete',
-                      color: colors.snow
+            <View style={{
+              flexDirection: 'row'
+            }}>
+              <FormLabel containerStyle={{
+                flex: 1,
+              }}>{i18n.t('CATEGORIES_THRESHOLD')}</FormLabel>
+              <CategoryThresholdModal
+                addCategoryThreshold={addCategoryThreshold}
+                categories={categories}
+                thresholdForm={thresholdForm}
+              />
+            </View>
+            {showCategories &&
+              <List>
+                {thresholdCategories.map((c, index) => (
+                  <ListItem
+                    hideChevron
+                    key={index}
+                    leftIcon={{
+                      color: c.color,
+                      name: c.icon
                     }}
-                    onPress={() => removeCategoryThreshold(c.categoryId)}
-                    small />
-                </View>
-              </View>
-            ))}
-            <FormLabel>{i18n.t('VALUE')}</FormLabel>
+                    rightTitle={
+                      <Text
+                        onPress={() => removeCategoryThreshold(c.categoryId)}
+                        style={{
+                          backgroundColor: colors.silver,
+                          color: colors.error,
+                          fontSize: 20,
+                          fontWeight: 'bold',
+                        }}>
+                        {i18n.t('DELETE')}
+                      </Text>
+                    }
+                    subtitle={<Text>{c.value} {currency}</Text>}
+                    title={c.title}
+                  />
+                ))}
+              </List>
+            }
+            <FormLabel>{i18n.t('GLOBAL_THRESHOLD')}</FormLabel>
             <FormInput
               defaultValue={defaultInputValue}
               keyboardType="numeric"
               onChangeText={this.onChange}
-              onSubmitEditing={() => dismissKeyboard()} />
+              onSubmitEditing={() => dismissKeyboard()}
+              textInputRef={ref => this.textInputRef = ref} />
             {errorMessage && <FormValidationMessage>{errorMessage}</FormValidationMessage>}
             <View style={{
-              flexDirection: 'row-reverse'
+              flexDirection: 'row'
             }}>
-              <Button
-                backgroundColor={colors.main}
-                borderRadius={10}
-                color={!errorMessage ? colors.snow : colors.error}
-                disabled={!!errorMessage}
-                disabledStyle={{
-                  backgroundColor: colors.frost,
-                }}
-                icon={{
-                  name: buttonIcon,
-                  color: !errorMessage ? colors.snow : colors.error
-                }}
-                iconRight
-                onPress={this.saveItem}
-                title={buttonText} />
+              <View style={{
+                flexDirection: 'row',
+                flex: 1,
+              }}>
+                <Button
+                  backgroundColor={colors.bloodOrange}
+                  borderRadius={10}
+                  color={colors.snow}
+                  icon={{
+                    name: 'refresh',
+                    color: colors.snow
+                  }}
+                  onPress={this.refreshGlobalThreshold}
+                  title={i18n.t('REFRESH')} />
+              </View>
+              <View style={{
+                flexDirection: 'row-reverse',
+                flex: 1
+              }}>
+                <Button
+                  backgroundColor={colors.main}
+                  borderRadius={10}
+                  color={!errorMessage ? colors.snow : colors.error}
+                  disabled={!!errorMessage}
+                  disabledStyle={{
+                    backgroundColor: colors.frost,
+                  }}
+                  icon={{
+                    name: buttonIcon,
+                    color: !errorMessage ? colors.snow : colors.error
+                  }}
+                  iconRight
+                  onPress={this.saveItem}
+                  title={buttonText} />
+              </View>
             </View>
           </View>
         </ScrollView >
@@ -185,8 +236,10 @@ ThresholdForm.propTypes = {
   newThreshold: PropTypes.func.isRequired,
   pop: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
+  thresholdCategories: PropTypes.array,
   buttonIcon: PropTypes.string,
   buttonText: PropTypes.string,
+  currency: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -198,8 +251,12 @@ function mapStateToProps(state, ownProps) {
     return hasCategories && isNotUsed;
   });
 
+  const mappedCategories = mapArrayOfIdsToCategories(ebudgie.categories, ownProps.thresholdForm.categories);
+
   return {
     categories: translateMany(categories, CATEGORY_PROP),
+    thresholdCategories: translateMany(mappedCategories, CATEGORY_PROP),
+    currency: state.ebudgie.currency,
   };
 }
 

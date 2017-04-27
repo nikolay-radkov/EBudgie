@@ -121,4 +121,9 @@ export default {
   'SALARY': 'Salary',
   'INVALID_SALARY': 'Invalid salary',
   'ADD_THRESHOLD': 'Add threshold',
+  'CATEGORIES_THRESHOLD': 'Categories threshold',
+  'DELETE': 'Delete',
+  'ADD': 'Add',
+  'REFRESH': 'Refresh',
+  'GLOBAL_THRESHOLD': 'Global threshold',
 };
