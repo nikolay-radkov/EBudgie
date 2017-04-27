@@ -120,7 +120,9 @@ class ThresholdForm extends Component {
               categories={categories}
               thresholdForm={thresholdForm}
             />
-            <FormLabel>{i18n.t('CATEGORIES_THRESHOLD')}</FormLabel>
+            {!!thresholdForm.categories && thresholdForm.categories.length > 0 &&
+              <FormLabel>{i18n.t('CATEGORIES_THRESHOLD')}</FormLabel>
+            }
             {thresholdForm.categories.map((c, index) => (
               <View key={index}>
                 <Text>{c.categoryId}</Text>

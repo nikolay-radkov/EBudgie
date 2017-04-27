@@ -93,6 +93,8 @@ class CategoryThresholdModal extends Component {
       <Picker.Item key={category.id} label={category.title} value={category.id} />
     ));
 
+    const shoudEnableButton = categories && categories.length > 0;
+
     return (
       <View>
         <View style={{
@@ -101,14 +103,14 @@ class CategoryThresholdModal extends Component {
           <Button
             backgroundColor={colors.bloodOrange}
             borderRadius={10}
-            color={categories ? colors.snow : colors.error}
-            disabled={!categories}
+            color={shoudEnableButton ? colors.snow : colors.error}
+            disabled={!shoudEnableButton}
             disabledStyle={{
               backgroundColor: colors.frost,
             }}
             icon={{
               name: 'playlist-add',
-              color: categories ? colors.snow : colors.error
+              color: shoudEnableButton ? colors.snow : colors.error
             }}
             onPress={this.showCategoryList}
             small />
