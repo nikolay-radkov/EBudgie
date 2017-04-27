@@ -86,6 +86,7 @@ class CategoryThresholdModal extends Component {
   render() {
     const {
       categories,
+      style,
     } = this.props;
 
     const { errorMessage, modalVisible, selectedCategory } = this.state;
@@ -96,25 +97,23 @@ class CategoryThresholdModal extends Component {
     const shoudEnableButton = categories && categories.length > 0;
 
     return (
-      <View>
-        <View style={{
-          flexDirection: 'row-reverse'
-        }}>
-          <Button
-            backgroundColor={colors.bloodOrange}
-            borderRadius={10}
-            color={shoudEnableButton ? colors.snow : colors.error}
-            disabled={!shoudEnableButton}
-            disabledStyle={{
-              backgroundColor: colors.frost,
-            }}
-            icon={{
-              name: 'playlist-add',
-              color: shoudEnableButton ? colors.snow : colors.error
-            }}
-            onPress={this.showCategoryList}
-            small />
-        </View>
+      <View style={style}>
+        <Button
+          backgroundColor={colors.bloodOrange}
+          borderRadius={10}
+          color={shoudEnableButton ? colors.snow : colors.error}
+          disabled={!shoudEnableButton}
+          disabledStyle={{
+            backgroundColor: colors.frost,
+          }}
+          icon={{
+            name: 'playlist-add',
+            color: shoudEnableButton ? colors.snow : colors.error
+          }}
+          iconRight
+          onPress={this.showCategoryList}
+          small
+          title={i18n.t('ADD')} />
         <Modal
           animationType="slide"
           onRequestClose={this.closeCategoryList}
