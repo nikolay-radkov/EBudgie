@@ -24,3 +24,11 @@ export const mapReportForDownload = (categories, items, event) => {
   };
 };
 
+export const mapArrayOfIdsToCategories = (categories, ids) => {
+  return _.map(ids, id => {
+    return {
+      ...id,
+      ...mapIdToCategory(categories, id.categoryId)
+    };
+  });
+};
