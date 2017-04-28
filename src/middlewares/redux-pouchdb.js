@@ -1,55 +1,25 @@
-import * as pouchdbService from '../services/pouchdbService';
+import { getDocument, updateDocument } from '../services/pouchdbService';
+import { isEqual } from 'lodash';
+
 import {
-  NEW_ITEM,
-  NEW_CATEGORY,
-  EDIT_SALARY,
-  NEW_INCOME,
-  NEW_EXPENSE,
-  SET_LANGUAGE,
-  SET_CURRENCY,
-  TOGGLE_PUSH_NOTIFICATIONS,
-  INITIAL_LOAD,
-  EDIT_EXPENSE,
-  DELETE_EXPENSE,
-  EDIT_INCOME,
-  DELETE_INCOME,
-  EDIT_CATEGORY,
-  DELETE_CATEGORY,
-  EDIT_ITEM,
-  DELETE_ITEM,
-  NEW_THRESHOLD,
+  NEW_POUCHDB,
+  LOAD_EBUDGIE,
 } from '../constants/ActionTypes';
 
-import { updateRev } from '../actionCreators/ebudgie';
-
 const storage = store => next => async action => {
+  const prevState = store.getState();
   const result = next(action);
+  const nextState = store.getState();
 
-  switch (action.type) {
-    case NEW_ITEM:
-    case NEW_CATEGORY:
-    case EDIT_SALARY:
-    case NEW_INCOME:
-    case NEW_EXPENSE:
-    case SET_LANGUAGE:
-    case SET_CURRENCY:
-    case TOGGLE_PUSH_NOTIFICATIONS:
-    case INITIAL_LOAD:
-    case EDIT_EXPENSE:
-    case DELETE_EXPENSE:
-    case EDIT_INCOME:
-    case DELETE_INCOME:
-    case EDIT_CATEGORY:
-    case DELETE_CATEGORY:
-    case EDIT_ITEM:
-    case DELETE_ITEM:
-    case NEW_THRESHOLD:
-      const state = store.getState();
-      const ebudgie = state.ebudgie;
+  const isNotLoadAction = action.type !== NEW_POUCHDB && action.type !== LOAD_EBUDGIE;
+  const documentHasChanged = !isEqual(prevState.ebudgie, nextState.ebudgie);
 
-      const savedData = await pouchdbService.updateDocument(ebudgie);
-      next(updateRev(savedData.rev));
-      break;
+  if (isNotLoadAction && documentHasChanged) {
+    const storedDocument = await getDocument(prevState.pouchdb.dbName);
+    await updateDocument({
+      ...nextState.ebudgie,
+      _rev: storedDocument._rev,
+    });
   }
 
   return result;
