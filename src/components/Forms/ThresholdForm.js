@@ -159,7 +159,6 @@ class ThresholdForm extends Component {
                       <Text
                         onPress={() => removeCategoryThreshold(c.categoryId)}
                         style={{
-                          backgroundColor: colors.silver,
                           color: colors.error,
                           fontSize: 20,
                           fontWeight: 'bold',
