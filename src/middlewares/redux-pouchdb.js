@@ -29,8 +29,7 @@ const storage = store => next => async action => {
         });
       }
     } catch (e) {
-      debugger;
-      console.log(e)
+
     }
   }
 
