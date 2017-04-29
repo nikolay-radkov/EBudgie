@@ -5,11 +5,12 @@ import { View, Text, StyleSheet } from 'react-native';
 import Drawer from 'react-native-drawer';
 import _ from 'lodash';
 import moment from 'moment';
+import PercentageCircle from 'react-native-percentage-circle';
 
 import { createNewDrawer } from '../boundActionCreators/drawer';
 import { pushRoute } from '../boundActionCreators/navigation';
 import Menu from '../components/Drawer/Menu';
-import PercentageCircle from 'react-native-percentage-circle';
+import ThresholdList from '../components/Lists/ThresholdList';
 
 import colors from '../themes/Colors';
 
@@ -27,22 +28,7 @@ const drawerStyles = {
   }
 };
 
-const styles = StyleSheet.create({
-  pie: {
-    height: 100,
-    width: 100,
-    elevation: 0,
-  }
-});
-
 class HomeContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      fill: 20
-    }
-  }
-
   componentWillMount = () => {
     const { currentSalary, push } = this.props;
 
@@ -127,8 +113,12 @@ class HomeContainer extends Component {
               <View>
                 <Text>Expenses: {currentExpense}{currency}</Text>
               </View>
+              <View>
+                <Text>Today is {moment().format('DD MMMM YYYY')}</Text>
+              </View>
             </View>
           </View>
+          <ThresholdList />
         </View>
       </Drawer >
     );
@@ -167,19 +157,6 @@ function calculateCurrentExpense(expenses) {
   });
   return _.sumBy(filteredIncomes, 'value');
 }
-
-function getEventDates(ebudgie) {
-  const incomeDates = _.map(ebudgie.incomes, (income) => {
-    return moment(income.date).format('YYYY-MM-DD');
-  });
-
-  const expenseDates = _.map(ebudgie.expenses, (expense) => {
-    return moment(expense.date).format('YYYY-MM-DD');
-  });
-
-  return incomeDates.concat(expenseDates);
-}
-
 
 function mapStateToProps(state) {
   const { salaries, expenses, incomes, thresholds } = state.ebudgie;

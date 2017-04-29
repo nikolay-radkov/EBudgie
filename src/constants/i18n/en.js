@@ -128,4 +128,5 @@ export default {
   'GLOBAL_THRESHOLD': 'Global threshold',
   'SEE_CALENDAR': 'See calendar',
   'CALENDAR': 'Calendar',
+  'THRESHOLD': 'Threshold',
 };

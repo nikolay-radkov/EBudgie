@@ -128,4 +128,5 @@ export default {
   'GLOBAL_THRESHOLD': 'Общ лимит',
   'SEE_CALENDAR': 'Виж календар',
   'CALENDAR': 'Календар',
+  'THRESHOLD': 'Лимит',
 };
