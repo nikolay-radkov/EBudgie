@@ -28,6 +28,7 @@ export const getReportForRange = (ebudgie, from, to, salary) => {
   const report = {
     incomeSum,
     expenseSum,
+    salary: salary.value,
     result: salary.value + incomeSum + expenseSum,
     date: from,
   };

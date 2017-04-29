@@ -27,7 +27,7 @@ const ReportPieChart = ({
 
   const data = {
     datasets: [{
-      yValues: [currentReport.result, Math.abs(currentReport.expenseSum), currentReport.incomeSum],
+      yValues: [currentReport.salary, Math.abs(currentReport.expenseSum), currentReport.incomeSum],
       label: i18n.t('BUDGET'),
       config: {
         colors: [colors.success, colors.error, colors.warm],
@@ -35,7 +35,7 @@ const ReportPieChart = ({
         selectionShift: 20,
       }
     }],
-    xValues: [i18n.t('BUDGET_LEFT'), i18n.t('EXPENSES'), i18n.t('INCOMES')],
+    xValues: [i18n.t('SALARY'), i18n.t('EXPENSES'), i18n.t('INCOMES')],
   };
 
   const description = {
