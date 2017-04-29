@@ -1,21 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { View, Text, StyleSheet } from 'react-native';
 import Drawer from 'react-native-drawer';
 import _ from 'lodash';
 import moment from 'moment';
 
 import { createNewDrawer } from '../boundActionCreators/drawer';
 import { pushRoute } from '../boundActionCreators/navigation';
-import { setExpenseDate } from '../actionCreators/addExpenseForm';
-import { setIncomeDate } from '../actionCreators/addIncomeForm';
-import { populateEditExpenseForm } from '../actionCreators/editExpenseForm';
-import { populateEditIncomeForm } from '../actionCreators/editIncomeForm';
-import { setCalendarDate, createNewCalendar } from '../actionCreators/calendar';
 import Menu from '../components/Drawer/Menu';
-import Overview from '../components/Overview';
-import { translateOne } from '../services/translator';
-import { CATEGORY_PROP, ITEM_PROP } from '../constants/TranslationProps';
+import PercentageCircle from 'react-native-percentage-circle';
+
+import colors from '../themes/Colors';
 
 // This should be a plain object
 const drawerStyles = {
@@ -31,17 +27,20 @@ const drawerStyles = {
   }
 };
 
+const styles = StyleSheet.create({
+  pie: {
+    height: 100,
+    width: 100,
+    elevation: 0,
+  }
+});
+
 class HomeContainer extends Component {
-  constructor(state) {
-    super(state);
-    this.getDrawer = this.getDrawer.bind(this);
-    this.goTo = this.goTo.bind(this);
-    this.addExpense = this.addExpense.bind(this);
-    this.addIncome = this.addIncome.bind(this);
-    this.onDateSelect = this.onDateSelect.bind(this);
-    this.getCalendar = this.getCalendar.bind(this);
-    this.editExpense = this.editExpense.bind(this);
-    this.editIncome = this.editIncome.bind(this);
+  constructor() {
+    super();
+    this.state = {
+      fill: 20
+    }
   }
 
   componentWillMount = () => {
@@ -52,57 +51,12 @@ class HomeContainer extends Component {
     }
   }
 
-  addExpense() {
-    const { prepareExpenseDate, selectedDate } = this.props;
-    prepareExpenseDate(selectedDate || moment().format('YYYY-MM-DD'));
-    this.goTo('add_expense');
-  }
-
-  addIncome() {
-    const { prepareIncomeDate, selectedDate } = this.props;
-    prepareIncomeDate(selectedDate || moment().format('YYYY-MM-DD'));
-    this.goTo('add_income');
-  }
-
-  editExpense(id) {
-    const { prepareEditExpenseForm, expenses } = this.props;
-    const expenseToEdit = _.find(expenses, (e) => e.id === id);
-    prepareEditExpenseForm(expenseToEdit);
-    this.goTo('edit_expense');
-  }
-
-  editIncome(id) {
-    const { prepareEditIncomeForm, incomes } = this.props;
-    const incomeToEdit = _.find(incomes, (i) => i.id === id);
-    prepareEditIncomeForm(incomeToEdit);
-    this.goTo('edit_income');
-  }
-
-  getDrawer(drawer) {
+  getDrawer = (drawer) => {
     const { createDrawer } = this.props;
     createDrawer(drawer);
   }
 
-  onDateSelect(date) {
-    const { calendar, selectedDate, selectCalendarDate } = this.props;
-    const currentDate = moment(selectedDate);
-    const newDate = moment(date);
-
-    if (currentDate.year() === newDate.year() &&
-      currentDate.month() === newDate.month() &&
-      currentDate.date() === newDate.date()) {
-      return calendar.selectDate(null);
-    }
-
-    selectCalendarDate(date);
-  }
-
-  getCalendar(calendar) {
-    const { createCalendar } = this.props;
-    createCalendar(calendar);
-  }
-
-  goTo(route) {
+  goTo = (route) => {
     const { push } = this.props;
 
     push({
@@ -116,11 +70,10 @@ class HomeContainer extends Component {
       itemsCount,
       currentIncome,
       currentSalary,
-      selectedDate,
-      eventsDate,
       currentExpense,
       currency,
-      selectedEvents,
+      currentThreshold,
+      globalThresholdPercentage
     } = this.props;
 
     const MenuComponent = (
@@ -151,16 +104,32 @@ class HomeContainer extends Component {
           main: { opacity: (2 - ratio) / 2 }
         })}
         type="overlay">
-        <Overview
-          addExpense={this.addExpense}
-          addIncome={this.addIncome}
-          editExpense={this.editExpense}
-          editIncome={this.editIncome}
-          events={selectedEvents}
-          eventsDate={eventsDate}
-          getCalendar={this.getCalendar}
-          onDateSelect={this.onDateSelect}
-          selectedDate={selectedDate} />
+        <View>
+          <View>
+            <Text> You are doing very good</Text>
+          </View>
+          <View style={{
+            flexDirection: 'row',
+          }}>
+            <PercentageCircle
+              bgcolor={colors.warm}
+              borderWidth={10}
+              color={colors.error}
+              innerColor={colors.snow}
+              percent={globalThresholdPercentage > 100 ? 100 : globalThresholdPercentage}
+              radius={50}>
+              <Text>{Math.round(globalThresholdPercentage)} %</Text>
+            </PercentageCircle>
+            <View>
+              <View>
+                <Text>Global Threshold: {currentThreshold}{currency}</Text>
+              </View>
+              <View>
+                <Text>Expenses: {currentExpense}{currency}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
       </Drawer >
     );
   }
@@ -169,24 +138,14 @@ class HomeContainer extends Component {
 HomeContainer.propTypes = {
   createDrawer: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
-  selectedDate: PropTypes.any,
-  eventsDate: PropTypes.array,
   currentExpense: PropTypes.number,
   currency: PropTypes.string,
   categoriesCount: PropTypes.number,
   itemsCount: PropTypes.number,
   currentIncome: PropTypes.number,
   currentSalary: PropTypes.number,
-  prepareExpenseDate: PropTypes.func.isRequired,
-  prepareIncomeDate: PropTypes.func.isRequired,
-  selectCalendarDate: PropTypes.func.isRequired,
-  createCalendar: PropTypes.func.isRequired,
-  calendar: PropTypes.object,
-  selectedEvents: PropTypes.array,
-  prepareEditExpenseForm: PropTypes.func.isRequired,
-  prepareEditIncomeForm: PropTypes.func.isRequired,
-  expenses: PropTypes.array,
-  incomes: PropTypes.array,
+  currentThreshold: PropTypes.number,
+  globalThresholdPercentage: PropTypes.number,
 };
 
 function calculateCurrentIncome(incomes) {
@@ -221,66 +180,26 @@ function getEventDates(ebudgie) {
   return incomeDates.concat(expenseDates);
 }
 
-function getSelectedEvents(selectedDate, ebudgie) {
-  const incomes = _.filter(ebudgie.incomes, (income) => {
-    const currentMoment = moment(selectedDate);
-    const incomeMoment = moment(income.date);
-
-    return currentMoment.year() === incomeMoment.year() &&
-      currentMoment.month() === incomeMoment.month() &&
-      currentMoment.date() === incomeMoment.date();
-  });
-
-  const expenses = _.filter(ebudgie.expenses, (expense) => {
-    const currentMoment = moment(selectedDate);
-    const expenseMoment = moment(expense.date);
-
-    return currentMoment.year() === expenseMoment.year() &&
-      currentMoment.month() === expenseMoment.month() &&
-      currentMoment.date() === expenseMoment.date();
-  });
-
-  const events = _.map(incomes.concat(expenses), event => {
-    const mappedEvent = {
-      id: event.id,
-      value: event.value,
-      date: event.date,
-    };
-
-    const category = _.find(ebudgie.categories, c => c.id === event.categoryId);
-    const item = _.find(ebudgie.items, i => i.id === event.itemId);
-
-    const translatedCategory = translateOne(category, CATEGORY_PROP);
-    const translatedItem = translateOne(item, ITEM_PROP);
-
-    mappedEvent.category = translatedCategory.title;
-    mappedEvent.icon = translatedCategory.icon;
-    mappedEvent.color = translatedCategory.color;
-    mappedEvent.item = translatedItem.name;
-
-    return mappedEvent;
-  });
-
-  return events;
-}
 
 function mapStateToProps(state) {
-  const { salaries, expenses, incomes } = state.ebudgie;
+  const { salaries, expenses, incomes, thresholds } = state.ebudgie;
   const currentSalary = salaries[salaries.length - 1] || {};
+  const currentThreshold = thresholds[thresholds.length - 1] || {};
+
+  const currentThresholdValue = currentThreshold.value || 0;
+  const currentSalaryValue = currentSalary.value || 0;
+  const currentExpense = calculateCurrentExpense(expenses);
+  const globalThresholdPercentage = (Math.abs(currentExpense) / currentThresholdValue) * 100;
 
   return {
-    expenses,
-    incomes,
     currency: state.ebudgie.currency,
     categoriesCount: state.ebudgie.categories.length,
     itemsCount: state.ebudgie.items.length,
-    currentIncome: calculateCurrentIncome(state.ebudgie.incomes),
-    currentExpense: calculateCurrentExpense(state.ebudgie.expenses),
-    currentSalary: currentSalary.value || 0,
-    selectedDate: state.calendar.selectedDate,
-    eventsDate: getEventDates(state.ebudgie),
-    calendar: state.calendar.instance,
-    selectedEvents: getSelectedEvents(state.calendar.selectedDate, state.ebudgie),
+    currentIncome: calculateCurrentIncome(incomes),
+    currentExpense,
+    currentSalary: currentSalaryValue,
+    currentThreshold: currentThresholdValue,
+    globalThresholdPercentage: globalThresholdPercentage,
   };
 }
 
@@ -288,12 +207,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     createDrawer: createNewDrawer,
     push: pushRoute,
-    prepareExpenseDate: setExpenseDate,
-    prepareIncomeDate: setIncomeDate,
-    createCalendar: createNewCalendar,
-    selectCalendarDate: setCalendarDate,
-    prepareEditExpenseForm: populateEditExpenseForm,
-    prepareEditIncomeForm: populateEditIncomeForm,
   }, dispatch);
 }
 
