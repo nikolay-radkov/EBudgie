@@ -126,4 +126,6 @@ export default {
   'ADD': 'Add',
   'REFRESH': 'Refresh',
   'GLOBAL_THRESHOLD': 'Global threshold',
+  'SEE_CALENDAR': 'See calendar',
+  'CALENDAR': 'Calendar',
 };

@@ -20,6 +20,9 @@ const TitleHeaderComponent = ({
       case 'home':
         title = i18n.t('HOME');
         break;
+      case 'calendar':
+        title = i18n.t('CALENDAR');
+        break;
       case 'add_item':
         title = i18n.t('ADD_ITEM');
         break;

@@ -31,6 +31,11 @@ const Menu = ({
   currency,
 }) => {
   const list = [{
+    icon: 'today',
+    name: i18n.t('SEE_CALENDAR'),
+    color: colors.main,
+    route: 'calendar'
+  }, {
     icon: 'money-off',
     name: i18n.t('ADD_NEW_EXPENSE'),
     subtitle: i18n.t('DRAWER_EXPENSES_DESCRIPTION', {

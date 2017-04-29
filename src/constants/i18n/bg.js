@@ -126,4 +126,6 @@ export default {
   'ADD': 'Добави',
   'REFRESH': 'Обнови',
   'GLOBAL_THRESHOLD': 'Общ лимит',
+  'SEE_CALENDAR': 'Виж календар',
+  'CALENDAR': 'Календар',
 };

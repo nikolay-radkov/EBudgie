@@ -2,6 +2,7 @@ import React from 'react';
 
 import Login from './containers/LoginContainer';
 import Home from './containers/HomeContainer';
+import Calendar from './containers/CalendarContainer';
 import AddItem from './containers/Item/AddItemContainer';
 import Items from './containers/Item/ItemsContainer';
 import EditItem from './containers/Item/EditItemContainer';
@@ -26,6 +27,8 @@ export default (key, params) => {
       return (<Login />);
     case 'scene_home':
       return (<Home />);
+    case 'scene_calendar':
+      return (<Calendar />);
     case 'scene_add_item':
       return (<AddItem />);
     case 'scene_add_category':
