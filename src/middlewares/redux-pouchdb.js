@@ -4,6 +4,7 @@ import { isEqual } from 'lodash';
 import {
   NEW_POUCHDB,
   LOAD_EBUDGIE,
+  INITIAL_LOAD,
 } from '../constants/ActionTypes';
 
 const storage = store => next => async action => {
@@ -15,11 +16,22 @@ const storage = store => next => async action => {
   const documentHasChanged = !isEqual(prevState.ebudgie, nextState.ebudgie);
 
   if (isNotLoadAction && documentHasChanged) {
-    const storedDocument = await getDocument(prevState.pouchdb.dbName);
-    await updateDocument({
-      ...nextState.ebudgie,
-      _rev: storedDocument._rev,
-    });
+    try {
+      if (action.type === INITIAL_LOAD) {
+        await updateDocument({
+          ...nextState.ebudgie,
+        });
+      } else {
+        const storedDocument = await getDocument(prevState.pouchdb.dbName);
+        await updateDocument({
+          ...nextState.ebudgie,
+          _rev: storedDocument._rev,
+        });
+      }
+    } catch (e) {
+      debugger;
+      console.log(e)
+    }
   }
 
   return result;
