@@ -12,27 +12,14 @@ import moment from 'moment';
 import i18n from 'react-native-i18n';
 
 import ReportPieChart from '../components/Charts/ReportPieChart';
+import HeaderWrapper from '../components/Header/HeaderWrapper';
 import { pushRoute } from '../boundActionCreators/navigation';
 import { setDetailedReportRange } from '../actionCreators/detailedReport';
 import { getReportForRange, getPastReports } from '../services/events';
-import colors from '../themes/Colors';
-import metrics from '../themes/Metrics';
 
 const styles = StyleSheet.create({
   list: {
     marginTop: 0
-  },
-  headerContainer: {
-    height: metrics.navBarHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.main,
-    elevation: 3,
-  },
-  header: {
-    fontSize: 18,
-    color: 'white',
-    fontWeight: 'bold'
   },
   noReports: {
     padding: 20,
@@ -112,9 +99,8 @@ class ReportsContainer extends Component {
           currency={currency}
           currentReport={currentReport}
           style={styles.pie} />
-        <View style={styles.headerContainer}>
-          <Text style={styles.header}>{i18n.t('PAST_REPORTS')}</Text>
-        </View>
+        <HeaderWrapper
+          title={i18n.t('PAST_REPORTS')} />
         {
           listItems.length !== 0 ?
             <List containerStyle={styles.list}>
