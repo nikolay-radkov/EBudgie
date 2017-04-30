@@ -15,6 +15,19 @@ import ThresholdItemHeader from './ThresholdItemHeader';
 import colors from '../../themes/Colors';
 
 class ThresholdList extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      activeSection: false
+    };
+  }
+
+  onChange = (index) => {
+    this.setState({
+      activeSection: index,
+    });
+  }
 
   renderHeader = ({
     title,
@@ -69,15 +82,23 @@ class ThresholdList extends Component {
   }
 
   render() {
-    const { thresholdCategories } = this.props;
+    const { thresholdCategories, routeIndex } = this.props;
+    const { activeSection } = this.state;
+    let active = activeSection;
+
+    if (routeIndex !== 0) {
+      active = false;
+    }
 
     return (
       <View >
         <HeaderWrapper title={i18n.t('CATEGORIES_THRESHOLD')} />
         <Accordion
-          sections={thresholdCategories}
-          renderHeader={this.renderHeader}
+          activeSection={active}
+          onChange={this.onChange}
           renderContent={this.renderContent}
+          renderHeader={this.renderHeader}
+          sections={thresholdCategories}
         />
       </View >
     );
@@ -108,6 +129,7 @@ function mapStateToProps(state) {
   return {
     thresholdCategories: translateMany(thresholdCategories, CATEGORY_PROP),
     currency,
+    routeIndex: state.navigation.index,
   };
 }
 
