@@ -129,4 +129,5 @@ export default {
   'SEE_CALENDAR': 'Виж календар',
   'CALENDAR': 'Календар',
   'THRESHOLD': 'Лимит',
+  'NO_EVENTS_FOR_CATEGORY': 'Няма движения за тази категория',
 };

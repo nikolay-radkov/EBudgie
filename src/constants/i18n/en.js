@@ -129,4 +129,5 @@ export default {
   'SEE_CALENDAR': 'See calendar',
   'CALENDAR': 'Calendar',
   'THRESHOLD': 'Threshold',
+  'NO_EVENTS_FOR_CATEGORY': 'No events for this category',
 };
