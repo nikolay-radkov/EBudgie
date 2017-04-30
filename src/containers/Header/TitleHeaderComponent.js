@@ -71,6 +71,9 @@ const TitleHeaderComponent = ({
       case 'add_threshold':
         title = i18n.t('ADD_THRESHOLD');
         break;
+      case 'notifications':
+        title = i18n.t('NOTIFICATIONS');
+        break;
       default:
         title = i18n.t('NOT_FOUND');
     }

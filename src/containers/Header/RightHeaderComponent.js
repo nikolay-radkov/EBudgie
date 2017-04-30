@@ -38,12 +38,12 @@ const RightHeaderComponent = ({
     switch (route.key) {
       case 'home':
         onRightButtonPress = () => push({
-          key: 'settings'
+          key: 'notifications'
         });
         rightButton = (
           <HeaderButton
             iconProps={{
-              name: 'settings',
+              name: 'notifications',
               color: colors.snow
             }}
             onPress={onRightButtonPress}

@@ -20,6 +20,7 @@ import Settings from './containers/SettingsContainer';
 import DetailedReport from './containers/Reports/DetailedReportContainer';
 import ReportDownloader from './containers/ReportDownloaderContainer';
 import AddThreshold from './containers/Threshold/AddThresholdContainer';
+import Notificaitons from './containers/NotificationsContainer';
 
 const getRoutes = (key) => {
   switch (key) {
@@ -61,6 +62,8 @@ const getRoutes = (key) => {
       return (<EditItem />);
     case 'scene_add_threshold':
       return (<AddThreshold />);
+    case 'scene_notifications':
+      return (<Notificaitons />);
     default:
       return <NotFound />;
   }

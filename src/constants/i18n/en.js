@@ -130,4 +130,6 @@ export default {
   'CALENDAR': 'Calendar',
   'THRESHOLD': 'Threshold',
   'NO_EVENTS_FOR_CATEGORY': 'No events for this category',
+  'NO_NOTIFICAITONS': 'No notifications currently',
+  'NOTIFICATIONS': 'Notifications',
 };

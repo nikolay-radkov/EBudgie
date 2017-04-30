@@ -130,4 +130,6 @@ export default {
   'CALENDAR': 'Календар',
   'THRESHOLD': 'Лимит',
   'NO_EVENTS_FOR_CATEGORY': 'Няма движения за тази категория',
+  'NO_NOTIFICAITONS': 'Все още нямате известия',
+  'NOTIFICATIONS': 'Известия',
 };

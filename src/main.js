@@ -16,7 +16,7 @@ const EBudgie = () => {
       <StatusBar
         backgroundColor={colors.windowTint}
         translucent
-        />
+      />
       <Provider store={store}>
         <NavigationRootContainer />
       </Provider>
