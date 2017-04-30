@@ -88,6 +88,11 @@ const Menu = ({
     name: i18n.t('SEE_REPORTS'),
     color: colors.cloud,
     route: 'reports'
+  }, {
+    icon: 'settings',
+    name: i18n.t('SETTINGS'),
+    color: colors.facebook,
+    route: 'settings'
   }];
 
   return (
