@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import i18n from 'react-native-i18n';
-import Accordion from 'react-native-accordion';
 import moment from 'moment';
+import Accordion from 'react-native-collapsible/Accordion';
 
 import HeaderWrapper from '../Header/HeaderWrapper';
 import { mapArrayOfIdsToCategories } from '../../services/mapIdToObject';
@@ -15,7 +15,8 @@ import ThresholdItemHeader from './ThresholdItemHeader';
 import colors from '../../themes/Colors';
 
 class ThresholdList extends Component {
-  renderRow = ({
+
+  renderHeader = ({
     title,
     icon,
     color,
@@ -38,45 +39,45 @@ class ThresholdList extends Component {
         />
       </View>
     );
+    return header;
+  }
 
+  renderContent = ({
+    title,
+    icon,
+    color,
+    value,
+    incomes,
+    expenses
+  }) => {
     const events = incomes.concat(expenses);
     const orderedEvents = _.sortBy(events, 'date');
 
     var content = (
       <View>
-        {orderedEvents.map(e => (
-          <Text>{e.value} | {e.date}</Text>
+        {orderedEvents.map((e, index) => (
+          <Text key={index}>{e.value} | {moment(e.date).format('DD MM YYYY')}</Text>
         ))
         }
         {orderedEvents.length === 0 &&
           <Text> No events for this category</Text>
-
         }
       </View>
     );
 
-    return (
-      <Accordion
-        content={content}
-        easing="easeOutCubic"
-        header={header}
-        underlayColor={colors.ember}
-      />
-    );
+    return content;
   }
 
   render() {
     const { thresholdCategories } = this.props;
 
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    const dataSource = ds.cloneWithRows(thresholdCategories);
-
     return (
       <View >
         <HeaderWrapper title={i18n.t('CATEGORIES_THRESHOLD')} />
-        <ListView
-          dataSource={dataSource}
-          renderRow={this.renderRow}
+        <Accordion
+          sections={thresholdCategories}
+          renderHeader={this.renderHeader}
+          renderContent={this.renderContent}
         />
       </View >
     );
