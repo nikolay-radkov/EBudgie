@@ -5,7 +5,6 @@ import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import i18n from 'react-native-i18n';
 
-import colors from '../../themes/Colors';
 import CategoryCard from '../../components/CategoryCard';
 import { populateEditCategoryForm } from '../../actionCreators/editCategoryForm';
 import { pushRoute } from '../../boundActionCreators/navigation';

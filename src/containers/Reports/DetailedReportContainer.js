@@ -83,7 +83,7 @@ class DetailedMonthReportContainer extends Component {
       style={styles.tabBar}  {...props} />;
   };
 
-  _renderIcon = ({route}) => {
+  _renderIcon = ({ route }) => {
     let icon;
 
     switch (route.key) {
@@ -123,12 +123,12 @@ class DetailedMonthReportContainer extends Component {
   render() {
     return (
       <TabViewAnimated
-        style={styles.container}
         navigationState={this.state}
+        onRequestChangeTab={this._handleChangeTab}
+        renderHeader={this._renderHeader}
         renderLabel={this._renderLabel}
         renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
-        onRequestChangeTab={this._handleChangeTab}
+        style={styles.container}
       />
     );
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 import colors from '../../themes/Colors';
@@ -26,5 +26,9 @@ const HeaderWrapper = ({
       <Text style={styles.header}>{title}</Text>
     </View>
   );
+
+HeaderWrapper.propTypes = {
+  title: PropTypes.string,
+};
 
 export default HeaderWrapper;

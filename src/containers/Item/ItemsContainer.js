@@ -4,7 +4,6 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 
-import colors from '../../themes/Colors';
 import ItemCard from '../../components/ItemCard';
 import { populateEditItemForm } from '../../actionCreators/editItemForm';
 import { pushRoute } from '../../boundActionCreators/navigation';

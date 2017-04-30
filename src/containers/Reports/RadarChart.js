@@ -12,56 +12,15 @@ import { getMonthReportForCategories } from '../../services/events';
 import { translateMany } from '../../services/translator';
 
 class RadarChartScreen extends React.Component {
-
-  constructor() {
-    super();
-
-    this.state = {
-      data: {},
-      legend: {
-        enabled: true,
-        textSize: 14,
-        form: 'CIRCLE',
-        wordWrapEnabled: true
-      }
-    };
-  }
-
-  componentDidMount() {
-    const { categories, incomes, expenses } = this.props;
-
-    this.setState({
-      data: {
-        datasets: [{
-          yValues: incomes,
-          label: i18n.t('INCOMES'),
-          config: {
-            color: '#8CEAFF',
-            drawFilled: true,
-            fillColor: '#8CEAFF'
-          }
-        }, {
-          yValues: expenses,
-          label: i18n.t('EXPENSES'),
-          config: {
-            color: 'red',
-            drawFilled: true,
-            fillColor: 'red'
-          }
-        }],
-        xValues: categories
-      }
-    }
-    );
-  }
-
   render() {
+    const { data, legend } = this.props;
+
     return (
       <View style={styles.container}>
         <RadarChart
-          data={this.state.data}
+          data={data}
           description={{ text: '' }}
-          legend={this.state.legend}
+          legend={legend}
           skipWebLineCount={1}
           style={styles.chart}
         />
@@ -71,9 +30,8 @@ class RadarChartScreen extends React.Component {
 }
 
 RadarChartScreen.propTypes = {
-  categories: PropTypes.array,
-  incomes: PropTypes.array,
-  expenses: PropTypes.array,
+  data: PropTypes.object,
+  legend: PropTypes.object,
 };
 
 const styles = StyleSheet.create({
@@ -97,10 +55,37 @@ function mapStateToProps(state) {
   const { from, to } = state.detailedReport;
   const { incomes, expenses } = getMonthReportForCategories(state.ebudgie, from, to);
 
+  const mappedCategories = mapCategories(incomes);
+  const mappedIncomes = _.map(incomes, (i) => i.value);
+  const mappedExpenses = _.map(expenses, (i) => i.value);
+
   return {
-    categories: mapCategories(incomes),
-    incomes: _.map(incomes, (i) => i.value),
-    expenses: _.map(expenses, (i) => i.value),
+    data: {
+      datasets: [{
+        yValues: mappedIncomes,
+        label: i18n.t('INCOMES'),
+        config: {
+          color: '#8CEAFF',
+          drawFilled: true,
+          fillColor: '#8CEAFF'
+        }
+      }, {
+        yValues: mappedExpenses,
+        label: i18n.t('EXPENSES'),
+        config: {
+          color: 'red',
+          drawFilled: true,
+          fillColor: 'red'
+        }
+      }],
+      xValues: mappedCategories
+    },
+    legend: {
+      enabled: true,
+      textSize: 14,
+      form: 'CIRCLE',
+      wordWrapEnabled: true
+    }
   };
 }
 

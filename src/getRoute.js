@@ -21,7 +21,7 @@ import DetailedReport from './containers/Reports/DetailedReportContainer';
 import ReportDownloader from './containers/ReportDownloaderContainer';
 import AddThreshold from './containers/Threshold/AddThresholdContainer';
 
-export default (key, params) => {
+const getRoutes = (key) => {
   switch (key) {
     case 'scene_login':
       return (<Login />);
@@ -65,3 +65,5 @@ export default (key, params) => {
       return <NotFound />;
   }
 };
+
+export default getRoutes;

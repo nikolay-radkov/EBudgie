@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import Drawer from 'react-native-drawer';
 import _ from 'lodash';
 import moment from 'moment';

@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import dismissKeyboard from 'dismissKeyboard';
 import i18n from 'react-native-i18n';
-import _ from 'lodash';
 
 import colors from '../../themes/Colors';
 
@@ -167,5 +166,11 @@ class CategoryThresholdModal extends Component {
     );
   }
 }
+
+CategoryThresholdModal.propTypes = {
+  categories: PropTypes.array,
+  style: PropTypes.any,
+  addCategoryThreshold: PropTypes.func,
+};
 
 export default CategoryThresholdModal;

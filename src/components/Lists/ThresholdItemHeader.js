@@ -9,7 +9,6 @@ import PercentageCircle from 'react-native-percentage-circle';
 import i18n from 'react-native-i18n';
 
 import colors from '../../themes/Colors';
-import metrics from '../../themes/Metrics';
 
 const styles = StyleSheet.create({
   container: {
