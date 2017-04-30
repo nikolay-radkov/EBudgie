@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   View,
-  TouchableHighlight,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PercentageCircle from 'react-native-percentage-circle';
@@ -13,25 +12,34 @@ import colors from '../../themes/Colors';
 import metrics from '../../themes/Metrics';
 
 const styles = StyleSheet.create({
-  category: {
+  container: {
     flexDirection: 'row',
-    backgroundColor: colors.silver,
-    borderWidth: metrics.borderWidth,
-    borderColor: colors.snow,
-    margin: 2,
-    elevation: 1,
-    borderRadius: metrics.buttonRadius,
+    padding: 10,
+    borderBottomColor: colors.silver,
+    borderBottomWidth: 2,
   },
-  full: {
+  titleContainer: {
     flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     justifyContent: 'center',
   },
+  diagram: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    color: colors.snow,
+    fontSize: 18,
+  },
   subtitle: {
-    fontSize: 12
+    color: colors.frost,
+    fontSize: 12,
   }
 });
 
-const ThresholdItem = ({
+const ThresholdItemHeader = ({
   value = 0,
   icon,
   color,
@@ -43,46 +51,26 @@ const ThresholdItem = ({
   const isPositive = value > Math.abs(currentExpense);
   const percentage = Math.abs(currentExpense) / value * 100;
   return (
-    <View style={{
+    <View style={[styles.container, {
       backgroundColor: color,
-      flexDirection: 'row',
-      padding: 10,
-      borderBottomColor: colors.silver,
-      borderBottomWidth: 2,
-    }}>
-      <View style={{
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-      }}>
+    }]}>
+      <View style={styles.titleContainer}>
         <Icon
           color={colors.snow}
           name={icon}
           size={40} />
-        <Text style={{
-          color: colors.snow,
-          fontSize: 18,
-        }}>{title}</Text>
-        <Text style={{
-          color: colors.frost,
-          fontSize: 12,
-        }}>{i18n.t('THRESHOLD')}: {value}{currency}</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{i18n.t('THRESHOLD')}: {value}{currency}</Text>
       </View>
       {!isPositive &&
         <View>
           <Icon
+            color={colors.snow}
             name="warning"
-            size={80}
-            color={colors.snow} />
-
+            size={80} />
         </View>
       }
-      <View style={{
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
+      <View style={styles.diagram}>
         <PercentageCircle
           bgcolor={colors.snow}
           borderWidth={15}
@@ -92,16 +80,13 @@ const ThresholdItem = ({
           radius={20}>
           <Text />
         </PercentageCircle>
-        <Text style={{
-          color: colors.frost,
-          fontSize: 12,
-        }}>{Math.round(percentage)}%</Text>
+        <Text style={styles.subtitle}>{Math.round(percentage)}%</Text>
       </View>
     </View>
   );
 };
 
-ThresholdItem.propTypes = {
+ThresholdItemHeader.propTypes = {
   value: React.PropTypes.number,
   currentExpense: React.PropTypes.number,
   currency: React.PropTypes.string,
@@ -110,4 +95,4 @@ ThresholdItem.propTypes = {
   title: React.PropTypes.string,
 };
 
-export default ThresholdItem;
+export default ThresholdItemHeader;
