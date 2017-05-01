@@ -67,7 +67,8 @@ class NotificationsContainer extends Component {
       content = (notifications.map((n, i) => (
         <TouchableHighlight
           key={i}
-          onPress={() => this.goTo(n.route)}>
+          onPress={() => this.goTo(n.route)}
+          underlayColor={colors.underlay}>
           <View
             style={{
               flexDirection: 'row',
