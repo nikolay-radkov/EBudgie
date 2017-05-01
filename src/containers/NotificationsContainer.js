@@ -81,14 +81,24 @@ class NotificationsContainer extends Component {
               backgroundColor: colors.warm,
               justifyContent: 'center',
             }}>
-              {!!n.icon &&
+              {!!n.icon && !n.picture &&
                 <Icon
                   color={colors.snow}
                   name={n.icon}
                   size={50}
                 />
               }
-              {!!n.picture &&
+              {!!n.picture && !n.icon &&
+                <Image
+                  source={{
+                    uri: n.picture
+                  }}
+                  style={{
+                    width: 50,
+                    height: 50,
+                  }} />
+              }
+              {!n.picture && !n.icon &&
                 <Image
                   source={require('../images/budgie-icon.png')}
                   style={{
@@ -154,7 +164,12 @@ function mapStateToProps(state) {
       message: 'You\'ve added new category, added new category ,added new category, added new category',
       date: '27-02-2016',
       route: 'categories',
-      picture: 'asd',
+      isSeen: false,
+    }, {
+      message: 'You\'ve added new item',
+      date: '07-03-2016',
+      route: 'items',
+      picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Melopsittacus_undulatus_-_English_Budgie_and_American_Parakeets.jpg/220px-Melopsittacus_undulatus_-_English_Budgie_and_American_Parakeets.jpg',
       isSeen: false,
     }],
   };
