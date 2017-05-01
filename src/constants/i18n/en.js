@@ -132,4 +132,8 @@ export default {
   'NO_EVENTS_FOR_CATEGORY': 'No events for this category',
   'NO_NOTIFICAITONS': 'No notifications currently',
   'NOTIFICATIONS': 'Notifications',
+  'DELETE_DIALOG_TITLE': 'Are you sure you want to delete this?',
+  'DELETE_DIALOG_CONTENT': 'You cannot restore it if you proceed!',
+  'YES': 'Yes',
+  'NO': 'No',
 };

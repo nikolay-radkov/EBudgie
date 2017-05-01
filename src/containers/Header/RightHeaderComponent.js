@@ -10,6 +10,7 @@ import { deleteIncome, resetEditIncomeForm } from '../../actionCreators/editInco
 import { deleteCategory, resetEditCategoryForm } from '../../actionCreators/editCategoryForm';
 import { deleteItem, resetEditItemForm } from '../../actionCreators/editItemForm';
 import colors from '../../themes/Colors';
+import { showDeleteDialog } from '../../services/dialog';
 
 const RightHeaderComponent = ({
   scene,
@@ -66,9 +67,13 @@ const RightHeaderComponent = ({
         break;
       case 'edit_expense':
         onRightButtonPress = () => {
-          removeExpense(editExpenseFormId);
-          pop();
-          resetEditExpense();
+          showDeleteDialog({
+            onPositive: () => {
+              removeExpense(editExpenseFormId);
+              pop();
+              resetEditExpense();
+            }
+          });
         };
         rightButton = (
           <HeaderButton
@@ -82,9 +87,13 @@ const RightHeaderComponent = ({
         break;
       case 'edit_income':
         onRightButtonPress = () => {
-          removeIncome(editIncomeFormId);
-          pop();
-          resetEditIncome();
+          showDeleteDialog({
+            onPositive: () => {
+              removeIncome(editIncomeFormId);
+              pop();
+              resetEditIncome();
+            }
+          });
         };
         rightButton = (
           <HeaderButton
@@ -113,9 +122,13 @@ const RightHeaderComponent = ({
       case 'edit_category':
         if (showCategoryDeleteButton) {
           onRightButtonPress = () => {
-            removeCategory(editCategoryFormId);
-            pop();
-            resetEditCategory();
+            showDeleteDialog({
+              onPositive: () => {
+                removeCategory(editCategoryFormId);
+                pop();
+                resetEditCategory();
+              }
+            });
           };
           rightButton = (
             <HeaderButton
@@ -145,9 +158,13 @@ const RightHeaderComponent = ({
       case 'edit_item':
         if (showItemDeleteButton) {
           onRightButtonPress = () => {
-            removeItem(editItemFormId);
-            pop();
-            resetEditItem();
+            showDeleteDialog({
+              onPositive: () => {
+                removeItem(editItemFormId);
+                pop();
+                resetEditItem();
+              }
+            });
           };
           rightButton = (
             <HeaderButton

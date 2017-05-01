@@ -132,4 +132,8 @@ export default {
   'NO_EVENTS_FOR_CATEGORY': 'Няма движения за тази категория',
   'NO_NOTIFICAITONS': 'Все още нямате известия',
   'NOTIFICATIONS': 'Известия',
+  'DELETE_DIALOG_TITLE': 'Сигурни ли сте че искате да изтрието елемента?',
+  'DELETE_DIALOG_CONTENT': 'Няма да можете да го възстановите, ако продължите!',
+  'YES': 'Да',
+  'NO': 'Не',
 };
