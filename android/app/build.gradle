@@ -135,6 +135,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-dialogs')
     compile project(':react-native-i18n')
     compile project(':react-native-mp-android-chart')
     compile project(':react-native-share')
