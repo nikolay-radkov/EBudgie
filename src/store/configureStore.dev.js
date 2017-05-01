@@ -17,9 +17,9 @@ export default function configureStore(initialState) {
   const middlewares = [
     thunk,
     logger,
+    messageBar,
     reduxPouchdb,
     i18n,
-    messageBar,
   ];
 
   const store = createStore(
