@@ -59,7 +59,8 @@ class HomeContainer extends Component {
       currentExpense,
       currency,
       currentThreshold,
-      globalThresholdPercentage
+      globalThresholdPercentage,
+      language
     } = this.props;
 
     const MenuComponent = (
@@ -71,6 +72,7 @@ class HomeContainer extends Component {
         currentSalary={currentSalary}
         goTo={this.goTo}
         itemsCount={itemsCount}
+        language={language}
       />
     );
 
@@ -130,6 +132,7 @@ HomeContainer.propTypes = {
   push: PropTypes.func.isRequired,
   currentExpense: PropTypes.number,
   currency: PropTypes.string,
+  language: PropTypes.string,
   categoriesCount: PropTypes.number,
   itemsCount: PropTypes.number,
   currentIncome: PropTypes.number,
@@ -170,6 +173,7 @@ function mapStateToProps(state) {
 
   return {
     currency: state.ebudgie.currency,
+    language: state.ebudgie.language,
     categoriesCount: state.ebudgie.categories.length,
     itemsCount: state.ebudgie.items.length,
     currentIncome: calculateCurrentIncome(incomes),

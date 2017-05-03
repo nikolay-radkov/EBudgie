@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import {
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  Text
 } from 'react-native';
 import {
   List,
@@ -18,6 +19,9 @@ const styles = StyleSheet.create({
   },
   list: {
     marginBottom: 20
+  },
+  language: {
+    textAlign: 'center',
   }
 });
 
@@ -29,6 +33,7 @@ const Menu = ({
   currentIncome,
   currentSalary,
   currency,
+  language
 }) => {
   const list = [{
     icon: 'today',
@@ -115,6 +120,7 @@ const Menu = ({
           ))
         }
       </List>
+      <Text style={styles.language}>{i18n.t('LANGUAGE')} - {language}</Text>
     </ScrollView>
   );
 };
@@ -126,7 +132,8 @@ Menu.propTypes = {
   currentExpense: PropTypes.number,
   currentIncome: PropTypes.number,
   currentSalary: PropTypes.number,
-  currency: PropTypes.string
+  currency: PropTypes.string,
+  language: PropTypes.string,
 };
 
 Menu.defaultProps = {
