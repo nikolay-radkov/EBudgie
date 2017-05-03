@@ -9,6 +9,7 @@ import createLogger from 'redux-logger';
 import reduxPouchdb from '../middlewares/redux-pouchdb';
 import i18n from '../middlewares/i18n';
 import messageBar from '../middlewares/message-bar';
+import pushNotifications from '../middlewares/push-notifications';
 import rootReducer from '../reducers';
 
 export default function configureStore(initialState) {
@@ -18,6 +19,7 @@ export default function configureStore(initialState) {
     thunk,
     logger,
     messageBar,
+    pushNotifications,
     reduxPouchdb,
     i18n,
   ];
