@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background
   },
   list: {
-    marginBottom: 20
+    marginBottom: 20,
+    marginTop: 0,
   },
   language: {
     textAlign: 'center',
