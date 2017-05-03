@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.github.droibit.android.reactnative.customtabs.CustomTabsPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.github.reactNativeMPAndroidChart.MPAndroidChartPackage;
@@ -40,6 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
 
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new CustomTabsPackage(),
             new ReactNativeDialogsPackage(),
             new ReactNativeI18n(),
             new MPAndroidChartPackage(),
