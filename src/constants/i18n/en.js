@@ -136,4 +136,7 @@ export default {
   'DELETE_DIALOG_CONTENT': 'You cannot restore it if you proceed!',
   'YES': 'Yes',
   'NO': 'No',
+  'ABOUT': 'About',
+  'ABOUT_EBUDGIE': 'About EBudgie',
+  'VERSION': 'Version',
 };

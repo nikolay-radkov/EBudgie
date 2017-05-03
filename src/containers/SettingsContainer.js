@@ -10,11 +10,16 @@ import SettingsList from 'react-native-settings-list';
 import { Icon } from 'react-native-elements';
 import ModalPicker from 'react-native-modal-picker';
 import i18n from 'react-native-i18n';
+import {
+  ANIMATIONS_SLIDE,
+  CustomTabs
+} from 'react-native-custom-tabs';
 
 import * as actions from '../actionCreators/settings';
 import { resetRoutes } from '../boundActionCreators/navigation';
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
+const SHOWCASE_WEBSITE = 'https://leon92xx.wixsite.com/ebudgie-website';
 
 const iconSize = 25;
 
@@ -48,12 +53,7 @@ const styles = StyleSheet.create({
 });
 
 class SettingsComponent extends Component {
-  constructor() {
-    super();
-    this.logout = this.logout.bind(this);
-  }
-
-  async logout() {
+  logout = async () => {
     const { resetEbudgie, resetPouchdb, reset } = this.props;
 
     await AsyncStorage.removeItem('isLogged');
@@ -63,6 +63,16 @@ class SettingsComponent extends Component {
     resetPouchdb();
     reset({
       key: 'login'
+    });
+  }
+
+  openWebsite = () => {
+    CustomTabs.openURL(SHOWCASE_WEBSITE, {
+      toolbarColor: colors.main,
+      enableUrlBarHiding: true,
+      showPageTitle: true,
+      enableDefaultShare: true,
+      animations: ANIMATIONS_SLIDE,
     });
   }
 
@@ -163,6 +173,39 @@ class SettingsComponent extends Component {
             switchOnValueChange={togglePushNotifications}
             switchState={ebudgie.notificationsEnabled}
             title={i18n.t('PUSH_NOTIFICATIONS')}
+            titleStyle={styles.title}
+          />
+
+          <SettingsList.Header headerStyle={styles.devider} />
+          <SettingsList.Item
+            {...headerProps}
+            title={i18n.t('ABOUT')}
+          />
+          <SettingsList.Item
+            hasNavArrow
+            icon={
+              <View style={styles.imageStyle}>
+                <Icon
+                  color={colors.main}
+                  name="more"
+                  size={iconSize} />
+              </View>
+            }
+            onPress={this.openWebsite}
+            title={i18n.t('ABOUT_EBUDGIE')}
+            titleStyle={styles.title}
+          />
+          <SettingsList.Item
+            hasNavArrow={false}
+            icon={
+              <View style={styles.imageStyle}>
+                <Icon
+                  color={colors.main}
+                  name="android"
+                  size={iconSize} />
+              </View>
+            }
+            title={`${i18n.t('VERSION')} 1.0.0`}
             titleStyle={styles.title}
           />
 
