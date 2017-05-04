@@ -11,6 +11,7 @@ import { createNewDrawer } from '../boundActionCreators/drawer';
 import { pushRoute } from '../boundActionCreators/navigation';
 import Menu from '../components/Drawer/Menu';
 import ThresholdList from '../components/Lists/ThresholdList';
+import { initializeLocalNotifications } from '../services/localNotifications';
 
 import colors from '../themes/Colors';
 
@@ -32,6 +33,7 @@ class HomeContainer extends Component {
   componentWillMount = () => {
     const { currentSalary, push } = this.props;
 
+    initializeLocalNotifications();
     if (!(currentSalary && currentSalary > 0)) {
       return push({ key: 'edit_salary' });
     }

@@ -11,7 +11,6 @@ import theme from './themes/ApplicationStyles';
 import colors from './themes/Colors';
 import { MessageBar, MessageBarManager } from 'react-native-message-bar';
 
-
 class EBudgie extends Component {
   alert = null;
 
