@@ -204,3 +204,10 @@ export const getReportForDownload = (ebudgie, from, to) => {
     expenses: mappedExpenses,
   };
 };
+
+export const isInCurrentMonth = (date) => {
+  const eventDate = moment(date);
+  const currentDate = moment();
+  return eventDate.month() === currentDate.month() &&
+    eventDate.year() === currentDate.year();
+};

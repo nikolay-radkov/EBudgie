@@ -17,6 +17,7 @@ import { mapIdToItem } from '../../services/mapIdToObject';
 import { populateEditIncomeForm } from '../../actionCreators/editIncomeForm';
 import { populateEditExpenseForm } from '../../actionCreators/editExpenseForm';
 import { pushRoute } from '../../boundActionCreators/navigation';
+import { isInCurrentMonth } from '../../services/events';
 
 class ThresholdList extends Component {
   constructor() {
@@ -151,12 +152,7 @@ ThresholdList.propTypes = {
   routeIndex: PropTypes.number,
 };
 
-function isCurrentMonth(date) {
-  const eventDate = moment(date);
-  const currentDate = moment();
-  return eventDate.month() === currentDate.month() &&
-    eventDate.year() === currentDate.year();
-}
+
 
 function mapStateToProps(state) {
   const { thresholds, expenses, incomes, currency, items } = state.ebudgie;
@@ -167,8 +163,8 @@ function mapStateToProps(state) {
   const thresholdCategories = _.map(mappedCategories, (c) => {
     return {
       ...c,
-      expenses: _.filter(expenses, (e) => e.categoryId === c.id && isCurrentMonth(e.date)) || [],
-      incomes: _.filter(incomes, (i) => i.categoryId === c.id && isCurrentMonth(i.date)) || [],
+      expenses: _.filter(expenses, (e) => e.categoryId === c.id && isInCurrentMonth(e.date)) || [],
+      incomes: _.filter(incomes, (i) => i.categoryId === c.id && isInCurrentMonth(i.date)) || [],
     };
   });
 
