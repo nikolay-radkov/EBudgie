@@ -1,104 +1,105 @@
-import PushNotification from 'react-native-push-notification';
 import i18n from 'react-native-i18n';
-import colors from '../themes/Colors';
+import { filter, sumBy, find } from 'lodash';
+import moment from 'moment';
+
+import { schedule } from '../services/localNotifications';
+import { isInCurrentMonth } from '../services/events';
+import { translateOne } from '../services/translator';
 
 import {
-  NEW_ITEM,
-  NEW_CATEGORY,
-  EDIT_SALARY,
-  NEW_INCOME,
   NEW_EXPENSE,
   EDIT_EXPENSE,
-  DELETE_EXPENSE,
-  EDIT_INCOME,
-  DELETE_INCOME,
-  EDIT_CATEGORY,
-  DELETE_CATEGORY,
-  EDIT_ITEM,
-  DELETE_ITEM,
-  NEW_THRESHOLD,
 } from '../constants/ActionTypes';
+
+const CLOSE_CATEGORY_THRESHOLD_ID = '5';
+const PASSED_CATEGORY_THRESHOLD_ID = '6';
+const CLOSE_GLOBAL_THRESHOLD_ID = '7';
+const PASSED_GLOBAL_THRESHOLD_ID = '8';
+
+
+const checkIfPassedCategoryThreshold = (action, threshold, expenses, categories) => {
+  const categoryId = action.expense.categoryId;
+  const categoryThreshold = find(threshold.categories, c => c.categoryId === categoryId);
+
+  if (!categoryThreshold) {
+    return;
+  }
+
+  const currentExpenses = filter(expenses, (e) => e.categoryId === categoryId && isInCurrentMonth(e.date)) || [];
+  const expensesSum = sumBy(currentExpenses, 'value');
+  const percentage = Math.abs(expensesSum) / categoryThreshold.value * 100;
+  const category = find(categories, c => c.id === categoryId);
+  const translatedCategory = translateOne(category, 'title');
+
+  if (percentage > 100) {
+    const fireDate = moment();
+    fireDate.seconds(fireDate.seconds() + 10);
+    const date = fireDate.toDate();
+
+    schedule({
+      id: PASSED_CATEGORY_THRESHOLD_ID,
+      title: 'Warning!',
+      message: `Your have passed the threshold for ${translatedCategory.title}`,
+      date,
+    });
+  } else if (percentage > 90) {
+    const fireDate = moment();
+    fireDate.hours(fireDate.hours() + 1);
+    const date = fireDate.toDate();
+
+    schedule({
+      id: CLOSE_CATEGORY_THRESHOLD_ID,
+      title: 'Really close',
+      message: `Your are really close to the threshold for ${translatedCategory.title}`,
+      date,
+    });
+  }
+};
+
+const checkIfPassedGlobalTheshold = (action, threshold, expenses) => {
+  const globalThreshold = threshold.value;
+
+  const currentExpenses = filter(expenses, (e) => isInCurrentMonth(e.date)) || [];
+  const expensesSum = sumBy(currentExpenses, 'value');
+  const percentage = Math.abs(expensesSum) / globalThreshold * 100;
+
+  if (percentage > 100) {
+    const fireDate = moment();
+    fireDate.seconds(fireDate.seconds() + 30);
+    const date = fireDate.toDate();
+
+    schedule({
+      id: PASSED_GLOBAL_THRESHOLD_ID,
+      title: 'Warning!',
+      message: 'Your have passed the  global threshold',
+      date,
+    });
+  } else if (percentage > 90) {
+    const fireDate = moment();
+    fireDate.hours(fireDate.hours() + 1);
+    const date = fireDate.toDate();
+
+    schedule({
+      id: CLOSE_GLOBAL_THRESHOLD_ID,
+      title: 'Really close',
+      message: 'Your are too close to the global threshold',
+      date,
+    });
+  }
+};
 
 const pushNotification = store => next => async action => {
   const result = next(action);
-  let shouldShowMessage = true;
-  const options = {
-    title: 'Your alert title goes here',
-    message: 'New activity'
-  };
+  const state = store.getState();
+  const { expenses, thresholds, categories } = state.ebudgie;
+  const threshold = thresholds[thresholds.length - 1] || {};
 
   switch (action.type) {
-    case NEW_ITEM:
-      options.title = 'New item added';
-      break;
-    case NEW_CATEGORY:
-      options.title = 'New category added';
-      break;
-    case EDIT_SALARY:
-      options.title = 'Salary updated';
-      break;
-    case NEW_INCOME:
-      options.title = 'New income added';
-      break;
     case NEW_EXPENSE:
-      options.title = 'New expense added';
-      break;
-    case NEW_THRESHOLD:
-      options.title = 'New threshold added';
-      break;
-    case EDIT_INCOME:
-      options.title = 'Income updated';
-      break;
     case EDIT_EXPENSE:
-      options.title = 'Expense updated';
+      checkIfPassedCategoryThreshold(action, threshold, expenses, categories);
+      checkIfPassedGlobalTheshold(action, threshold, expenses);
       break;
-    case EDIT_CATEGORY:
-      options.title = 'Category updated';
-      break;
-    case EDIT_ITEM:
-      options.title = 'Item updated';
-      break;
-    case DELETE_INCOME:
-      options.title = 'Income deleted';
-      break;
-    case DELETE_EXPENSE:
-      options.title = 'Expense deleted';
-      break;
-    case DELETE_CATEGORY:
-      options.title = 'Category deleted';
-      break;
-    case DELETE_ITEM:
-      options.title = 'Item deleted';
-      break;
-
-    default:
-      shouldShowMessage = false;
-  }
-
-  if (shouldShowMessage) {
-    PushNotification.localNotification({
-      // TODO: implement logic for unique ids
-      id: 1, //(optional) Valid unique 32 bit integer specified as string. default: Autogenerated Unique ID
-      ticker: 'My Notification Ticker', // (optional)
-      autoCancel: true, // (optional) default: true
-      largeIcon: 'ic_launcher', // (optional) default: "ic_launcher"
-      smallIcon: 'ic_notification', // (optional) default: "ic_notification" with fallback for "ic_launcher"
-      bigText: options.title,
-      //subText: 'This is a subText',
-      color: colors.main, // (optional) default: system default
-      vibrate: true, // (optional) default: true
-      vibration: 400, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
-      tag: 'some_tag', // (optional) add tag to message
-      ongoing: false, // (optional) set whether this is an "ongoing" notification
-
-      /* iOS and Android properties */
-      title: options.title,
-      message: options.message,
-      playSound: true,
-      soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
-      //number: '10', // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
-      // repeatType: 'day', // (Android only) Repeating interval. Could be one of `week`, `day`, `hour`, `minute, `time`. If specified as time, it should be accompanied by one more parameter 'repeatTime` which should the number of milliseconds between each interval
-    });
   }
 
   return result;
