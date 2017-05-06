@@ -5,17 +5,16 @@ import moment from 'moment';
 import { schedule } from '../services/localNotifications';
 import { isInCurrentMonth } from '../services/events';
 import { translateOne } from '../services/translator';
-
 import {
   NEW_EXPENSE,
   EDIT_EXPENSE,
 } from '../constants/ActionTypes';
-
-const CLOSE_CATEGORY_THRESHOLD_ID = '5';
-const PASSED_CATEGORY_THRESHOLD_ID = '6';
-const CLOSE_GLOBAL_THRESHOLD_ID = '7';
-const PASSED_GLOBAL_THRESHOLD_ID = '8';
-
+import {
+  CLOSE_CATEGORY_THRESHOLD_ID,
+  PASSED_CATEGORY_THRESHOLD_ID,
+  CLOSE_GLOBAL_THRESHOLD_ID,
+  PASSED_GLOBAL_THRESHOLD_ID,
+} from '../constants/NotificationIds';
 
 const checkIfPassedCategoryThreshold = (action, threshold, expenses, categories) => {
   const categoryId = action.expense.categoryId;
@@ -76,7 +75,7 @@ const checkIfPassedGlobalTheshold = (action, threshold, expenses) => {
     });
   } else if (percentage > 90) {
     const fireDate = moment();
-    fireDate.hours(fireDate.hours() + 1);
+    fireDate.hours(fireDate.hours() + 2);
     const date = fireDate.toDate();
 
     schedule({

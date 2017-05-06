@@ -4,13 +4,13 @@ import { filter } from 'lodash';
 import moment from 'moment';
 
 import colors from '../themes/Colors';
-
-const PUSH_NOTIFICATIONS_STORAGE = 'PUSH_NOTIFICATIONS_STORAGE';
-
-const EVERY_DAY_ID = '1';
-const EVERY_WEEK_ID = '2';
-const FIRST_OF_MONTH_ID = '3';
-const END_OF_MONTH_ID = '4';
+import {
+  EVERY_DAY_ID,
+  EVERY_WEEK_ID,
+  FIRST_OF_MONTH_ID,
+  END_OF_MONTH_ID,
+} from '../constants/NotificationIds';
+import { PUSH_NOTIFICATIONS_STORAGE } from '../constants/AsyncStorage';
 
 export const getScheduledNotifications = async () => {
   const storedData = await AsyncStorage.getItem(PUSH_NOTIFICATIONS_STORAGE);
