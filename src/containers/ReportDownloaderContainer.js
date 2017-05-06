@@ -23,6 +23,8 @@ import { getReportForDownload } from '../services/events';
 import { mapReportForDownload } from '../services/mapIdToObject';
 import csv from '../services/csv';
 import { saveFile } from '../services/file';
+import { schedule } from '../services/localNotifications';
+import { DOWNLOADED_CSV_ID } from '../constants/NotificationIds';
 
 const iconSize = 25;
 
@@ -83,6 +85,17 @@ class ReportDownloaderComponent extends Component {
       label: i18n.t('VALUE')
     }], events);
     await saveFile(data, `report-${moment().format('YYYY-MM-DD')}`);
+
+    const fireDate = moment();
+    fireDate.seconds(fireDate.seconds() + 40);
+    const date = fireDate.toDate();
+
+    schedule({
+      id: DOWNLOADED_CSV_ID,
+      title: 'Completed the jorney',
+      message: 'Glad you\'ve used the full potential of the app',
+      date,
+    });
     resetReportForm();
     pop();
   }
