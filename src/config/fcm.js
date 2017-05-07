@@ -1,6 +1,13 @@
 import PushNotification from 'react-native-push-notification';
 import { AsyncStorage } from 'react-native';
+import { get } from 'lodash';
+
+import {
+  SET_NOTIFICATION_ISSEEN,
+} from '../constants/ActionTypes';
 import { FCM_TOKEN } from '../constants/AsyncStorage';
+import store from '../store';
+import { setNotificationIsSeen } from '../actionCreators/notifications';
 
 PushNotification.configure({
   onRegister: async (data) => {
@@ -8,7 +15,14 @@ PushNotification.configure({
   },
 
   onNotification: function (notification) {
-    alert('NOTIFICATION:' + JSON.stringify(notification)); // eslint-disable-line
+    const type = get(notification, 'data.type', null);
+    const id = get(notification, 'data.payload.id', null);
+
+    switch (type) {
+      case SET_NOTIFICATION_ISSEEN:
+        store.dispatch(setNotificationIsSeen(id, false));
+        return;
+    }
   },
 
   onError: (err) => {
