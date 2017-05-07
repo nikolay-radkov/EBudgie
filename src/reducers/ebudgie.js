@@ -22,6 +22,9 @@ import {
   EDIT_ITEM,
   DELETE_ITEM,
   NEW_THRESHOLD,
+  NEW_NOTIFICATION,
+  SET_NOTIFICATION_ISSEEN,
+  MARK_ALL_NOTIFICATIONS_AS_SEEN,
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -32,6 +35,7 @@ const initialState = {
   incomes: [],
   expenses: [],
   thresholds: [],
+  notifications: [],
   language: 'en',
   currency: '$',
   notificationsEnabled: true,
@@ -46,6 +50,7 @@ export default (state = initialState, action) => {
     incomes,
     expenses,
     thresholds,
+    notifications,
   } = state;
 
   switch (action.type) {
@@ -212,6 +217,44 @@ export default (state = initialState, action) => {
           ...thresholds,
           action.threshold
         ]
+      };
+    case NEW_NOTIFICATION:
+      return {
+        ...state,
+        notifications: [
+          ...notifications,
+          action.notification
+        ]
+      };
+    case SET_NOTIFICATION_ISSEEN:
+      const seenNotifications = _.map(notifications, (n) => {
+        if (n.id === action.id) {
+          return {
+            ...n,
+            isSeen: action.isSeen,
+          };
+        }
+
+        return n;
+      });
+      return {
+        ...state,
+        notifications: seenNotifications,
+      };
+    case MARK_ALL_NOTIFICATIONS_AS_SEEN:
+      const seenAllNotifications = _.map(notifications, (n) => {
+        if (n.isSeen) {
+          return n;
+        }
+
+        return {
+          ...n,
+          isSeen: true,
+        };
+      });
+      return {
+        ...state,
+        notifications: seenAllNotifications,
       };
     default:
       return state;
