@@ -2,12 +2,13 @@ import i18n from 'react-native-i18n';
 import { filter, sumBy, find } from 'lodash';
 import moment from 'moment';
 
-import { schedule } from '../services/localNotifications';
+import { schedule, createNotification } from '../services/localNotifications';
 import { isInCurrentMonth } from '../services/events';
 import { translateOne } from '../services/translator';
 import {
   NEW_EXPENSE,
   EDIT_EXPENSE,
+  SET_NOTIFICATION_ISSEEN,
 } from '../constants/ActionTypes';
 import {
   CLOSE_CATEGORY_THRESHOLD_ID,
@@ -16,7 +17,7 @@ import {
   PASSED_GLOBAL_THRESHOLD_ID,
 } from '../constants/NotificationIds';
 
-const checkIfPassedCategoryThreshold = (action, threshold, expenses, categories) => {
+const checkIfPassedCategoryThreshold = async (action, threshold, expenses, categories) => {
   const categoryId = action.expense.categoryId;
   const categoryThreshold = find(threshold.categories, c => c.categoryId === categoryId);
 
@@ -34,28 +35,55 @@ const checkIfPassedCategoryThreshold = (action, threshold, expenses, categories)
     const fireDate = moment();
     fireDate.seconds(fireDate.seconds() + 10);
     const date = fireDate.toDate();
+    const notificationId = await createNotification({
+      message: 'PASSED_THRESHOLD',
+      placeholders: {
+        category: translatedCategory.title,
+      },
+      icon: translatedCategory.icon,
+      isSeen: true,
+    });
 
     schedule({
       id: PASSED_CATEGORY_THRESHOLD_ID,
-      title: 'Warning!',
-      message: `Your have passed the threshold for ${translatedCategory.title}`,
+      title: i18n.t('WARNING'),
+      message: i18n.t('PASSED_THRESHOLD', { category: translatedCategory.title }),
       date,
+      data: {
+        type: SET_NOTIFICATION_ISSEEN,
+        payload: {
+          id: notificationId
+        }
+      }
     });
   } else if (percentage > 90) {
     const fireDate = moment();
     fireDate.hours(fireDate.hours() + 1);
     const date = fireDate.toDate();
-
+    const notificationId = await createNotification({
+      message: 'CLOSE_THRESHOLD',
+      placeholders: {
+        category: translatedCategory.title,
+      },
+      icon: translatedCategory.icon,
+      isSeen: true,
+    });
     schedule({
       id: CLOSE_CATEGORY_THRESHOLD_ID,
-      title: 'Really close',
-      message: `Your are really close to the threshold for ${translatedCategory.title}`,
+      title: i18n.t('REALLY_CLOSE'),
+      message: i18n.t('CLOSE_THRESHOLD', { category: translatedCategory.title }),
       date,
+      data: {
+        type: SET_NOTIFICATION_ISSEEN,
+        payload: {
+          id: notificationId
+        }
+      }
     });
   }
 };
 
-const checkIfPassedGlobalTheshold = (action, threshold, expenses) => {
+const checkIfPassedGlobalTheshold = async (action, threshold, expenses) => {
   const globalThreshold = threshold.value;
 
   const currentExpenses = filter(expenses, (e) => isInCurrentMonth(e.date)) || [];
@@ -66,23 +94,41 @@ const checkIfPassedGlobalTheshold = (action, threshold, expenses) => {
     const fireDate = moment();
     fireDate.seconds(fireDate.seconds() + 30);
     const date = fireDate.toDate();
-
+    const notificationId = await createNotification({
+      message: 'PASSED_GLOBAL_THRESHOLD',
+      isSeen: true,
+    });
     schedule({
       id: PASSED_GLOBAL_THRESHOLD_ID,
-      title: 'Warning!',
-      message: 'Your have passed the  global threshold',
+      title: i18n.t('WARNING'),
+      message: i18n.t('PASSED_GLOBAL_THRESHOLD'),
       date,
+      data: {
+        type: SET_NOTIFICATION_ISSEEN,
+        payload: {
+          id: notificationId
+        }
+      }
     });
   } else if (percentage > 90) {
     const fireDate = moment();
     fireDate.hours(fireDate.hours() + 2);
     const date = fireDate.toDate();
-
+    const notificationId = await createNotification({
+      message: 'CLOSE_GLOBAL_THRESHOLD',
+      isSeen: true,
+    });
     schedule({
       id: CLOSE_GLOBAL_THRESHOLD_ID,
-      title: 'Really close',
-      message: 'Your are too close to the global threshold',
+      title: i18n.t('REALLY_CLOSE'),
+      message: i18n.t('CLOSE_GLOBAL_THRESHOLD'),
       date,
+      data: {
+        type: SET_NOTIFICATION_ISSEEN,
+        payload: {
+          id: notificationId
+        }
+      }
     });
   }
 };
@@ -96,8 +142,8 @@ const pushNotification = store => next => async action => {
   switch (action.type) {
     case NEW_EXPENSE:
     case EDIT_EXPENSE:
-      checkIfPassedCategoryThreshold(action, threshold, expenses, categories);
-      checkIfPassedGlobalTheshold(action, threshold, expenses);
+      await checkIfPassedCategoryThreshold(action, threshold, expenses, categories);
+      await checkIfPassedGlobalTheshold(action, threshold, expenses);
       break;
   }
 
