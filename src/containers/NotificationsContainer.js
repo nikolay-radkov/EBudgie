@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {
+  ScrollView,
   View,
   Image,
   Text,
@@ -10,6 +11,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import i18n from 'react-native-i18n';
 import { Icon } from 'react-native-elements';
+import { orderBy, map } from 'lodash';
+import moment from 'moment';
 
 import { pushRoute } from '../boundActionCreators/navigation';
 import theme from '../themes/ApplicationStyles';
@@ -75,6 +78,7 @@ class NotificationsContainer extends Component {
               padding: 10,
               borderBottomColor: colors.snow,
               borderBottomWidth: 1,
+              backgroundColor: n.isSeen ? 'white' : 'red'
             }}>
             <View style={{
               padding: 5,
@@ -122,13 +126,13 @@ class NotificationsContainer extends Component {
                       flexWrap: 'wrap',
                       fontWeight: 'bold',
                       fontSize: 18,
-                    }}>{n.message}</Text>
+                    }}>{i18n.t(n.message, n.placeholders)}</Text>
                 </View>
               </View>
               <View>
                 <Text style={{
                   fontSize: 12,
-                }}>{n.date}</Text>
+                }}>{n.dateToShow}</Text>
               </View>
             </View>
           </View>
@@ -137,9 +141,9 @@ class NotificationsContainer extends Component {
     }
 
     return (
-      <View style={[theme.container, styles.container]}>
+      <ScrollView style={[theme.container, styles.container]}>
         {content}
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -151,27 +155,16 @@ NotificationsContainer.propTypes = {
 
 function mapStateToProps(state) {
   const { notifications } = state.ebudgie;
-
+  const mappedNotifications = map(notifications, n => {
+    const momentDate = moment(n.date);
+    return {
+      ...n,
+      momentDate,
+      dateToShow: `${momentDate.format('MMMM DD YYYY')} ${i18n.t('AT')} ${momentDate.format('HH:mm')}`
+    };
+  });
   return {
-    notifications: notifications || [{
-      message: 'You\'ve added new category',
-      date: '27-02-2016',
-      route: 'categories',
-      icon: 'notifications',
-      picture: '',
-      isSeen: false,
-    }, {
-      message: 'You\'ve added new category, added new category ,added new category, added new category',
-      date: '27-02-2016',
-      route: 'categories',
-      isSeen: false,
-    }, {
-      message: 'You\'ve added new item',
-      date: '07-03-2016',
-      route: 'items',
-      picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Melopsittacus_undulatus_-_English_Budgie_and_American_Parakeets.jpg/220px-Melopsittacus_undulatus_-_English_Budgie_and_American_Parakeets.jpg',
-      isSeen: false,
-    }],
+    notifications: orderBy(mappedNotifications, ['momentDate', 'message'], ['desc', 'asc'])
   };
 }
 
