@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import PushNotification from 'react-native-push-notification';
-import { filter } from 'lodash';
+import { get } from 'lodash';
 import moment from 'moment';
 
 import colors from '../themes/Colors';
@@ -10,7 +10,9 @@ import {
   FIRST_OF_MONTH_ID,
   END_OF_MONTH_ID,
 } from '../constants/NotificationIds';
-import { PUSH_NOTIFICATIONS_STORAGE } from '../constants/AsyncStorage';
+import {
+  PUSH_NOTIFICATIONS_STORAGE,
+} from '../constants/AsyncStorage';
 
 export const getScheduledNotifications = async () => {
   const storedData = await AsyncStorage.getItem(PUSH_NOTIFICATIONS_STORAGE);
@@ -140,13 +142,23 @@ export const scheduleEndOfMonthNotification = () => {
 
 export const initializeLocalNotifications = async () => {
   let currecntNotifications = await getScheduledNotifications();
-
+  debugger;
   if (!currecntNotifications) {
     currecntNotifications = {};
 
     currecntNotifications.everyWeek = scheduleEveryWeekNotification();
-    currecntNotifications.firstOfMonth = scheduleFirstOfMonthNotification();
-    currecntNotifications.endOfMonth = scheduleEndOfMonthNotification();
+  }
+
+  const firstOfMonthDate = get(currecntNotifications, 'firstOfMonth.date', null);
+
+  if (!firstOfMonthDate || moment(firstOfMonthDate) < moment()) {
+    currecntNotifications.firstOfMonth = await scheduleFirstOfMonthNotification();
+  }
+
+  const endOfMonthDate = get(currecntNotifications, 'endOfMonth.date', null);
+
+  if (!endOfMonthDate || moment(endOfMonthDate) < moment()) {
+    currecntNotifications.endOfMonth = await scheduleEndOfMonthNotification();
   }
 
   currecntNotifications.everyDay = scheduleEveryDayNotifications();
