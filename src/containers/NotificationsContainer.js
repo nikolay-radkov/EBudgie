@@ -15,6 +15,7 @@ import { orderBy, map } from 'lodash';
 import moment from 'moment';
 
 import { pushRoute } from '../boundActionCreators/navigation';
+import { setNotificationIsSeen } from '../actionCreators/notifications';
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
 
@@ -39,11 +40,12 @@ const styles = StyleSheet.create({
 });
 
 class NotificationsContainer extends Component {
-  goTo = (route) => {
-    const { push } = this.props;
+  goTo = (notification) => {
+    const { push, markNotificationAsSeen } = this.props;
+    markNotificationAsSeen(notification.id, true);
 
     push({
-      key: route,
+      key: notification.route,
     });
   }
 
@@ -70,7 +72,7 @@ class NotificationsContainer extends Component {
       content = (notifications.map((n, i) => (
         <TouchableHighlight
           key={i}
-          onPress={() => this.goTo(n.route)}
+          onPress={() => this.goTo(n)}
           underlayColor={colors.underlay}>
           <View
             style={{
@@ -151,6 +153,7 @@ class NotificationsContainer extends Component {
 NotificationsContainer.propTypes = {
   notifications: PropTypes.array,
   push: PropTypes.func.isRequired,
+  markNotificationAsSeen: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -171,6 +174,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     push: bindActionCreators(pushRoute, dispatch),
+    markNotificationAsSeen: bindActionCreators(setNotificationIsSeen, dispatch),
   };
 }
 
