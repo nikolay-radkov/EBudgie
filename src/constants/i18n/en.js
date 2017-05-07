@@ -146,4 +146,7 @@ export default {
   'PASSED_GLOBAL_THRESHOLD': 'Your have passed the global threshold',
   'CLOSE_GLOBAL_THRESHOLD': 'Your are too close to the global threshold',
   'AT': 'at',
+  'TYPE': 'Type',
+  'EXPENSE': 'expense',
+  'INCOME': 'income',
 };

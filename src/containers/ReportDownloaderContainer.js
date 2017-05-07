@@ -11,7 +11,7 @@ import DatePicker from 'react-native-datepicker';
 import ModalPicker from 'react-native-modal-picker';
 import SettingsList from 'react-native-settings-list';
 import { Icon } from 'react-native-elements';
-import _ from 'lodash';
+import { map, orderBy } from 'lodash';
 import moment from 'moment';
 import i18n from 'react-native-i18n';
 
@@ -74,6 +74,9 @@ class ReportDownloaderComponent extends Component {
     const data = csv([{
       name: 'date',
       label: i18n.t('DATE')
+    }, {
+      name: 'type',
+      label: i18n.t('TYPE')
     }, {
       name: 'category',
       label: i18n.t('CATEGORY')
@@ -290,8 +293,8 @@ function mapStateToProps(state) {
   let expenses = [];
 
   if (!reportForm.isRangeEvents) {
-    incomes = _.map(ebudgie.incomes, (i) => mapReportForDownload(ebudgie.categories, ebudgie.items, i));
-    expenses = _.map(ebudgie.expenses, (i) => mapReportForDownload(ebudgie.categories, ebudgie.items, i));
+    incomes = map(ebudgie.incomes, (i) => mapReportForDownload(ebudgie.categories, ebudgie.items, i));
+    expenses = map(ebudgie.expenses, (i) => mapReportForDownload(ebudgie.categories, ebudgie.items, i));
   } else {
     const result = getReportForDownload(ebudgie, reportForm.fromDate, reportForm.toDate);
 
@@ -300,10 +303,15 @@ function mapStateToProps(state) {
   }
 
   let events = incomes.concat(expenses);
-  events = _.orderBy(events, 'date') || [];
+  events = orderBy(events, 'date') || [];
 
   return {
-    events,
+    events: map(events, e => {
+      return {
+        ...e,
+        type: e.value <= 0 ? i18n.t('EXPENSE') : i18n.t('INCOME'),
+      };
+    }),
     reportForm,
   };
 }
