@@ -7,6 +7,22 @@ import {
   INITIAL_LOAD,
 } from '../constants/ActionTypes';
 
+const applyChanges = async (nextState, prevState) => {
+  try {
+    const storedDocument = await getDocument(prevState.pouchdb.dbName);
+    await updateDocument({
+      ...nextState.ebudgie,
+      _rev: storedDocument._rev,
+    });
+  } catch (e) {
+    if (e.status === 409) {
+      await applyChanges(nextState, prevState);
+    } else {
+      throw e;
+    }
+  }
+}
+
 const storage = store => next => async action => {
   const prevState = store.getState();
   const result = next(action);
@@ -22,11 +38,7 @@ const storage = store => next => async action => {
           ...nextState.ebudgie,
         });
       } else {
-        const storedDocument = await getDocument(prevState.pouchdb.dbName);
-        await updateDocument({
-          ...nextState.ebudgie,
-          _rev: storedDocument._rev,
-        });
+        await applyChanges(nextState, prevState);
       }
     } catch (e) {
 
