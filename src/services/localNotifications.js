@@ -2,7 +2,10 @@ import { AsyncStorage } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import { get } from 'lodash';
 import moment from 'moment';
+import UUIDGenerator from 'react-native-uuid-generator';
 
+import { addNewNotification } from '../actionCreators/notifications';
+import store from '../store';
 import colors from '../themes/Colors';
 import {
   EVERY_DAY_ID,
@@ -13,6 +16,36 @@ import {
 import {
   PUSH_NOTIFICATIONS_STORAGE,
 } from '../constants/AsyncStorage';
+
+export const createNotification = async (options) => {
+  if (options.message) {
+    const notification = {
+      date: moment().format(),
+      route: options.route || 'reports',
+      message: options.message,
+    };
+
+    if (options.icon) {
+      notification.icon = options.icon;
+    } else if (options.picture) {
+      notification.icon = options.icon;
+    }
+
+    if (options.isSeen) {
+      notification.isSeen = options.isSeen;
+    }
+
+    if (options.placeholders) {
+      notification.placeholders = options.placeholders;
+    }
+
+    notification.id = await UUIDGenerator.getRandomUUID();
+
+    store.dispatch(addNewNotification(notification));
+
+    return notification.id;
+  }
+};
 
 export const getScheduledNotifications = async () => {
   const storedData = await AsyncStorage.getItem(PUSH_NOTIFICATIONS_STORAGE);
@@ -48,6 +81,10 @@ export const schedule = (options) => {
 
   if (options.repeatType) {
     notificationOptions.repeatType = options.repeatType;
+  }
+
+  if (options.data) {
+    notificationOptions.data = JSON.stringify(options.data);
   }
 
   PushNotification.localNotificationSchedule(notificationOptions);
@@ -142,7 +179,7 @@ export const scheduleEndOfMonthNotification = () => {
 
 export const initializeLocalNotifications = async () => {
   let currecntNotifications = await getScheduledNotifications();
-  debugger;
+
   if (!currecntNotifications) {
     currecntNotifications = {};
 

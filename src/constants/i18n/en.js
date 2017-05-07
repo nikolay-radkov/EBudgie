@@ -139,4 +139,11 @@ export default {
   'ABOUT': 'About',
   'ABOUT_EBUDGIE': 'About EBudgie',
   'VERSION': 'Version',
+  'WARNING': 'Warning!',
+  'REALLY_CLOSE': 'Really close',
+  'PASSED_THRESHOLD': 'Your have passed the threshold for {{category}}',
+  'CLOSE_THRESHOLD': 'Your are really close to the threshold for {{category}}',
+  'PASSED_GLOBAL_THRESHOLD': 'Your have passed the global threshold',
+  'CLOSE_GLOBAL_THRESHOLD': 'Your are too close to the global threshold',
+  'AT': 'at',
 };
