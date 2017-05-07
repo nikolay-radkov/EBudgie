@@ -9,6 +9,7 @@ import { deleteExpense, resetEditExpenseForm } from '../../actionCreators/editEx
 import { deleteIncome, resetEditIncomeForm } from '../../actionCreators/editIncomeForm';
 import { deleteCategory, resetEditCategoryForm } from '../../actionCreators/editCategoryForm';
 import { deleteItem, resetEditItemForm } from '../../actionCreators/editItemForm';
+import { markAllNotificationsAsSeen } from '../../actionCreators/notifications';
 import colors from '../../themes/Colors';
 import { showDeleteDialog } from '../../services/dialog';
 
@@ -30,6 +31,7 @@ const RightHeaderComponent = ({
   resetEditItem,
   editItemFormId,
   showItemDeleteButton,
+  seeAllNotifications,
 }) => {
   const { route } = scene;
   let rightButton = null;
@@ -177,6 +179,18 @@ const RightHeaderComponent = ({
           );
         }
         break;
+      case 'notifications':
+        onRightButtonPress = () => seeAllNotifications();
+        rightButton = (
+          <HeaderButton
+            iconProps={{
+              name: 'clear-all',
+              color: colors.snow
+            }}
+            onPress={onRightButtonPress}
+          />
+        );
+        break;
     }
   }
 
@@ -199,6 +213,7 @@ RightHeaderComponent.propTypes = {
   showCategoryDeleteButton: PropTypes.bool,
   removeItem: PropTypes.func.isRequired,
   resetEditItem: PropTypes.func.isRequired,
+  seeAllNotifications: PropTypes.func.isRequired,
   editItemFormId: PropTypes.string,
   showItemDeleteButton: PropTypes.bool,
 };
@@ -251,6 +266,7 @@ function mapDispatchToProps(dispatch) {
     resetEditCategory: resetEditCategoryForm,
     removeItem: deleteItem,
     resetEditItem: resetEditItemForm,
+    seeAllNotifications: markAllNotificationsAsSeen,
   }, dispatch);
 }
 
