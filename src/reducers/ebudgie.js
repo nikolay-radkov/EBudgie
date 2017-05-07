@@ -7,7 +7,6 @@ import {
   LOAD_EBUDGIE,
   EDIT_SALARY,
   NEW_INCOME,
-  UPDATE_REV,
   NEW_EXPENSE,
   SET_LANGUAGE,
   SET_CURRENCY,
@@ -27,7 +26,6 @@ import {
 
 const initialState = {
   _id: null,
-  _rev: null,
   categories: [],
   items: [],
   salaries: [],
@@ -117,11 +115,6 @@ export default (state = initialState, action) => {
           ...expenses,
           action.expense
         ]
-      };
-    case UPDATE_REV:
-      return {
-        ...state,
-        _rev: action._rev,
       };
     case SET_LANGUAGE:
       return {
