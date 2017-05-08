@@ -42,12 +42,11 @@ const styles = StyleSheet.create({
   notification: {
     flexDirection: 'row',
     padding: 10,
-    borderBottomColor: colors.snow,
-    borderBottomWidth: 2,
+    elevation: 4,
+    marginBottom: 10,
   },
   avatarContainer: {
     padding: 5,
-    backgroundColor: colors.warm,
     justifyContent: 'center',
   },
   image: {
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     flex: 1,
-    padding: 5,
+    paddingLeft: 10,
     justifyContent: 'center',
   },
   message: {
@@ -107,9 +106,11 @@ class NotificationsContainer extends Component {
           underlayColor={colors.underlay}>
           <View
             style={[styles.notification, {
-              backgroundColor: n.isSeen ? colors.background : colors.warm
+              backgroundColor: n.isSeen ? colors.snow : colors.warm
             }]}>
-            <View style={styles.avatarContainer}>
+            <View style={[styles.avatarContainer, {
+              backgroundColor: !n.isSeen ? colors.warm : (n.color ? n.color : colors.warm),
+            }]}>
               {!!n.icon && !n.picture &&
                 <Icon
                   color={colors.snow}
