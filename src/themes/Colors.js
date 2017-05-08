@@ -21,7 +21,7 @@ const colors = {
   fire: '#e73536',
   success: '#11dd22',
   dark: 'black',
-  underlay: 'rgba(2, 51, 101, 0.2)',
+  underlay: 'rgba(2, 51, 101, 0.3)',
 };
 
 export default colors;

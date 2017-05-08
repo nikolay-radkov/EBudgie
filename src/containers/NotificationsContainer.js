@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     borderBottomColor: colors.snow,
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
   },
   avatarContainer: {
     padding: 5,
@@ -107,7 +107,7 @@ class NotificationsContainer extends Component {
           underlayColor={colors.underlay}>
           <View
             style={[styles.notification, {
-              backgroundColor: n.isSeen ? colors.background : 'red'
+              backgroundColor: n.isSeen ? colors.background : colors.warm
             }]}>
             <View style={styles.avatarContainer}>
               {!!n.icon && !n.picture &&
