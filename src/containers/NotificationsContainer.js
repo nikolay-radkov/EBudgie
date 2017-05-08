@@ -19,6 +19,8 @@ import { setNotificationIsSeen } from '../actionCreators/notifications';
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
 
+const AVATAR_SIZE = 40;
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.background,
@@ -28,15 +30,44 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  messageContainer: {
+  labelContainer: {
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  message: {
+  label: {
     fontSize: 20,
     textAlign: 'center'
-  }
+  },
+  notification: {
+    flexDirection: 'row',
+    padding: 10,
+    borderBottomColor: colors.snow,
+    borderBottomWidth: 1,
+  },
+  avatarContainer: {
+    padding: 5,
+    backgroundColor: colors.warm,
+    justifyContent: 'center',
+  },
+  image: {
+    width: AVATAR_SIZE,
+    height: AVATAR_SIZE,
+  },
+  messageContainer: {
+    flex: 1,
+    padding: 5,
+    justifyContent: 'center',
+  },
+  message: {
+    flex: 1,
+    flexWrap: 'wrap',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  date: {
+    fontSize: 12,
+  },
 });
 
 class NotificationsContainer extends Component {
@@ -61,8 +92,8 @@ class NotificationsContainer extends Component {
           <View style={styles.icon}>
             <Image source={require('../images/budgie-icon.png')} />
           </View>
-          <View style={styles.messageContainer}>
-            <Text style={styles.message}>
+          <View style={styles.labelContainer}>
+            <Text style={styles.label}>
               {i18n.t('NO_NOTIFICAITONS')}
             </Text>
           </View>
@@ -75,23 +106,15 @@ class NotificationsContainer extends Component {
           onPress={() => this.goTo(n)}
           underlayColor={colors.underlay}>
           <View
-            style={{
-              flexDirection: 'row',
-              padding: 10,
-              borderBottomColor: colors.snow,
-              borderBottomWidth: 1,
-              backgroundColor: n.isSeen ? 'white' : 'red'
-            }}>
-            <View style={{
-              padding: 5,
-              backgroundColor: colors.warm,
-              justifyContent: 'center',
-            }}>
+            style={[styles.notification, {
+              backgroundColor: n.isSeen ? colors.background : 'red'
+            }]}>
+            <View style={styles.avatarContainer}>
               {!!n.icon && !n.picture &&
                 <Icon
                   color={colors.snow}
                   name={n.icon}
-                  size={50}
+                  size={AVATAR_SIZE}
                 />
               }
               {!!n.picture && !n.icon &&
@@ -99,42 +122,21 @@ class NotificationsContainer extends Component {
                   source={{
                     uri: n.picture
                   }}
-                  style={{
-                    width: 50,
-                    height: 50,
-                  }} />
+                  style={styles.image} />
               }
               {!n.picture && !n.icon &&
                 <Image
                   source={require('../images/budgie-icon.png')}
-                  style={{
-                    width: 50,
-                    height: 50,
-                  }} />
+                  style={styles.image} />
               }
             </View>
-            <View style={{
-              flex: 1,
-              padding: 5,
-              justifyContent: 'center',
-            }}>
+            <View style={styles.messageContainer}>
               <View>
-                <View style={{
-                  flexDirection: 'row',
-                }}>
-                  <Text
-                    style={{
-                      flex: 1,
-                      flexWrap: 'wrap',
-                      fontWeight: 'bold',
-                      fontSize: 18,
-                    }}>{i18n.t(n.message, n.placeholders)}</Text>
-                </View>
+                <Text
+                  style={styles.message}>{i18n.t(n.message, n.placeholders)}</Text>
               </View>
               <View>
-                <Text style={{
-                  fontSize: 12,
-                }}>{n.dateToShow}</Text>
+                <Text style={styles.date}>{n.dateToShow}</Text>
               </View>
             </View>
           </View>
