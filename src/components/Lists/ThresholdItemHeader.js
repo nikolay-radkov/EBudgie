@@ -7,15 +7,18 @@ import {
 import { Icon } from 'react-native-elements';
 import PercentageCircle from 'react-native-percentage-circle';
 import i18n from 'react-native-i18n';
+import Color from 'color';
 
 import colors from '../../themes/Colors';
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     padding: 10,
     borderBottomColor: colors.silver,
     borderBottomWidth: 0,
+    position: 'relative',
   },
   titleContainer: {
     flex: 1,
@@ -60,10 +63,20 @@ const ThresholdItemHeader = ({
           name={icon}
           size={40} />
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{i18n.t('THRESHOLD')}: {value}{currency}</Text>
+        <Text style={[styles.subtitle, {
+          textDecorationLine: !isPositive ? 'line-through' : null,
+        }]}>{i18n.t('THRESHOLD')}: {value}{currency}</Text>
       </View>
       {!isPositive &&
-        <View>
+        <View style={[styles.diagram, {
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          backgroundColor: Color(color).alpha(0.5),
+          zIndex: 100,
+        }]}>
           <Icon
             color={colors.snow}
             name="warning"
