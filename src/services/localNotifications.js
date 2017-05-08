@@ -28,7 +28,7 @@ export const createNotification = async (options) => {
     if (options.icon) {
       notification.icon = options.icon;
     } else if (options.picture) {
-      notification.icon = options.icon;
+      notification.picture = options.picture;
     }
 
     if (options.isSeen) {
@@ -40,7 +40,6 @@ export const createNotification = async (options) => {
     }
 
     notification.id = await UUIDGenerator.getRandomUUID();
-
     store.dispatch(addNewNotification(notification));
 
     return notification.id;
