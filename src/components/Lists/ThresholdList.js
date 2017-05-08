@@ -6,6 +6,7 @@ import _ from 'lodash';
 import i18n from 'react-native-i18n';
 import moment from 'moment';
 import Accordion from 'react-native-collapsible/Accordion';
+import Color from 'color';
 
 import HeaderWrapper from '../Header/HeaderWrapper';
 import { mapArrayOfIdsToCategories } from '../../services/mapIdToObject';
@@ -18,6 +19,7 @@ import { populateEditIncomeForm } from '../../actionCreators/editIncomeForm';
 import { populateEditExpenseForm } from '../../actionCreators/editExpenseForm';
 import { pushRoute } from '../../boundActionCreators/navigation';
 import { isInCurrentMonth } from '../../services/events';
+import colors from '../../themes/Colors';
 
 class ThresholdList extends Component {
   constructor() {
@@ -103,7 +105,7 @@ class ThresholdList extends Component {
     const content = (
       <View>
         <ThresholdItemContent
-          color={color}
+          color={Color(color).darken(0.1).hsl().string()}
           currency={currency}
           editExpense={this.editExpense}
           editIncome={this.editIncome}
@@ -134,6 +136,7 @@ class ThresholdList extends Component {
           renderContent={this.renderContent}
           renderHeader={this.renderHeader}
           sections={thresholdCategories}
+          underlayColor={colors.underlay}
         />
       </ScrollView >
     );
@@ -151,8 +154,6 @@ ThresholdList.propTypes = {
   thresholdCategories: PropTypes.array,
   routeIndex: PropTypes.number,
 };
-
-
 
 function mapStateToProps(state) {
   const { thresholds, expenses, incomes, currency, items } = state.ebudgie;

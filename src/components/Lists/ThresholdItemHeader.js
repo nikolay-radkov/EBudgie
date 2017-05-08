@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     borderBottomColor: colors.silver,
-    borderBottomWidth: 2,
+    borderBottomWidth: 0,
   },
   titleContainer: {
     flex: 1,
@@ -31,9 +31,10 @@ const styles = StyleSheet.create({
   title: {
     color: colors.snow,
     fontSize: 18,
+    fontWeight: 'bold'
   },
   subtitle: {
-    color: colors.frost,
+    color: colors.silver,
     fontSize: 12,
   }
 });

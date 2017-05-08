@@ -13,6 +13,10 @@ import colors from '../../themes/Colors';
 const styles = StyleSheet.create({
   list: {
     marginTop: 0,
+    borderBottomWidth: 0,
+    borderTopWidth: 0,
+    marginBottom: 10,
+    elevation: 4,
   }
 });
 
@@ -43,6 +47,7 @@ const ThresholdItemContent = ({
                 }}
                 containerStyle={{
                   backgroundColor: color,
+                  borderBottomWidth: 0,
                 }}
                 hideChevron
                 key={i}
@@ -58,8 +63,15 @@ const ThresholdItemContent = ({
                   }
                 }}
                 subtitle={moment(l.date).format('DD-MM-YYYY')}
+                subtitleStyle={{
+                  color: colors.silver
+                }}
                 title={l.item}
-                titleStyle={{ color: colors.snow }}
+                titleStyle={{
+                  color: colors.snow,
+                  fontWeight: 'bold'
+                }}
+                underlayColor={colors.underlay}
               />
             ))
           }
