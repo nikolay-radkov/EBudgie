@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import HeaderButton from '../../components/Header/HeaderButton';
+import HeaderButtonWithBadge from '../../components/Header/HeaderButtonWithBadge';
 import { pushRoute, popRoute } from '../../boundActionCreators/navigation';
 import { deleteExpense, resetEditExpenseForm } from '../../actionCreators/editExpenseForm';
 import { deleteIncome, resetEditIncomeForm } from '../../actionCreators/editIncomeForm';
@@ -32,6 +33,7 @@ const RightHeaderComponent = ({
   editItemFormId,
   showItemDeleteButton,
   seeAllNotifications,
+  notificationsCount
 }) => {
   const { route } = scene;
   let rightButton = null;
@@ -44,7 +46,8 @@ const RightHeaderComponent = ({
           key: 'notifications'
         });
         rightButton = (
-          <HeaderButton
+          <HeaderButtonWithBadge
+            badge={notificationsCount}
             iconProps={{
               name: 'notifications',
               color: colors.snow
@@ -216,6 +219,7 @@ RightHeaderComponent.propTypes = {
   seeAllNotifications: PropTypes.func.isRequired,
   editItemFormId: PropTypes.string,
   showItemDeleteButton: PropTypes.bool,
+  notificationsCount: PropTypes.number,
 };
 
 function getItemsForGategoryId(items, categoryId) {
@@ -244,6 +248,9 @@ function mapStateToProps(state) {
     showItemDeleteButton = items.length === 0;
   }
 
+  const notSeenNotifcations = _.filter(state.ebudgie.notifications, n => !n.isSeen);
+  const notificationsCount = notSeenNotifcations.length;
+
   return {
     editExpenseFormId: _.get(state.editExpenseForm, 'id', ''),
     editIncomeFormId: _.get(state.editIncomeForm, 'id', ''),
@@ -251,6 +258,7 @@ function mapStateToProps(state) {
     showCategoryDeleteButton,
     editItemFormId,
     showItemDeleteButton,
+    notificationsCount,
   };
 }
 
