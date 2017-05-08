@@ -39,6 +39,10 @@ export const createNotification = async (options) => {
       notification.placeholders = options.placeholders;
     }
 
+    if (options.color) {
+      notification.color = options.color;
+    }
+
     notification.id = await UUIDGenerator.getRandomUUID();
     store.dispatch(addNewNotification(notification));
 

@@ -56,12 +56,12 @@ const ApplicationStyles = {
   sectionTitle: {
     ...Fonts.style.h4,
     color: Colors.coal,
-    backgroundColor: Colors.ricePaper,
+    backgroundColor: Colors.snow,
     padding: Metrics.smallMargin,
     marginTop: Metrics.smallMargin,
     marginHorizontal: Metrics.baseMargin,
     borderWidth: 1,
-    borderColor: Colors.ember,
+    borderColor: Colors.silver,
     alignItems: 'center',
     textAlign: 'center'
   }

@@ -6,6 +6,7 @@ import { Icon } from 'react-native-elements';
 
 import { createNotification } from '../services/localNotifications';
 import { setNotificationIsSeen } from '../actionCreators/notifications';
+import colors from '../themes/Colors';
 
 import {
   NEW_ITEM,
@@ -31,6 +32,18 @@ const messageBar = store => next => async action => {
   let shouldShowMessage = true;
   const options = {
     viewTopInset: StatusBar.currentHeight,
+    stylesheetInfo: {
+      backgroundColor: colors.blue,
+      strokeColor: colors.blue,
+    },
+    stylesheetSuccess: {
+      backgroundColor: colors.success,
+      strokeColor: colors.success
+    },
+    stylesheetError: {
+      backgroundColor: colors.red,
+      strokeColor: colors.red,
+    },
   };
   const notificationOptions = {
     isSeen: false,
@@ -53,6 +66,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'NEW_INCOME_ADDED';
       notificationOptions.icon = 'attach-money';
       notificationOptions.route = 'calendar';
+      notificationOptions.color = colors.success;
       break;
     case NEW_EXPENSE:
       options.title = i18n.t('ELEMENT_ADDED');
@@ -69,6 +83,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'NEW_EXPENSE_ADDED';
       notificationOptions.icon = 'money-off';
       notificationOptions.route = 'calendar';
+      notificationOptions.color = colors.success;
       break;
     case NEW_CATEGORY:
       options.title = i18n.t('ELEMENT_ADDED');
@@ -85,6 +100,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'NEW_CATEGORY_ADDED';
       notificationOptions.icon = 'library-add';
       notificationOptions.route = 'categories';
+      notificationOptions.color = colors.success;
       break;
     case NEW_ITEM:
       options.title = i18n.t('ELEMENT_ADDED');
@@ -101,6 +117,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'NEW_ITEM_ADDED';
       notificationOptions.icon = 'add';
       notificationOptions.route = 'items';
+      notificationOptions.color = colors.success;
       break;
     case NEW_THRESHOLD:
       options.title = i18n.t('ELEMENT_ADDED');
@@ -116,6 +133,7 @@ const messageBar = store => next => async action => {
 
       notificationOptions.message = 'NEW_THRESHOLD_ADDED';
       notificationOptions.icon = 'lock';
+      notificationOptions.color = colors.success;
       break;
     // EDIT NOTIFICATIONS
     case EDIT_INCOME:
@@ -133,6 +151,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'INCOME_UPDATED';
       notificationOptions.icon = 'attach-money';
       notificationOptions.route = 'calendar';
+      notificationOptions.color = colors.blue;
       break;
     case EDIT_EXPENSE:
       options.title = i18n.t('ELEMENT_UPDATED');
@@ -149,6 +168,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'EXPENSE_UPDATED';
       notificationOptions.icon = 'money-off';
       notificationOptions.route = 'calendar';
+      notificationOptions.color = colors.blue;
       break;
     case EDIT_CATEGORY:
       options.title = i18n.t('ELEMENT_UPDATED');
@@ -165,6 +185,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'CATEGORY_UPDATED';
       notificationOptions.icon = 'library-add';
       notificationOptions.route = 'categories';
+      notificationOptions.color = colors.blue;
       break;
     case EDIT_ITEM:
       options.title = i18n.t('ELEMENT_UPDATED');
@@ -181,6 +202,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'ITEM_UPDATED';
       notificationOptions.icon = 'add';
       notificationOptions.route = 'items';
+      notificationOptions.color = colors.blue;
       break;
     case EDIT_SALARY:
       options.title = i18n.t('ELEMENT_UPDATED');
@@ -196,6 +218,7 @@ const messageBar = store => next => async action => {
 
       notificationOptions.message = 'SALARY_UPDATED';
       notificationOptions.icon = 'repeat';
+      notificationOptions.color = colors.blue;
       break;
     // DELETE NOTIFICATIONS
     case DELETE_INCOME:
@@ -213,6 +236,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'INCOME_DELETED';
       notificationOptions.icon = 'attach-money';
       notificationOptions.route = 'calendar';
+      notificationOptions.color = colors.red;
       break;
     case DELETE_EXPENSE:
       options.title = i18n.t('ELEMENT_DELETED');
@@ -229,6 +253,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'EXPENSE_DELETED';
       notificationOptions.icon = 'money-off';
       notificationOptions.route = 'calendar';
+      notificationOptions.color = colors.red;
       break;
     case DELETE_CATEGORY:
       options.title = i18n.t('ELEMENT_DELETED');
@@ -245,6 +270,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'CATEGORY_DELETED';
       notificationOptions.icon = 'library-add';
       notificationOptions.route = 'categories';
+      notificationOptions.color = colors.red;
       break;
     case DELETE_ITEM:
       options.title = i18n.t('ELEMENT_DELETED');
@@ -261,6 +287,7 @@ const messageBar = store => next => async action => {
       notificationOptions.message = 'ITEM_DELETED';
       notificationOptions.icon = 'add';
       notificationOptions.route = 'items';
+      notificationOptions.color = colors.red;
       break;
     default:
       shouldShowMessage = false;

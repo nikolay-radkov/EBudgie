@@ -8,7 +8,6 @@ const colors = {
   silver: '#F0F0F0',
   steel: '#CCCCCC',
   error: '#fd1111',
-  ricePaper: 'rgba(255,255,255, 0.75)',
   frost: '#D8D8D8',
   cloud: '#0004ff',
   windowTint: 'rgba(0, 0, 0, 0.2)',
@@ -17,11 +16,12 @@ const colors = {
   coal: '#2d2d2d',
   bloodOrange: '#fb5f26',
   snow: 'white',
-  ember: 'rgba(164, 0, 48, 0.5)',
   fire: '#e73536',
   success: '#11dd22',
   dark: 'black',
   underlay: 'rgba(2, 51, 101, 0.3)',
+  red: '#ff3232',
+  blue: '#007bff',
 };
 
 export default colors;

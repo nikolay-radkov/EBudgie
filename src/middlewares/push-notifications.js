@@ -16,6 +16,7 @@ import {
   CLOSE_GLOBAL_THRESHOLD_ID,
   PASSED_GLOBAL_THRESHOLD_ID,
 } from '../constants/NotificationIds';
+import colors from '../themes/Colors';
 
 const checkIfPassedCategoryThreshold = async (action, threshold, expenses, categories) => {
   const categoryId = action.expense.categoryId;
@@ -42,6 +43,7 @@ const checkIfPassedCategoryThreshold = async (action, threshold, expenses, categ
       },
       icon: translatedCategory.icon,
       isSeen: true,
+      color: colors.red,
     });
 
     schedule({
@@ -67,6 +69,7 @@ const checkIfPassedCategoryThreshold = async (action, threshold, expenses, categ
       },
       icon: translatedCategory.icon,
       isSeen: true,
+      color: colors.warm,
     });
     schedule({
       id: CLOSE_CATEGORY_THRESHOLD_ID,
@@ -97,6 +100,7 @@ const checkIfPassedGlobalTheshold = async (action, threshold, expenses) => {
     const notificationId = await createNotification({
       message: 'PASSED_GLOBAL_THRESHOLD',
       isSeen: true,
+      color: colors.red,
     });
     schedule({
       id: PASSED_GLOBAL_THRESHOLD_ID,
@@ -117,6 +121,7 @@ const checkIfPassedGlobalTheshold = async (action, threshold, expenses) => {
     const notificationId = await createNotification({
       message: 'CLOSE_GLOBAL_THRESHOLD',
       isSeen: true,
+      color: colors.warm,
     });
     schedule({
       id: CLOSE_GLOBAL_THRESHOLD_ID,
