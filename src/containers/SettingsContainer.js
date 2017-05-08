@@ -16,6 +16,7 @@ import {
 } from 'react-native-custom-tabs';
 
 import * as actions from '../actionCreators/settings';
+import * as boundActions from '../boundActionCreators/settings';
 import { resetRoutes } from '../boundActionCreators/navigation';
 import { clearSchedules } from '../services/localNotifications';
 import theme from '../themes/ApplicationStyles';
@@ -89,7 +90,7 @@ class SettingsComponent extends Component {
       ebudgie,
       setLanguage,
       setCurrency,
-      togglePushNotifications
+      toggleNotificationsFlag
     } = this.props;
 
     const languages = [
@@ -172,7 +173,8 @@ class SettingsComponent extends Component {
                   size={iconSize} />
               </View>
             }
-            switchOnValueChange={togglePushNotifications}
+            onPress={() => toggleNotificationsFlag(!ebudgie.notificationsEnabled)}
+            switchOnValueChange={toggleNotificationsFlag}
             switchState={ebudgie.notificationsEnabled}
             title={i18n.t('PUSH_NOTIFICATIONS')}
             titleStyle={styles.title}
@@ -239,7 +241,7 @@ class SettingsComponent extends Component {
 SettingsComponent.propTypes = {
   setLanguage: PropTypes.func.isRequired,
   setCurrency: PropTypes.func.isRequired,
-  togglePushNotifications: PropTypes.func.isRequired,
+  toggleNotificationsFlag: PropTypes.func.isRequired,
   resetEbudgie: PropTypes.func.isRequired,
   resetPouchdb: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
@@ -255,6 +257,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     ...bindActionCreators(actions, dispatch),
+    ...bindActionCreators(boundActions, dispatch),
     reset: bindActionCreators(resetRoutes, dispatch)
   };
 }

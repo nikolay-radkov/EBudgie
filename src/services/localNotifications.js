@@ -62,31 +62,36 @@ export const clearSchedules = async () => {
 };
 
 export const schedule = (options) => {
-  const notificationOptions = {
-    id: options.id,
-    autoCancel: true,
-    largeIcon: 'ic_launcher',
-    smallIcon: 'ic_notification',
-    color: colors.main,
-    vibrate: true,
-    vibration: 400,
-    ongoing: false,
-    title: options.title,
-    message: options.message,
-    playSound: true,
-    soundName: 'default',
-    date: options.date,
-  };
+  const state = store.getState();
+  const isNotificationEnabled = get(state, 'ebudgie.notificationsEnabled', true);
 
-  if (options.repeatType) {
-    notificationOptions.repeatType = options.repeatType;
+  if (isNotificationEnabled) {
+    const notificationOptions = {
+      id: options.id,
+      autoCancel: true,
+      largeIcon: 'ic_launcher',
+      smallIcon: 'ic_notification',
+      color: colors.main,
+      vibrate: true,
+      vibration: 400,
+      ongoing: false,
+      title: options.title,
+      message: options.message,
+      playSound: true,
+      soundName: 'default',
+      date: options.date,
+    };
+
+    if (options.repeatType) {
+      notificationOptions.repeatType = options.repeatType;
+    }
+
+    if (options.data) {
+      notificationOptions.data = JSON.stringify(options.data);
+    }
+
+    PushNotification.localNotificationSchedule(notificationOptions);
   }
-
-  if (options.data) {
-    notificationOptions.data = JSON.stringify(options.data);
-  }
-
-  PushNotification.localNotificationSchedule(notificationOptions);
 };
 
 export const scheduleEveryDayNotifications = () => {
