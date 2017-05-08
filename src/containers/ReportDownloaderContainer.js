@@ -212,6 +212,7 @@ class ReportDownloaderComponent extends Component {
                     size={iconSize} />
                 </View>
               }
+              onPress={() => toggleReportFormIsRangeEvents(!reportForm.isRangeEvents)}
               switchOnValueChange={toggleReportFormIsRangeEvents}
               switchState={reportForm.isRangeEvents}
               title={i18n.t('REPORT_FOR_TIME_PERIOD')}
