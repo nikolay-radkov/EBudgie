@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import Drawer from 'react-native-drawer';
 import _ from 'lodash';
 import moment from 'moment';
@@ -28,6 +28,14 @@ const drawerStyles = {
   main: {
   }
 };
+
+const styles = StyleSheet.create({
+  headerTile: {
+    color: colors.snow,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  }
+});
 
 class HomeContainer extends Component {
   componentWillMount = () => {
@@ -94,36 +102,76 @@ class HomeContainer extends Component {
           main: { opacity: (2 - ratio) / 2 }
         })}
         type="overlay">
-        <View>
-          <View>
-            <Text> You are doing very good</Text>
+        <ScrollView>
+          <View style={{
+            backgroundColor: colors.positive,
+            padding: 5,
+            borderBottomColor: colors.main,
+          }}>
+            <Text style={{
+              textAlign: 'center',
+              color: colors.snow,
+            }}>You are doing very good</Text>
+          </View>
+          <View style={{
+            backgroundColor: colors.main,
+            padding: 5,
+          }}>
+            <Text style={{
+              textAlign: 'center',
+              color: colors.snow,
+              fontWeight: 'bold',
+              fontSize: 18,
+              textDecorationLine: globalThresholdPercentage > 100 ? 'line-through' : null,
+            }}>Global Threshold: {currentThreshold}{currency}</Text>
           </View>
           <View style={{
             flexDirection: 'row',
+            padding: 10,
+            backgroundColor: colors.main
           }}>
-            <PercentageCircle
-              bgcolor={colors.warm}
-              borderWidth={10}
-              color={colors.error}
-              innerColor={colors.snow}
-              percent={globalThresholdPercentage > 100 ? 100 : globalThresholdPercentage}
-              radius={50}>
-              <Text>{Math.round(globalThresholdPercentage)} %</Text>
-            </PercentageCircle>
-            <View>
+            <View style={{
+              paddingLeft: 10,
+              flexDirection: 'column',
+              justifyContent: 'space-around',
+              flex: 1,
+            }}>
               <View>
-                <Text>Global Threshold: {currentThreshold}{currency}</Text>
+                <Text style={styles.headerTile}>Incomes: {'\n'}{currentIncome}{currency}</Text>
               </View>
               <View>
-                <Text>Expenses: {currentExpense}{currency}</Text>
+                <Text style={styles.headerTile}>Salary: {'\n'}{currentSalary}{currency}</Text>
+              </View>
+            </View>
+            <View style={{
+              paddingVertical: 10
+            }}>
+              <PercentageCircle
+                bgcolor={colors.warm}
+                borderWidth={10}
+                color={colors.error}
+                innerColor={colors.snow}
+                percent={globalThresholdPercentage > 100 ? 100 : globalThresholdPercentage}
+                radius={50}>
+                <Text>{Math.round(globalThresholdPercentage)} %</Text>
+              </PercentageCircle>
+            </View>
+            <View style={{
+              paddingLeft: 10,
+              flexDirection: 'column',
+              justifyContent: 'space-around',
+              flex: 1,
+            }}>
+              <View>
+                <Text style={styles.headerTile}>Expenses: {'\n'}{currentExpense}{currency}</Text>
               </View>
               <View>
-                <Text>Today is {moment().format('DD MMMM YYYY')}</Text>
+                <Text style={styles.headerTile}>Today is {'\n'}{moment().format('DD MMMM YYYY')}</Text>
               </View>
             </View>
           </View>
           <ThresholdList />
-        </View>
+        </ScrollView>
       </Drawer >
     );
   }

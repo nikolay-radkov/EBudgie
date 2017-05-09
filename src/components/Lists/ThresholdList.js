@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
@@ -127,7 +127,7 @@ class ThresholdList extends Component {
     }
 
     return (
-      <ScrollView >
+      <View >
         <HeaderWrapper title={i18n.t('CATEGORIES_THRESHOLD')} />
         <Accordion
           activeSection={active}
@@ -138,7 +138,7 @@ class ThresholdList extends Component {
           sections={thresholdCategories}
           underlayColor={colors.underlay}
         />
-      </ScrollView >
+      </View>
     );
   }
 }
