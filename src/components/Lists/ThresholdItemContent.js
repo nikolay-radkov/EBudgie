@@ -17,6 +17,16 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
     marginBottom: 10,
     elevation: 4,
+  },
+  noEventsContainer: {
+    alignItems: 'center',
+    paddingVertical: 15,
+    marginBottom: 10,
+    elevation: 4,
+  },
+  noEventsText: {
+    color: colors.snow,
+    fontWeight: 'bold',
   }
 });
 
@@ -78,10 +88,10 @@ const ThresholdItemContent = ({
         </List>
       }
       {events.length === 0 &&
-        <View style={{
-          alignItems: 'center'
-        }}>
-          <Text>{i18n.t('NO_EVENTS_FOR_CATEGORY')}</Text>
+        <View style={[styles.noEventsContainer, {
+          backgroundColor: color,
+        }]}>
+          <Text style={styles.noEventsText}>{i18n.t('NO_EVENTS_FOR_CATEGORY')}</Text>
         </View>
       }
     </View>
