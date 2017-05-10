@@ -75,7 +75,6 @@ const ThresholdItemHeader = ({
           top: 0,
           bottom: 0,
           backgroundColor: Color(color).alpha(0.5),
-          zIndex: 100,
         }]}>
           <Icon
             color={colors.snow}
