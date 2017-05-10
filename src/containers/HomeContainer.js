@@ -6,11 +6,13 @@ import Drawer from 'react-native-drawer';
 import _ from 'lodash';
 import moment from 'moment';
 import PercentageCircle from 'react-native-percentage-circle';
+import i18n from 'react-native-i18n';
 
 import { createNewDrawer } from '../boundActionCreators/drawer';
 import { pushRoute } from '../boundActionCreators/navigation';
 import Menu from '../components/Drawer/Menu';
 import ThresholdList from '../components/Lists/ThresholdList';
+import StatusSlogan from '../components/StatusSlogan';
 import { initializeLocalNotifications } from '../services/localNotifications';
 
 import colors from '../themes/Colors';
@@ -104,69 +106,65 @@ class HomeContainer extends Component {
         type="overlay">
         <ScrollView>
           <View style={{
-            backgroundColor: colors.positive,
-            padding: 5,
-            borderBottomColor: colors.main,
+            elevation: 4,
           }}>
-            <Text style={{
-              textAlign: 'center',
-              color: colors.snow,
-            }}>You are doing very good</Text>
-          </View>
-          <View style={{
-            backgroundColor: colors.main,
-            padding: 5,
-          }}>
-            <Text style={{
-              textAlign: 'center',
-              color: colors.snow,
-              fontWeight: 'bold',
-              fontSize: 18,
-              textDecorationLine: globalThresholdPercentage > 100 ? 'line-through' : null,
-            }}>Global Threshold: {currentThreshold}{currency}</Text>
-          </View>
-          <View style={{
-            flexDirection: 'row',
-            padding: 10,
-            backgroundColor: colors.main
-          }}>
+            <StatusSlogan
+              percentage={globalThresholdPercentage} />
             <View style={{
-              paddingLeft: 10,
-              flexDirection: 'column',
-              justifyContent: 'space-around',
-              flex: 1,
+              backgroundColor: colors.main,
+              padding: 5,
             }}>
-              <View>
-                <Text style={styles.headerTile}>Incomes: {'\n'}{currentIncome}{currency}</Text>
-              </View>
-              <View>
-                <Text style={styles.headerTile}>Salary: {'\n'}{currentSalary}{currency}</Text>
-              </View>
+              <Text style={{
+                textAlign: 'center',
+                color: colors.snow,
+                fontWeight: 'bold',
+                fontSize: 18,
+                textDecorationLine: globalThresholdPercentage > 100 ? 'line-through' : null,
+              }}>{i18n.t('GLOBAL_THRESHOLD')}: {currentThreshold}{currency}</Text>
             </View>
             <View style={{
-              paddingVertical: 10
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: colors.main,
             }}>
-              <PercentageCircle
-                bgcolor={colors.warm}
-                borderWidth={10}
-                color={colors.error}
-                innerColor={colors.snow}
-                percent={globalThresholdPercentage > 100 ? 100 : globalThresholdPercentage}
-                radius={50}>
-                <Text>{Math.round(globalThresholdPercentage)} %</Text>
-              </PercentageCircle>
-            </View>
-            <View style={{
-              paddingLeft: 10,
-              flexDirection: 'column',
-              justifyContent: 'space-around',
-              flex: 1,
-            }}>
-              <View>
-                <Text style={styles.headerTile}>Expenses: {'\n'}{currentExpense}{currency}</Text>
+              <View style={{
+                paddingLeft: 10,
+                flexDirection: 'column',
+                justifyContent: 'space-around',
+                flex: 1,
+              }}>
+                <View>
+                  <Text style={styles.headerTile}>{i18n.t('INCOMES')} {'\n'}{currentIncome}{currency}</Text>
+                </View>
+                <View>
+                  <Text style={styles.headerTile}>{i18n.t('SALARY')} {'\n'}{currentSalary}{currency}</Text>
+                </View>
               </View>
-              <View>
-                <Text style={styles.headerTile}>Today is {'\n'}{moment().format('DD MMMM YYYY')}</Text>
+              <View style={{
+                paddingVertical: 10
+              }}>
+                <PercentageCircle
+                  bgcolor={colors.warm}
+                  borderWidth={10}
+                  color={colors.error}
+                  innerColor={colors.snow}
+                  percent={globalThresholdPercentage > 100 ? 100 : globalThresholdPercentage}
+                  radius={50}>
+                  <Text>{Math.round(globalThresholdPercentage)} %</Text>
+                </PercentageCircle>
+              </View>
+              <View style={{
+                paddingLeft: 10,
+                flexDirection: 'column',
+                justifyContent: 'space-around',
+                flex: 1,
+              }}>
+                <View>
+                  <Text style={styles.headerTile}>{i18n.t('EXPENSES')} {'\n'}{currentExpense}{currency}</Text>
+                </View>
+                <View>
+                  <Text style={styles.headerTile}>{i18n.t('DATE')} {'\n'}{moment().format('DD MMMM YYYY')}</Text>
+                </View>
               </View>
             </View>
           </View>

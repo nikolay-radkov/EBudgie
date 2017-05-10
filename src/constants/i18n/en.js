@@ -166,4 +166,9 @@ export default {
   'CATEGORY_DELETED': 'Category deleted',
   'INCOME_DELETED': 'Income deleted',
   'EXPENSE_DELETED': 'Expense deleted',
+  'STATUS_SLOGAN_EXCELLENT': 'Nice! You are doing excellent {{emoji}} Keep the spirit!',
+  'STATUS_SLOGAN_GOOD': 'Your plan is really in place for the month {{emoji}}',
+  'STATUS_SLOGAN_NOT_GOOD': 'Be careful until the end of the month {{emoji}}',
+  'STATUS_SLOGAN_POOR': 'Uh! You almost reach the limit {{emoji}}',
+  'STATUS_SLOGAN_SORRY': 'Really sorry to see this {{emoji}} Plan better next time.',
 };

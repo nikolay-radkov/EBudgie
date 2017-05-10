@@ -1,5 +1,6 @@
 import './config/i18n';
 import './config/fcm';
+import './lib/StringPolyfills';
 
 import React, { Component } from 'react';
 import { View, StatusBar } from 'react-native';

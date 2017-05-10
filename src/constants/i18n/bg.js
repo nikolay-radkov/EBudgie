@@ -166,4 +166,9 @@ export default {
   'CATEGORY_DELETED': 'Изтрита категория',
   'INCOME_DELETED': 'Изтрит приход',
   'EXPENSE_DELETED': 'Изтрит разход',
+  'STATUS_SLOGAN_EXCELLENT': 'Супер! Справяш се страхотно {{emoji}} Поддържай темпото!',
+  'STATUS_SLOGAN_GOOD': 'Планирането ти за месеца е на място {{emoji}}',
+  'STATUS_SLOGAN_NOT_GOOD': 'Бъди внимателен до края на месеца {{emoji}}',
+  'STATUS_SLOGAN_POOR': 'Ух! Почти достигна лимита за месеца {{emoji}}',
+  'STATUS_SLOGAN_SORRY': 'Наистина съжалявам, че виждам това {{emoji}} Планирай по-добре следващия месец.',
 };
