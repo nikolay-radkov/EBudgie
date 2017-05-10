@@ -46,9 +46,15 @@ class NavigationRootContainer extends Component {
     if (isUserLogged) {
       const dbName = await AsyncStorage.getItem('dbName');
       await this.goToHome(dbName);
+      SplashScreen.hide();
+      return;
     }
 
-    SplashScreen.hide();
+    const didIntro = JSON.parse(await AsyncStorage.getItem('didIntro'));
+
+    if (!didIntro) {
+      return this.props.replace({ key: 'intro' });
+    }
   }
 
   componentWillUnmount() {

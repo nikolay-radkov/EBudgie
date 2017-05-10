@@ -53,7 +53,7 @@ class CustomHeader extends Component {
 
     const elevation = this._getElevationValue(route);
 
-    if (route.key === 'login') {
+    if (route.key === 'login' || route.key === 'intro') {
       navigation = null;
     } else {
       navigation = (

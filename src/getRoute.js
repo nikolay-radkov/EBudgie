@@ -21,6 +21,7 @@ import DetailedReport from './containers/Reports/DetailedReportContainer';
 import ReportDownloader from './containers/ReportDownloaderContainer';
 import AddThreshold from './containers/Threshold/AddThresholdContainer';
 import Notificaitons from './containers/NotificationsContainer';
+import Intro from './containers/IntroContainer';
 
 const getRoutes = (key) => {
   switch (key) {
@@ -64,6 +65,8 @@ const getRoutes = (key) => {
       return (<AddThreshold />);
     case 'scene_notifications':
       return (<Notificaitons />);
+    case 'scene_intro':
+      return (<Intro />);
     default:
       return <NotFound />;
   }
