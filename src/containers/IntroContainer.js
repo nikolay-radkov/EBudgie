@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.snow,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     padding: 10,
@@ -95,7 +95,7 @@ const pageArray = [{
 }, {
   title: i18n.t('SLIDE_2_TITLE'),
   description: i18n.t('SLIDE_2_DESCRIPTION'),
-  image: require('../images/stripes.png'),
+  image: require('../images/manage.png'),
   levelImage: 10,
   levelTitle: 0,
   levelDescription: -4,
@@ -104,7 +104,7 @@ const pageArray = [{
 }, {
   title: i18n.t('SLIDE_3_TITLE'),
   description: i18n.t('SLIDE_3_DESCRIPTION'),
-  image: require('../images/stripes.png'),
+  image: require('../images/limits.png'),
   levelImage: 10,
   levelTitle: 0,
   levelDescription: -4,
@@ -113,7 +113,7 @@ const pageArray = [{
 }, {
   title: i18n.t('SLIDE_4_TITLE'),
   description: i18n.t('SLIDE_4_DESCRIPTION'),
-  image: require('../images/stripes.png'),
+  image: require('../images/calendar.png'),
   levelImage: 10,
   levelTitle: 0,
   levelDescription: -4,
@@ -122,7 +122,7 @@ const pageArray = [{
 }, {
   title: i18n.t('SLIDE_5_TITLE'),
   description: i18n.t('SLIDE_5_DESCRIPTION'),
-  image: require('../images/stripes.png'),
+  image: require('../images/download.png'),
   levelImage: 10,
   levelTitle: 0,
   levelDescription: -4,
@@ -131,7 +131,7 @@ const pageArray = [{
 }, {
   title: i18n.t('SLIDE_6_TITLE'),
   description: i18n.t('SLIDE_6_DESCRIPTION'),
-  image: require('../images/stripes.png'),
+  image: require('../images/no-internet.png'),
   levelImage: 10,
   levelTitle: 0,
   levelDescription: -4,
@@ -140,14 +140,12 @@ const pageArray = [{
 }];
 
 class IntroContainer extends Component {
-
   componentDidMount() {
     SplashScreen.hide();
   }
 
   goToLanding = async () => {
-    // TODO:
-    //await AsyncStorage.setItem('didIntro', 'true');
+    await AsyncStorage.setItem('didIntro', 'true');
     this.props.replace({
       key: 'login'
     });
@@ -156,15 +154,15 @@ class IntroContainer extends Component {
   onSkipBtnHandle = async (index) => {
     await this.goToLanding();
   }
+
   doneBtnHandle = async () => {
     await this.goToLanding();
   }
-  nextBtnHandle = (index) => {
-    // Logger.log(index);
-  }
-  onSlideChangeHandle = (index, total) => {
-    // Logger.log(index, total);
-  }
+
+  nextBtnHandle = (index) => { }
+
+  onSlideChangeHandle = (index, total) => { }
+
   render() {
     const slides = pageArray.map((slide, index) => (
 
@@ -179,7 +177,7 @@ class IntroContainer extends Component {
           backgroundColor: colors.red
         }]}
       >
-        <View style={styles.slideContent}>
+        <View style={styles.slideContent} level={10}>
           <View {...{ level: slide.levelImage }} style={styles.topSection}>
             <Image
               source={slide.image}
