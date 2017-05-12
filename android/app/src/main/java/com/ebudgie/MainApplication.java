@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.github.droibit.android.reactnative.customtabs.CustomTabsPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
@@ -30,7 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
-    protected boolean getUseDeveloperSupport() {
+    public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
     }
 
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
 
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new LinearGradientPackage(),
             new CustomTabsPackage(),
             new ReactNativeDialogsPackage(),
             new ReactNativeI18n(),
