@@ -12,10 +12,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import i18n from 'react-native-i18n';
 import SplashScreen from 'react-native-splash-screen';
+import Color from 'color';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { replaceRoute } from '../boundActionCreators/navigation';
+import colors from '../themes/Colors';
 
-const styleTypes = {
+const styles = StyleSheet.create({
   topSection: {
     flex: 1,
     flexDirection: 'column-reverse',
@@ -27,51 +30,46 @@ const styleTypes = {
   },
   image: {
     resizeMode: 'cover',
+    alignSelf: 'flex-start',
   },
   slide: {
     flex: 1,
+  },
+  slideContent: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 20,
   },
   title: {
-    color: '#fff',
-    fontSize: 18,
+    color: colors.snow,
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
     padding: 10,
   },
   description: {
-    color: '#fff',
+    color: colors.snow,
     fontSize: 18,
     textAlign: 'center',
   },
-  doneButton: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold'
-  }
-};
-
-const styles = StyleSheet.create(styleTypes);
+});
 
 const customAppIntroStyleTypes = {
   paginationContainer: {
-    backgroundColor: '#1560b1',
-
+    backgroundColor: colors.underlay,
   },
   nextButtonText: {
-    fontFamily: 'Lato',
     fontSize: 18,
     textAlign: 'right',
     paddingTop: 8
   },
   dotStyle: {
-    width: 8,
-    height: 8,
-    margin: 5,
+    width: 10,
+    height: 10,
+    margin: 3,
   },
   controllText: {
-    fontFamily: 'Lato',
     fontSize: 18,
     paddingTop: 8
   },
@@ -86,19 +84,59 @@ const customAppIntroStyleTypes = {
 };
 
 const pageArray = [{
-  title: 'Hello',
-  description: 'Nice to see you here',
+  title: i18n.t('SLIDE_1_TITLE'),
+  description: i18n.t('SLIDE_1_DESCRIPTION'),
   image: require('../images/budgie-icon.png'),
   levelImage: 10,
   levelTitle: 0,
-  levelDescription: -4
+  levelDescription: -4,
+  start: Color(colors.main).lighten(1.2).toString(),
+  end: Color(colors.main).lighten(1).toString(),
 }, {
-  title: 'Amazing',
-  description: 'See our app',
+  title: i18n.t('SLIDE_2_TITLE'),
+  description: i18n.t('SLIDE_2_DESCRIPTION'),
   image: require('../images/stripes.png'),
   levelImage: 10,
   levelTitle: 0,
-  levelDescription: -4
+  levelDescription: -4,
+  start: Color(colors.main).lighten(1).toString(),
+  end: Color(colors.main).lighten(0.8).toString(),
+}, {
+  title: i18n.t('SLIDE_3_TITLE'),
+  description: i18n.t('SLIDE_3_DESCRIPTION'),
+  image: require('../images/stripes.png'),
+  levelImage: 10,
+  levelTitle: 0,
+  levelDescription: -4,
+  start: Color(colors.main).lighten(0.8).toString(),
+  end: Color(colors.main).lighten(0.6).toString(),
+}, {
+  title: i18n.t('SLIDE_4_TITLE'),
+  description: i18n.t('SLIDE_4_DESCRIPTION'),
+  image: require('../images/stripes.png'),
+  levelImage: 10,
+  levelTitle: 0,
+  levelDescription: -4,
+  start: Color(colors.main).lighten(0.6).toString(),
+  end: Color(colors.main).lighten(0.4).toString(),
+}, {
+  title: i18n.t('SLIDE_5_TITLE'),
+  description: i18n.t('SLIDE_5_DESCRIPTION'),
+  image: require('../images/stripes.png'),
+  levelImage: 10,
+  levelTitle: 0,
+  levelDescription: -4,
+  start: Color(colors.main).lighten(0.4).toString(),
+  end: Color(colors.main).lighten(0.2).toString(),
+}, {
+  title: i18n.t('SLIDE_6_TITLE'),
+  description: i18n.t('SLIDE_6_DESCRIPTION'),
+  image: require('../images/stripes.png'),
+  levelImage: 10,
+  levelTitle: 0,
+  levelDescription: -4,
+  start: Color(colors.main).lighten(0.2).toString(),
+  end: Color(colors.main).lighten(0).toString(),
 }];
 
 class IntroContainer extends Component {
@@ -129,40 +167,53 @@ class IntroContainer extends Component {
   }
   render() {
     const slides = pageArray.map((slide, index) => (
-      <View
+
+      <LinearGradient
+        colors={[slide.start, slide.end]}
+        end={{ x: 1.0, y: 0.0 }}
+
+        key={index}
+        start={{ x: 0.0, y: 0.0 }}
         style={[styles.slide, {
-          backgroundColor: '#1a84ef',
-        }]}>
-        <View {...{ level: slide.levelImage }} style={styles.topSection}>
-          <Image
-            source={slide.image}
-            style={styles.image} />
-        </View>
-        <View style={styles.bottomSection}>
-          <View {...{ level: slide.levelTitle }}>
-            <Text style={styles.title}>
-              {slide.title}
-            </Text>
+
+          backgroundColor: colors.red
+        }]}
+      >
+        <View style={styles.slideContent}>
+          <View {...{ level: slide.levelImage }} style={styles.topSection}>
+            <Image
+              source={slide.image}
+              style={styles.image} />
           </View>
-          <View {...{ level: slide.levelDescription }}>
-            <Text style={styles.description}>
-              {slide.description}
-            </Text>
+          <View style={styles.bottomSection}>
+            <View {...{ level: slide.levelTitle }}>
+              <Text style={styles.title}>
+                {slide.title}
+              </Text>
+            </View>
+            <View {...{ level: slide.levelDescription }} style={{
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+            }}>
+              <Text style={styles.description}>
+                {slide.description}
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
+      </LinearGradient>
     ));
 
     return (
       <AppIntro
         customStyles={customAppIntroStyleTypes}
-        doneBtnLabel="BEGIN"
-        nextBtnLabel="Next"
+        doneBtnLabel={i18n.t('BEGIN')}
+        nextBtnLabel={i18n.t('NEXT')}
         onDoneBtnClick={this.doneBtnHandle}
         onNextBtnClick={this.nextBtnHandle}
         onSkipBtnClick={this.onSkipBtnHandle}
         onSlideChange={this.onSlideChangeHandle}
-        skipBtnLabel="SKIP"
+        skipBtnLabel={i18n.t('SKIP')}
       >
         {slides}
       </AppIntro>
