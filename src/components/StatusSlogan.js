@@ -54,6 +54,10 @@ const StatusSlogan = ({
   let slogan = {};
   const roundedPercentage = Math.round(percentage);
 
+  if (!percentage) {
+    return (<View />);
+  }
+
   if (currentDay < 10) {
     if (roundedPercentage < 30) {
       slogan = { ...slogans.excellent };

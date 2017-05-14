@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 });
 
 class HomeContainer extends Component {
-  componentWillMount = () => {
+  componentDidMount = () => {
     const { currentSalary, push } = this.props;
 
     initializeLocalNotifications();
