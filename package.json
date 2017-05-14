@@ -5,9 +5,9 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
-    "android:production": "node node_modules/react-native/local-cli/cli.js run-android --configuration Release",
+    "android:production": "node node_modules/react-native/local-cli/cli.js run-android --variant=release",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
-    "ios:production": "node node_modules/react-native/local-cli/cli.js run-ios --configuration Release",
+    "ios:production": "node node_modules/react-native/local-cli/cli.js run-ios --variant=release",
     "clean": "cd ./android && ./gradlew clean && cd ..",
     "test": "jest",
     "lint": "eslint src/**"
