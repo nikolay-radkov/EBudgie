@@ -9,7 +9,7 @@ import {
 
 const applyChanges = async (nextState, prevState) => {
   try {
-    const storedDocument = await getDocument(prevState.pouchdb.dbName);
+    const storedDocument = await getDocument(prevState.pouchdb.docId);
     await updateDocument({
       ...nextState.ebudgie,
       _rev: storedDocument._rev,

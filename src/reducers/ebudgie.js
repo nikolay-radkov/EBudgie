@@ -70,7 +70,7 @@ export default (state = initialState, action) => {
     case NEW_POUCHDB:
       return {
         ...state,
-        _id: action.uuid
+        _id: action.docId
       };
     case LOAD_EBUDGIE:
       if (action.ebudgie) {
