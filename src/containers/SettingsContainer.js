@@ -60,6 +60,7 @@ class SettingsComponent extends Component {
 
     await AsyncStorage.removeItem('isLogged');
     await AsyncStorage.removeItem('dbName');
+    await AsyncStorage.removeItem('docId');
 
     resetEbudgie();
     resetPouchdb();
