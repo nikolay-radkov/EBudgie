@@ -98,7 +98,6 @@ class LoginContainer extends Component {
   async loginWithPhone() {
     try {
       const token = await RNAccountKit.loginWithPhone();
-      debugger;
       if (!token) {
         //console.log('Login cancelled');
       } else {
