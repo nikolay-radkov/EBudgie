@@ -116,7 +116,7 @@ class HomeContainer extends Component {
             }}>
               <Text style={{
                 textAlign: 'center',
-                color: colors.snow,
+                color: globalThresholdPercentage > 100 ? colors.red : colors.snow,
                 fontWeight: 'bold',
                 fontSize: 18,
                 textDecorationLine: globalThresholdPercentage > 100 ? 'line-through' : null,
