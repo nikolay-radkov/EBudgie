@@ -22,54 +22,85 @@ import ReportDownloader from './containers/ReportDownloaderContainer';
 import AddThreshold from './containers/Threshold/AddThresholdContainer';
 import Notificaitons from './containers/NotificationsContainer';
 import Intro from './containers/IntroContainer';
+import Spinner from './containers/Spinner';
 
 const getRoutes = (key) => {
+  let page;
+
   switch (key) {
     case 'scene_login':
-      return (<Login />);
+      page = (<Login />);
+      break;
     case 'scene_home':
-      return (<Home />);
+      page = (<Home />);
+      break;
     case 'scene_calendar':
-      return (<Calendar />);
+      page = (<Calendar />);
+      break;
     case 'scene_add_item':
-      return (<AddItem />);
+      page = (<AddItem />);
+      break;
     case 'scene_add_category':
-      return (<AddCategory />);
+      page = (<AddCategory />);
+      break;
     case 'scene_edit_salary':
-      return (<EditSalary />);
+      page = (<EditSalary />);
+      break;
     case 'scene_add_income':
-      return (<AddIncome />);
+      page = (<AddIncome />);
+      break;
     case 'scene_add_expense':
-      return (<AddExpense />);
+      page = (<AddExpense />);
+      break;
     case 'scene_reports':
-      return (<Reports />);
+      page = (<Reports />);
+      break;
     case 'scene_settings':
-      return (<Settings />);
+      page = (<Settings />);
+      break;
     case 'scene_detailed_report':
-      return (<DetailedReport />);
+      page = (<DetailedReport />);
+      break;
     case 'scene_report_downloader':
-      return (<ReportDownloader />);
+      page = (<ReportDownloader />);
+      break;
     case 'scene_edit_expense':
-      return (<EditExpense />);
+      page = (<EditExpense />);
+      break;
     case 'scene_edit_income':
-      return (<EditIncome />);
+      page = (<EditIncome />);
+      break;
     case 'scene_categories':
-      return (<Categories />);
+      page = (<Categories />);
+      break;
     case 'scene_edit_category':
-      return (<EditCategory />);
+      page = (<EditCategory />);
+      break;
     case 'scene_items':
-      return (<Items />);
+      page = (<Items />);
+      break;
     case 'scene_edit_item':
-      return (<EditItem />);
+      page = (<EditItem />);
+      break;
     case 'scene_add_threshold':
-      return (<AddThreshold />);
+      page = (<AddThreshold />);
+      break;
     case 'scene_notifications':
-      return (<Notificaitons />);
+      page = (<Notificaitons />);
+      break;
     case 'scene_intro':
-      return (<Intro />);
+      page = (<Intro />);
+      break;
     default:
-      return <NotFound />;
+      page = <NotFound />;
+      break;
   }
+
+  return (
+    <Spinner>
+      {page}
+    </Spinner>
+  );
 };
 
 export default getRoutes;
