@@ -98,11 +98,12 @@ class LoginContainer extends Component {
   async loginWithPhone() {
     try {
       const token = await RNAccountKit.loginWithPhone();
+      debugger;
       if (!token) {
         //console.log('Login cancelled');
       } else {
         //console.log(`Logged with phone. Token: ${token}`);
-        await this.goToHome(token.clientId);
+        await this.goToHome(token.accountId);
       }
     } catch (e) {
       // TODO: show alert
@@ -117,7 +118,7 @@ class LoginContainer extends Component {
         //console.log('Login cancelled');
       } else {
         //console.log(`Logged with email. Token: ${token}`);
-        await this.goToHome(token.clientId);
+        await this.goToHome(token.accountId);
       }
     } catch (e) {
       // TODO: show alert
@@ -134,7 +135,6 @@ class LoginContainer extends Component {
         load(categories, items);
       }
       await AsyncStorage.setItem('isLogged', 'true');
-      await AsyncStorage.setItem('dbName', dbName);
       replace({ key: 'home' });
     } catch (e) {
       // TODO: show alert
