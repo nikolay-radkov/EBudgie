@@ -4,11 +4,11 @@ export const getInstance = () => {
   return store.getState().pouchdb;
 };
 
-export const getDocument = async (dbName) => {
+export const getDocument = async (docId) => {
   const { instance } = getInstance();
 
   try {
-    const result = await instance.get(dbName);
+    const result = await instance.get(docId);
 
     return result;
   } catch (e) {
