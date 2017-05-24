@@ -71,7 +71,9 @@ export const syncDocument = async () => {
         }
       }
     }).on('active', function (info) {
-      store.dispatch(showSpinner());
+      if (info.direction === 'pull') {
+        store.dispatch(showSpinner());
+      }
     }).on('paused', function (info) {
       store.dispatch(hideSpinner());
     }).on('denied', function (err) {
