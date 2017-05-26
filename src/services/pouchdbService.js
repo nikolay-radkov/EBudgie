@@ -1,4 +1,5 @@
 import PouchDB from 'pouchdb-react-native';
+import { forEach, map } from 'lodash';
 
 import config from '../config/config.prod';
 import store from '../store';
@@ -12,33 +13,86 @@ export const createPouchDB = (name) => {
   return instance;
 };
 
+const getConflictActions = (master, loser) => {
+  let changes = loser;
+
+  for (let j = loser.length - 1; j >= 0; j--) {
+    let loserChange = loser[j];
+
+    for (let i = master.length - 1; i >= 0; i--) {
+      let masterChange = master[i];
+      if (loserChange._rev === masterChange._rev) {
+        changes = loser.slice(j);
+      }
+    }
+  }
+
+  let actions = [];
+  forEach(changes, c => {
+    actions = [
+      ...actions,
+      ...c.actions
+    ];
+  });
+
+  return actions;
+};
+
+const bulkUpdate = async (docs) => {
+  const { instance } = getInstance();
+
+  try {
+    const result = await instance.bulkDocs(docs);
+    return result;
+  } catch (e) {
+    throw e;
+  }
+}
+
+
 const resolveConflicts = async (docId, revs) => {
   let master = await getDocument(docId);
+  const masterChanges = master.changes;
   const conflicts = [];
+  const actions = [];
 
-  revs.sort((a, b) => {
-    const num1 = parseInt(a, 10);
-    const num2 = parseInt(b, 10);
+  masterChanges.sort((a, b) => {
+    const num1 = parseInt(a._rev, 10);
+    const num2 = parseInt(b._rev, 10);
     return num1 - num2;
   });
 
-  for (var i = 0; i < revs.length; i++) {
-    const c = await getDocument(docId, { rev: revs[i] });
+  for (let i = 0; i < revs.length; i++) {
+    const currentRev = await getDocument(docId, { rev: revs[i] });
+    const currentChanges = currentRev.changes || [];
 
-    master = ebudgieReducer(master, c.action);
-    c._deleted = true;
-    conflicts.push(c);
-  }
+    currentChanges.sort((a, b) => {
+      const num1 = parseInt(a._rev, 10);
+      const num2 = parseInt(b._rev, 10);
+      return num1 - num2;
+    });
+    const currentActions = getConflictActions(masterChanges, currentChanges);
 
-  try {
-    const result = await updateDocument(master);
-
-    for (var i = 0; i < conflicts.length; i++) {
-
-      await updateDocument(conflicts[i]);
+    for (let j = 0; j < currentActions.length; j++) {
+      master = ebudgieReducer(master, currentActions[j]);
+      actions.push(currentActions[j]);
     }
 
-    return result;
+    currentRev._deleted = true;
+    conflicts.push(currentRev);
+  }
+
+  master.changes = [
+    ...master.changes,
+    {
+      _rev: master._rev,
+      actions,
+    }
+  ];
+
+  try {
+    conflicts.push(master);
+    await bulkUpdate(conflicts);
   } catch (e) {
     const ebudgie = await getDocument(docId, { conflicts: true });
     return await resolveConflicts(docId, ebudgie._conflicts);
@@ -62,9 +116,10 @@ export const syncDocument = async () => {
       if (data.direction === 'pull') {
         if (data.change.errors.length === 0) {
           let ebudgie = await getDocument(docId, { conflicts: true });
-          debugger;
+
           if (ebudgie._conflicts) {
-            ebudgie = await resolveConflicts(docId, ebudgie._conflicts);
+            await resolveConflicts(docId, ebudgie._conflicts);
+            ebudgie = await getDocument(docId, { conflicts: true });
           }
 
           store.dispatch(loadEBudgie(ebudgie));
