@@ -40,7 +40,6 @@ const initialState = {
   currency: '$',
   notificationsEnabled: true,
   didInitialLoad: false,
-  action: {}
 };
 
 export default (state = initialState, action = {}) => {
@@ -67,26 +66,17 @@ export default (state = initialState, action = {}) => {
           ...action.items
         ],
         didInitialLoad: true,
-        action: {
-          ...action
-        }
       };
     case NEW_POUCHDB:
       return {
         ...state,
         _id: action.docId,
-        action: {
-          ...action
-        }
       };
     case LOAD_EBUDGIE:
       if (action.ebudgie) {
         return {
           ...state,
           ...action.ebudgie,
-          action: {
-            ...action
-          }
         };
       }
 
@@ -98,9 +88,6 @@ export default (state = initialState, action = {}) => {
           ...items,
           action.item
         ],
-        action: {
-          ...action
-        }
       };
     case NEW_CATEGORY:
       return {
@@ -109,9 +96,6 @@ export default (state = initialState, action = {}) => {
           ...categories,
           action.category
         ],
-        action: {
-          ...action
-        }
       };
     case EDIT_SALARY:
       return {
@@ -120,9 +104,6 @@ export default (state = initialState, action = {}) => {
           ...salaries,
           action.salary
         ],
-        action: {
-          ...action
-        }
       };
     case NEW_INCOME:
       return {
@@ -139,33 +120,21 @@ export default (state = initialState, action = {}) => {
           ...expenses,
           action.expense
         ],
-        action: {
-          ...action
-        }
       };
     case SET_LANGUAGE:
       return {
         ...state,
         language: action.language,
-        action: {
-          ...action
-        }
       };
     case SET_CURRENCY:
       return {
         ...state,
         currency: action.currency,
-        action: {
-          ...action
-        }
       };
     case TOGGLE_PUSH_NOTIFICATIONS:
       return {
         ...state,
         notificationsEnabled: action.notificationsEnabled,
-        action: {
-          ...action
-        }
       };
     case RESET_EBUDGIE:
       return initialState;
@@ -180,18 +149,12 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         expenses: mappedExpenses,
-        action: {
-          ...action
-        }
       };
     case DELETE_EXPENSE:
       const filteredExpenses = _.filter(expenses, (e) => e.id !== action.id);
       return {
         ...state,
         expenses: filteredExpenses,
-        action: {
-          ...action
-        }
       };
     case EDIT_INCOME:
       const mappedIncomes = _.map(incomes, (i) => {
@@ -204,18 +167,12 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         incomes: mappedIncomes,
-        action: {
-          ...action
-        }
       };
     case DELETE_INCOME:
       const filteredIncomes = _.filter(incomes, (i) => i.id !== action.id);
       return {
         ...state,
         incomes: filteredIncomes,
-        action: {
-          ...action
-        }
       };
     case EDIT_CATEGORY:
       const mappedCategories = _.map(categories, (c) => {
@@ -228,18 +185,12 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         categories: mappedCategories,
-        action: {
-          ...action
-        }
       };
     case DELETE_CATEGORY:
       const filteredCategories = _.filter(categories, (c) => c.id !== action.id);
       return {
         ...state,
         categories: filteredCategories,
-        action: {
-          ...action
-        }
       };
     case EDIT_ITEM:
       const mappedItems = _.map(items, (i) => {
@@ -252,18 +203,12 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         items: mappedItems,
-        action: {
-          ...action
-        }
       };
     case DELETE_ITEM:
       const filteredItems = _.filter(items, (i) => i.id !== action.id);
       return {
         ...state,
         items: filteredItems,
-        action: {
-          ...action
-        }
       };
     case NEW_THRESHOLD:
       return {
@@ -272,9 +217,6 @@ export default (state = initialState, action = {}) => {
           ...thresholds,
           action.threshold
         ],
-        action: {
-          ...action
-        }
       };
     case NEW_NOTIFICATION:
       return {
@@ -283,9 +225,6 @@ export default (state = initialState, action = {}) => {
           ...notifications,
           action.notification
         ],
-        action: {
-          ...action
-        }
       };
     case SET_NOTIFICATION_ISSEEN:
       const seenNotifications = _.map(notifications, (n) => {
@@ -301,9 +240,6 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         notifications: seenNotifications,
-        action: {
-          ...action
-        }
       };
     case MARK_ALL_NOTIFICATIONS_AS_SEEN:
       const seenAllNotifications = _.map(notifications, (n) => {
@@ -319,9 +255,6 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         notifications: seenAllNotifications,
-        action: {
-          ...action
-        }
       };
     default:
       return state;
