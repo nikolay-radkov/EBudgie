@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
+import i18n from 'react-native-i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,7 +21,7 @@ class SpinnerContainer extends Component {
       <View style={styles.container}>
         {children}
         <Spinner
-          textContent={"Loading..."}
+          textContent={i18n.t('SYNCING')}
           textStyle={{ color: '#FFF' }}
           visible={isVisible}
         />
