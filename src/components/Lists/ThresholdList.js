@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import i18n from 'react-native-i18n';
-import moment from 'moment';
 import Accordion from 'react-native-collapsible/Accordion';
 import Color from 'color';
 

@@ -31,7 +31,7 @@ const applyChanges = async (nextState, prevState, action) => {
       throw e;
     }
   }
-}
+};
 
 const storage = store => next => async action => {
   const prevState = store.getState();

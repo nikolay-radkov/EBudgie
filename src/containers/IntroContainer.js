@@ -177,7 +177,10 @@ class IntroContainer extends Component {
           backgroundColor: colors.red
         }]}
       >
-        <View style={styles.slideContent} level={10}>
+        <View
+          level={10}
+          style={styles.slideContent}
+        >
           <View {...{ level: slide.levelImage }} style={styles.topSection}>
             <Image
               source={slide.image}

@@ -1,5 +1,5 @@
 import PouchDB from 'pouchdb-react-native';
-import { forEach, map } from 'lodash';
+import { forEach } from 'lodash';
 
 import config from '../config/config.prod';
 import store from '../store';
@@ -47,8 +47,7 @@ const bulkUpdate = async (docs) => {
   } catch (e) {
     throw e;
   }
-}
-
+};
 
 const resolveConflicts = async (docId, revs) => {
   let master = await getDocument(docId);
@@ -111,7 +110,7 @@ export const syncDocument = async () => {
         return doc._id === docId;
       }
     }).on('complete', function (info) {
-      alert('complete')
+      alert('complete'); // eslint-disable-line
     }).on('change', async function (data) {
       if (data.direction === 'pull') {
         if (data.change.errors.length === 0) {
@@ -132,9 +131,9 @@ export const syncDocument = async () => {
     }).on('paused', function (info) {
       store.dispatch(hideSpinner());
     }).on('denied', function (err) {
-      alert('Error ' + JSON.stringify(err))
+      alert('Error ' + JSON.stringify(err)); // eslint-disable-line
     }).on('error', function (err) {
-      alert('Error ' + JSON.stringify(err))
+      alert('Error ' + JSON.stringify(err)); // eslint-disable-line
     });
   } catch (e) {
 

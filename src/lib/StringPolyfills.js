@@ -1,3 +1,4 @@
+/* eslint-disable */
 if (!String.fromCodePoint) {
   (function () {
     var defineProperty = (function () {
