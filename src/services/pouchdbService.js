@@ -18,12 +18,19 @@ const getConflictActions = (master, loser) => {
 
   for (let j = loser.length - 1; j >= 0; j--) {
     let loserChange = loser[j];
+    let shouldBreak = false;
 
     for (let i = master.length - 1; i >= 0; i--) {
       let masterChange = master[i];
       if (loserChange._rev === masterChange._rev) {
         changes = loser.slice(j);
+        shouldBreak = true;
+        break;
       }
+    }
+
+    if (shouldBreak) {
+      break;
     }
   }
 
