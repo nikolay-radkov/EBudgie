@@ -88,7 +88,7 @@ export default (state = initialState, action = {}) => {
         ...action.ebudgie,
       };
     case NEW_INCOME:
-      const hasIncome = findIndex(incomes, (i) => i.id === action.id) > -1;
+      const hasIncome = findIndex(incomes, (i) => i.id === action.income.id) > -1;
 
       if (hasIncome) {
         return state;
@@ -102,7 +102,7 @@ export default (state = initialState, action = {}) => {
         ]
       };
     case NEW_EXPENSE:
-      const hasExpense = findIndex(expenses, (e) => e.id === action.id) > -1;
+      const hasExpense = findIndex(expenses, (e) => e.id === action.expense.id) > -1;
 
       if (hasExpense) {
         return state;
@@ -116,7 +116,7 @@ export default (state = initialState, action = {}) => {
         ],
       };
     case NEW_CATEGORY:
-      const hasCategory = findIndex(categories, (c) => c.id === action.id) > -1;
+      const hasCategory = findIndex(categories, (c) => c.id === action.category.id) > -1;
 
       if (hasCategory) {
         return state;
@@ -130,7 +130,7 @@ export default (state = initialState, action = {}) => {
         ],
       };
     case NEW_ITEM:
-      const hasItem = findIndex(items, (i) => i.id === action.id) > -1;
+      const hasItem = findIndex(items, (i) => i.id === action.item.id) > -1;
 
       if (hasItem) {
         return state;
@@ -145,7 +145,7 @@ export default (state = initialState, action = {}) => {
       };
 
     case EDIT_INCOME:
-      const hasNotIncome = findIndex(incomes, (i) => i.id === action.id) === -1;
+      const hasNotIncome = findIndex(incomes, (i) => i.id === action.income.id) === -1;
 
       if (hasNotIncome) {
         return state;
@@ -163,7 +163,7 @@ export default (state = initialState, action = {}) => {
         incomes: mappedIncomes,
       };
     case EDIT_EXPENSE:
-      const hasNotExpense = findIndex(expenses, (e) => e.id === action.id) === -1;
+      const hasNotExpense = findIndex(expenses, (e) => e.id === action.expense.id) === -1;
 
       if (hasNotExpense) {
         return state;
@@ -181,7 +181,7 @@ export default (state = initialState, action = {}) => {
         expenses: mappedExpenses,
       };
     case EDIT_CATEGORY:
-      const hasNotCategory = findIndex(categories, (c) => c.id === action.id) === -1;
+      const hasNotCategory = findIndex(categories, (c) => c.id === action.category.id) === -1;
 
       if (hasNotCategory) {
         return state;
@@ -199,7 +199,7 @@ export default (state = initialState, action = {}) => {
         categories: mappedCategories,
       };
     case EDIT_ITEM:
-      const hasNotItem = findIndex(items, (i) => i.id === action.id) === -1;
+      const hasNotItem = findIndex(items, (i) => i.id === action.item.id) === -1;
 
       if (hasNotItem) {
         return state;
@@ -278,7 +278,7 @@ export default (state = initialState, action = {}) => {
         salaries: newSalaries,
       };
     case NEW_THRESHOLD:
-      const hasThreshold = findIndex(thresholds, (t) => t.id === action.id) > -1;
+      const hasThreshold = findIndex(thresholds, (t) => t.id === action.threshold.id) > -1;
 
       if (hasThreshold) {
         return state;
@@ -306,7 +306,7 @@ export default (state = initialState, action = {}) => {
         thresholds: newThresholds,
       };
     case NEW_NOTIFICATION:
-      const hasNotification = findIndex(notifications, (n) => n.id === action.id) > -1;
+      const hasNotification = findIndex(notifications, (n) => n.id === action.notification.id) > -1;
 
       if (hasNotification) {
         return state;
