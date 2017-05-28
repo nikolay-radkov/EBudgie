@@ -13,7 +13,6 @@ export const createPouchDB = (name) => {
   return instance;
 };
 
-
 export const getInstance = () => {
   return store.getState().pouchdb;
 };
@@ -89,6 +88,7 @@ const resolveConflicts = async (docId, revs) => {
   const masterChanges = master.changes;
   const conflicts = [];
   const actions = [];
+  let needToUpdateMaster = false;
 
   masterChanges.sort((a, b) => {
     const num1 = parseInt(a._rev, 10);
@@ -108,25 +108,32 @@ const resolveConflicts = async (docId, revs) => {
     const currentActions = getConflictActions(masterChanges, currentChanges);
 
     for (let j = 0; j < currentActions.length; j++) {
-      master = ebudgieReducer(master, currentActions[j]);
-      actions.push(currentActions[j]);
+      let nextMaster = ebudgieReducer(master, currentActions[j]);
+
+      if (nextMaster !== master) {
+        master = nextMaster;
+        actions.push(currentActions[j]);
+        needToUpdateMaster = true;
+      }
     }
 
     currentRev._deleted = true;
     conflicts.push(currentRev);
   }
 
-  master.changes = [
-    ...master.changes,
-    {
-      _rev: master._rev,
-      actions,
-    }
-  ];
-
   try {
-    conflicts.push(master);
-    await bulkUpdate(conflicts);
+    if (needToUpdateMaster) {
+      master.changes = [
+        ...master.changes,
+        {
+          _rev: master._rev,
+          actions,
+        }
+      ];
+
+      conflicts.push(master);
+      await bulkUpdate(conflicts);
+    }
   } catch (e) {
     const ebudgie = await getDocument(docId, { conflicts: true });
     return await resolveConflicts(docId, ebudgie._conflicts);
@@ -178,7 +185,6 @@ export const syncDocument = async () => {
 
 export const replicateDocument = () => {
   return new Promise(async (resolve) => {
-
     let remoteDB;
     try {
       store.dispatch(showSpinner());
@@ -206,5 +212,5 @@ export const replicateDocument = () => {
       }
       resolve();
     }
-  })
+  });
 };
