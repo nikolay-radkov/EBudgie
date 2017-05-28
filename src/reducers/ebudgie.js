@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import { filter, findIndex, map } from 'lodash';
+import moment from 'moment';
 
 import {
   NEW_POUCHDB,
@@ -51,10 +52,15 @@ export default (state = initialState, action = {}) => {
     expenses,
     thresholds,
     notifications,
+    didInitialLoad,
   } = state;
 
   switch (action.type) {
     case INITIAL_LOAD:
+      if (didInitialLoad) {
+        return state;
+      }
+
       return {
         ...state,
         categories: [
@@ -73,39 +79,21 @@ export default (state = initialState, action = {}) => {
         _id: action.docId,
       };
     case LOAD_EBUDGIE:
-      if (action.ebudgie) {
-        return {
-          ...state,
-          ...action.ebudgie,
-        };
+      if (!action.ebudgie) {
+        return state;
       }
 
-      return state;
-    case NEW_ITEM:
       return {
         ...state,
-        items: [
-          ...items,
-          action.item
-        ],
-      };
-    case NEW_CATEGORY:
-      return {
-        ...state,
-        categories: [
-          ...categories,
-          action.category
-        ],
-      };
-    case EDIT_SALARY:
-      return {
-        ...state,
-        salaries: [
-          ...salaries,
-          action.salary
-        ],
+        ...action.ebudgie,
       };
     case NEW_INCOME:
+      const hasIncome = findIndex(incomes, (i) => i.id === action.id) > -1;
+
+      if (hasIncome) {
+        return state;
+      }
+
       return {
         ...state,
         incomes: [
@@ -114,12 +102,143 @@ export default (state = initialState, action = {}) => {
         ]
       };
     case NEW_EXPENSE:
+      const hasExpense = findIndex(expenses, (e) => e.id === action.id) > -1;
+
+      if (hasExpense) {
+        return state;
+      }
+
       return {
         ...state,
         expenses: [
           ...expenses,
           action.expense
         ],
+      };
+    case NEW_CATEGORY:
+      const hasCategory = findIndex(categories, (c) => c.id === action.id) > -1;
+
+      if (hasCategory) {
+        return state;
+      }
+
+      return {
+        ...state,
+        categories: [
+          ...categories,
+          action.category
+        ],
+      };
+    case NEW_ITEM:
+      const hasItem = findIndex(items, (i) => i.id === action.id) > -1;
+
+      if (hasItem) {
+        return state;
+      }
+
+      return {
+        ...state,
+        items: [
+          ...items,
+          action.item
+        ],
+      };
+
+    case EDIT_INCOME:
+      const hasNotIncome = findIndex(incomes, (i) => i.id === action.id) === -1;
+
+      if (hasNotIncome) {
+        return state;
+      }
+
+      const mappedIncomes = map(incomes, (i) => {
+        if (i.id === action.income.id) {
+          return action.income;
+        }
+
+        return i;
+      });
+      return {
+        ...state,
+        incomes: mappedIncomes,
+      };
+    case EDIT_EXPENSE:
+      const hasNotExpense = findIndex(expenses, (e) => e.id === action.id) === -1;
+
+      if (hasNotExpense) {
+        return state;
+      }
+
+      const mappedExpenses = map(expenses, (e) => {
+        if (e.id === action.expense.id) {
+          return action.expense;
+        }
+
+        return e;
+      });
+      return {
+        ...state,
+        expenses: mappedExpenses,
+      };
+    case EDIT_CATEGORY:
+      const hasNotCategory = findIndex(categories, (c) => c.id === action.id) === -1;
+
+      if (hasNotCategory) {
+        return state;
+      }
+
+      const mappedCategories = map(categories, (c) => {
+        if (c.id === action.category.id) {
+          return action.category;
+        }
+
+        return c;
+      });
+      return {
+        ...state,
+        categories: mappedCategories,
+      };
+    case EDIT_ITEM:
+      const hasNotItem = findIndex(items, (i) => i.id === action.id) === -1;
+
+      if (hasNotItem) {
+        return state;
+      }
+
+      const mappedItems = map(items, (i) => {
+        if (i.id === action.item.id) {
+          return action.item;
+        }
+
+        return i;
+      });
+      return {
+        ...state,
+        items: mappedItems,
+      };
+    case DELETE_INCOME:
+      const filteredIncomes = filter(incomes, (i) => i.id !== action.id);
+      return {
+        ...state,
+        incomes: filteredIncomes,
+      };
+    case DELETE_EXPENSE:
+      const filteredExpenses = filter(expenses, (e) => e.id !== action.id);
+      return {
+        ...state,
+        expenses: filteredExpenses,
+      };
+    case DELETE_CATEGORY:
+      const filteredCategories = filter(categories, (c) => c.id !== action.id);
+      return {
+        ...state,
+        categories: filteredCategories,
+      };
+    case DELETE_ITEM:
+      const filteredItems = filter(items, (i) => i.id !== action.id);
+      return {
+        ...state,
+        items: filteredItems,
       };
     case SET_LANGUAGE:
       return {
@@ -136,89 +255,63 @@ export default (state = initialState, action = {}) => {
         ...state,
         notificationsEnabled: action.notificationsEnabled,
       };
-    case RESET_EBUDGIE:
-      return initialState;
-    case EDIT_EXPENSE:
-      const mappedExpenses = _.map(expenses, (e) => {
-        if (e.id === action.expense.id) {
-          return action.expense;
-        }
+    case EDIT_SALARY:
+      const newSalaries = [
+        ...salaries,
+        action.salary
+      ];
 
-        return e;
-      });
-      return {
-        ...state,
-        expenses: mappedExpenses,
-      };
-    case DELETE_EXPENSE:
-      const filteredExpenses = _.filter(expenses, (e) => e.id !== action.id);
-      return {
-        ...state,
-        expenses: filteredExpenses,
-      };
-    case EDIT_INCOME:
-      const mappedIncomes = _.map(incomes, (i) => {
-        if (i.id === action.income.id) {
-          return action.income;
+      newSalaries.sort((a, b) => {
+        const date1 = moment(a.date);
+        const date2 = moment(b.date);
+        if (date1.isAfter(date2)) {
+          return 1;
         }
-
-        return i;
-      });
-      return {
-        ...state,
-        incomes: mappedIncomes,
-      };
-    case DELETE_INCOME:
-      const filteredIncomes = _.filter(incomes, (i) => i.id !== action.id);
-      return {
-        ...state,
-        incomes: filteredIncomes,
-      };
-    case EDIT_CATEGORY:
-      const mappedCategories = _.map(categories, (c) => {
-        if (c.id === action.category.id) {
-          return action.category;
+        if (date1.isBefore(date2)) {
+          return -1;
         }
-
-        return c;
+        return 0;
       });
-      return {
-        ...state,
-        categories: mappedCategories,
-      };
-    case DELETE_CATEGORY:
-      const filteredCategories = _.filter(categories, (c) => c.id !== action.id);
-      return {
-        ...state,
-        categories: filteredCategories,
-      };
-    case EDIT_ITEM:
-      const mappedItems = _.map(items, (i) => {
-        if (i.id === action.item.id) {
-          return action.item;
-        }
 
-        return i;
-      });
       return {
         ...state,
-        items: mappedItems,
-      };
-    case DELETE_ITEM:
-      const filteredItems = _.filter(items, (i) => i.id !== action.id);
-      return {
-        ...state,
-        items: filteredItems,
+        salaries: newSalaries,
       };
     case NEW_THRESHOLD:
+      const hasThreshold = findIndex(thresholds, (t) => t.id === action.id) > -1;
+
+      if (hasThreshold) {
+        return state;
+      }
+
+      const newThresholds = [
+        ...thresholds,
+        action.threshold
+      ];
+
+      newThresholds.sort((a, b) => {
+        const date1 = moment(a.date);
+        const date2 = moment(b.date);
+        if (date1.isAfter(date2)) {
+          return 1;
+        }
+        if (date1.isBefore(date2)) {
+          return -1;
+        }
+        return 0;
+      });
+
       return {
         ...state,
-        thresholds: [
-          ...thresholds,
-          action.threshold
-        ],
+        thresholds: newThresholds,
       };
     case NEW_NOTIFICATION:
+      const hasNotification = findIndex(notifications, (n) => n.id === action.id) > -1;
+
+      if (hasNotification) {
+        return state;
+      }
+
       return {
         ...state,
         notifications: [
@@ -227,7 +320,7 @@ export default (state = initialState, action = {}) => {
         ],
       };
     case SET_NOTIFICATION_ISSEEN:
-      const seenNotifications = _.map(notifications, (n) => {
+      const seenNotifications = map(notifications, (n) => {
         if (n.id === action.id) {
           return {
             ...n,
@@ -242,7 +335,7 @@ export default (state = initialState, action = {}) => {
         notifications: seenNotifications,
       };
     case MARK_ALL_NOTIFICATIONS_AS_SEEN:
-      const seenAllNotifications = _.map(notifications, (n) => {
+      const seenAllNotifications = map(notifications, (n) => {
         if (n.isSeen) {
           return n;
         }
@@ -256,6 +349,8 @@ export default (state = initialState, action = {}) => {
         ...state,
         notifications: seenAllNotifications,
       };
+    case RESET_EBUDGIE:
+      return initialState;
     default:
       return state;
   }
