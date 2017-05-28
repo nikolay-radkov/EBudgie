@@ -185,4 +185,5 @@ export default {
   'SLIDE_5_DESCRIPTION': 'No problem. Export it with our intuitive flow',
   'SLIDE_6_TITLE': 'Ready to begin?',
   'SLIDE_6_DESCRIPTION': 'One last thing...for all these, you don\'t need an internet connection :)',
+  'SYNCING': 'Syncing...',
 };
