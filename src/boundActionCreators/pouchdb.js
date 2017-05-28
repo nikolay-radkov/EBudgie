@@ -6,7 +6,8 @@ import { loadEBudgie } from '../actionCreators/ebudgie';
 import {
   createPouchDB,
   syncDocument,
-  getDocument
+  getDocument,
+  replicateDocument,
 } from '../services/pouchdbService';
 
 export const createNewPouchDB = (dbName, id) => {
@@ -23,11 +24,12 @@ export const createNewPouchDB = (dbName, id) => {
 
     const instance = createPouchDB(dbName, docId);
     dispatch(newPouchDB(instance, dbName, docId));
-    syncDocument();
-    await AsyncStorage.setItem('docId', docId);
-    await AsyncStorage.setItem('dbName', dbName);
 
     try {
+      await replicateDocument();
+      await syncDocument();
+      await AsyncStorage.setItem('docId', docId);
+      await AsyncStorage.setItem('dbName', dbName);
       const ebudgie = await getDocument(docId);
       dispatch(loadEBudgie(ebudgie));
       return Promise.resolve(ebudgie);

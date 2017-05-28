@@ -13,6 +13,45 @@ export const createPouchDB = (name) => {
   return instance;
 };
 
+
+export const getInstance = () => {
+  return store.getState().pouchdb;
+};
+
+export const getDocument = async (docId, options = {}) => {
+  const { instance } = getInstance();
+
+  try {
+    const result = await instance.get(docId, options);
+    return result;
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const updateDocument = async (ebudgie) => {
+  const { instance } = getInstance();
+
+  try {
+    const result = await instance.put(ebudgie);
+
+    return result;
+  } catch (e) {
+    throw e;
+  }
+};
+
+const bulkUpdate = async (docs) => {
+  const { instance } = getInstance();
+
+  try {
+    const result = await instance.bulkDocs(docs);
+    return result;
+  } catch (e) {
+    throw e;
+  }
+};
+
 const getConflictActions = (master, loser) => {
   let changes = loser;
 
@@ -43,17 +82,6 @@ const getConflictActions = (master, loser) => {
   });
 
   return actions;
-};
-
-const bulkUpdate = async (docs) => {
-  const { instance } = getInstance();
-
-  try {
-    const result = await instance.bulkDocs(docs);
-    return result;
-  } catch (e) {
-    throw e;
-  }
 };
 
 const resolveConflicts = async (docId, revs) => {
@@ -147,30 +175,36 @@ export const syncDocument = async () => {
   }
 };
 
-export const getInstance = () => {
-  return store.getState().pouchdb;
+
+export const replicateDocument = () => {
+  return new Promise(async (resolve) => {
+
+    let remoteDB;
+    try {
+      store.dispatch(showSpinner());
+      remoteDB = new PouchDB(config.syncServer);
+      const { instance, docId } = getInstance();
+
+      const replicationCallback = async (info) => {
+        store.dispatch(hideSpinner());
+        await remoteDB.close();
+        resolve();
+      };
+
+      instance.replicate.from(remoteDB, {
+        filter: function (doc) {
+          return doc._id === docId;
+        }
+      }).on('complete', replicationCallback)
+        .on('change', (info) => { })
+        .on('denied', replicationCallback)
+        .on('error', replicationCallback);
+    } catch (e) {
+      store.dispatch(hideSpinner());
+      if (remoteDB) {
+        await remoteDB.close();
+      }
+      resolve();
+    }
+  })
 };
-
-export const getDocument = async (docId, options = {}) => {
-  const { instance } = getInstance();
-
-  try {
-    const result = await instance.get(docId, options);
-    return result;
-  } catch (e) {
-    throw e;
-  }
-};
-
-export const updateDocument = async (ebudgie) => {
-  const { instance } = getInstance();
-
-  try {
-    const result = await instance.put(ebudgie);
-
-    return result;
-  } catch (e) {
-    throw e;
-  }
-};
-
