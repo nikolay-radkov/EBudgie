@@ -93,7 +93,7 @@ class LoginContainer extends Component {
       const token = await RNAccountKit.loginWithPhone();
       if (token) {
         const account = await RNAccountKit.getCurrentAccount();
-        await this.goToHome(token.accountId, account.email, account.phoneNumber);
+        await this.goToHome(token.accountId, account.email, `+${account.phoneNumber.countryCode}${account.phoneNumber.number}`);
       }
     } catch (e) { }
   }
