@@ -9,6 +9,7 @@ import Hr from 'react-native-hr';
 
 import { replaceRoute } from '../boundActionCreators/navigation';
 import { createNewPouchDB } from '../boundActionCreators/pouchdb';
+import { getLinkCode } from '../boundActionCreators/ebudgie';
 import { initialLoad } from '../actionCreators/ebudgie';
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
@@ -87,45 +88,28 @@ const withoutAccountButton = {
 };
 
 class LoginContainer extends Component {
-  constructor(state) {
-    super(state);
-    this.loginWithEmail = this.loginWithEmail.bind(this);
-    this.loginWithPhone = this.loginWithPhone.bind(this);
-    this.goToHome = this.goToHome.bind(this);
-    this.skip = this.skip.bind(this);
-  }
-
-  async loginWithPhone() {
+  loginWithPhone = async () => {
     try {
       const token = await RNAccountKit.loginWithPhone();
-      if (!token) {
-        //console.log('Login cancelled');
-      } else {
-        //console.log(`Logged with phone. Token: ${token}`);
-        await this.goToHome(token.accountId);
+      if (token) {
+        const account = await RNAccountKit.getCurrentAccount();
+        await this.goToHome(token.accountId, account.email, account.phoneNumber);
       }
-    } catch (e) {
-      // TODO: show alert
-    }
+    } catch (e) { }
   }
 
-  async loginWithEmail() {
+  loginWithEmail = async () => {
     try {
       const token = await RNAccountKit.loginWithEmail();
-
-      if (!token) {
-        //console.log('Login cancelled');
-      } else {
-        //console.log(`Logged with email. Token: ${token}`);
-        await this.goToHome(token.accountId);
+      if (token) {
+        const account = await RNAccountKit.getCurrentAccount();
+        await this.goToHome(token.accountId, account.email, account.phoneNumber);
       }
-    } catch (e) {
-      // TODO: show alert
-    }
+    } catch (e) { }
   }
 
-  async goToHome(dbName = 'unauthorized') {
-    const { createPouchDB, replace, load } = this.props;
+  goToHome = async (dbName = 'unauthorized', email, phone) => {
+    const { createPouchDB, replace, load, createLinkCode } = this.props;
 
     try {
       const ebudgie = await createPouchDB(dbName);
@@ -133,15 +117,21 @@ class LoginContainer extends Component {
       if (!ebudgie || !ebudgie.didInitialLoad) {
         load(categories, items);
       }
+
+      if (!ebudgie || !ebudgie.link_code) {
+        await createLinkCode(dbName, email, phone);
+      }
+
       await AsyncStorage.setItem('isLogged', 'true');
       replace({ key: 'home' });
     } catch (e) {
-      // TODO: show alert
+      console.log(e);
+      alert('Something went wrong'); // eslint-disable-line
     }
   }
 
-  skip() {
-    this.goToHome();
+  skip = async () => {
+    await this.goToHome();
   }
 
   render() {
@@ -208,6 +198,7 @@ function mapDispatchToProps(dispatch) {
     replace: replaceRoute,
     createPouchDB: createNewPouchDB,
     load: initialLoad,
+    createLinkCode: getLinkCode,
   }, dispatch);
 }
 

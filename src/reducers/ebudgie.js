@@ -6,6 +6,7 @@ import {
   NEW_ITEM,
   NEW_CATEGORY,
   LOAD_EBUDGIE,
+  LOAD_LINK_CODE,
   EDIT_SALARY,
   NEW_INCOME,
   NEW_EXPENSE,
@@ -41,6 +42,7 @@ const initialState = {
   currency: '$',
   notificationsEnabled: true,
   didInitialLoad: false,
+  linkCode: null,
 };
 
 export default (state = initialState, action = {}) => {
@@ -86,6 +88,15 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         ...action.ebudgie,
+      };
+    case LOAD_LINK_CODE:
+      if (!action.linkCode) {
+        return state;
+      }
+
+      return {
+        ...state,
+        linkCode: action.linkCode,
       };
     case NEW_INCOME:
       const hasIncome = findIndex(incomes, (i) => i.id === action.income.id) > -1;

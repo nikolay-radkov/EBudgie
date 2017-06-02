@@ -186,4 +186,5 @@ export default {
   'SLIDE_6_TITLE': 'Ready to begin?',
   'SLIDE_6_DESCRIPTION': 'One last thing...for all these, you don\'t need an internet connection :)',
   'SYNCING': 'Syncing...',
+  'LINK_CODE': 'Linking code',
 };
