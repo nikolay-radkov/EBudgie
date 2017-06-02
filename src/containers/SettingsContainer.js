@@ -219,6 +219,23 @@ class SettingsComponent extends Component {
             {...headerProps}
             title={i18n.t('ACCOUNT')}
           />
+          {!!ebudgie.linkCode &&
+            <SettingsList.Item
+              hasNavArrow={false}
+              icon={
+                <View style={styles.imageStyle}>
+                  <Icon
+                    color={colors.main}
+                    name="code"
+                    size={iconSize} />
+                </View>
+              }
+              onPress={this.logout}
+              title={i18n.t('LINK_CODE')}
+              titleInfo={ebudgie.linkCode}
+              titleStyle={styles.title}
+            />
+          }
           <SettingsList.Item
             hasNavArrow
             icon={
