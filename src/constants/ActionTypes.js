@@ -32,6 +32,7 @@ export const NEW_ITEM = 'NEW_ITEM';
 
 // EBudgie
 export const LOAD_EBUDGIE = 'LOAD_EBUDGIE';
+export const LOAD_LINK_CODE = 'LOAD_LINK_CODE';
 export const RESET_EBUDGIE = 'RESET_EBUDGIE';
 export const INITIAL_LOAD = 'INITIAL_LOAD';
 
