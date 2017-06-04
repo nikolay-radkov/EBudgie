@@ -189,24 +189,14 @@ HomeContainer.propTypes = {
   globalThresholdPercentage: PropTypes.number,
 };
 
-function calculateCurrentIncome(incomes) {
-  const filteredIncomes = _.filter(incomes, (income) => {
-    const incomeDate = moment(income.date);
+function calculateCurrentEvents(events) {
+  const filteredEvents = _.filter(events, (e) => {
+    const eventDate = moment(e.date);
     const currentDate = moment();
-    return incomeDate.month() === currentDate.month() &&
-      incomeDate.year() === currentDate.year();
+    return eventDate.month() === currentDate.month() &&
+      eventDate.year() === currentDate.year();
   });
-  return _.sumBy(filteredIncomes, 'value');
-}
-
-function calculateCurrentExpense(expenses) {
-  const filteredIncomes = _.filter(expenses, (expense) => {
-    const expenseDate = moment(expense.date);
-    const currentDate = moment();
-    return expenseDate.month() === currentDate.month() &&
-      expenseDate.year() === currentDate.year();
-  });
-  return _.sumBy(filteredIncomes, 'value');
+  return _.sumBy(filteredEvents, 'value');
 }
 
 function mapStateToProps(state) {
@@ -216,7 +206,7 @@ function mapStateToProps(state) {
 
   const currentThresholdValue = currentThreshold.value || 0;
   const currentSalaryValue = currentSalary.value || 0;
-  const currentExpense = calculateCurrentExpense(expenses);
+  const currentExpense = calculateCurrentEvents(expenses);
   const globalThresholdPercentage = (Math.abs(currentExpense) / currentThresholdValue) * 100;
 
   return {
@@ -224,7 +214,7 @@ function mapStateToProps(state) {
     language: state.ebudgie.language,
     categoriesCount: state.ebudgie.categories.length,
     itemsCount: state.ebudgie.items.length,
-    currentIncome: calculateCurrentIncome(incomes),
+    currentIncome: calculateCurrentEvents(incomes),
     currentExpense,
     currentSalary: currentSalaryValue,
     currentThreshold: currentThresholdValue,
