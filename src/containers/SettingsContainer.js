@@ -21,7 +21,7 @@ import { resetRoutes } from '../boundActionCreators/navigation';
 import { clearSchedules } from '../services/localNotifications';
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
-const SHOWCASE_WEBSITE = 'https://leon92xx.wixsite.com/ebudgie-website';
+const SHOWCASE_WEBSITE = 'https://ebudgie.herokuapp.com/';
 
 const iconSize = 25;
 
