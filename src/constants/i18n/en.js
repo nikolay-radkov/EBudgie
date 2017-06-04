@@ -25,7 +25,7 @@ export default {
   'ADD_NEW_INCOME': 'Add new income',
   'SEE_CATEGORIES': 'See categories',
   'SEE_ITEMS': 'See items',
-  'CHANGE_MONTHLY_SALARY': 'Change montly salary',
+  'CHANGE_MONTHLY_SALARY': 'Change monthly salary',
   'SEE_REPORTS': 'See reports',
   'DRAWER_EXPENSES_DESCRIPTION': 'Current: {{expense}}{{currency}}',
   'DRAWER_INCOMES_DESCRIPTION': 'Current: {{income}}{{currency}}',
