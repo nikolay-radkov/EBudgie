@@ -174,7 +174,7 @@ export default {
   'BEGIN': 'Begin',
   'SKIP': 'Skip',
   'SLIDE_1_TITLE': 'Welcome to EBudgie',
-  'SLIDE_1_DESCRIPTION': 'Keep track of you monthly budget in one place',
+  'SLIDE_1_DESCRIPTION': 'Keep track of your monthly budget in one place',
   'SLIDE_2_TITLE': 'Manage your money',
   'SLIDE_2_DESCRIPTION': 'See what is going on with your money at any time',
   'SLIDE_3_TITLE': 'Set limits',
