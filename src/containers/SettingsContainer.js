@@ -22,6 +22,7 @@ import { clearSchedules } from '../services/localNotifications';
 import theme from '../themes/ApplicationStyles';
 import colors from '../themes/Colors';
 const SHOWCASE_WEBSITE = 'https://ebudgie.herokuapp.com/';
+const MESSENGER_WEBSITE = 'https://m.me/ebudgie/';
 
 const iconSize = 25;
 
@@ -70,8 +71,8 @@ class SettingsComponent extends Component {
     });
   }
 
-  openWebsite = () => {
-    CustomTabs.openURL(SHOWCASE_WEBSITE, {
+  openWebsite = (website) => {
+    CustomTabs.openURL(website, {
       toolbarColor: colors.main,
       enableUrlBarHiding: true,
       showPageTitle: true,
@@ -196,7 +197,7 @@ class SettingsComponent extends Component {
                   size={iconSize} />
               </View>
             }
-            onPress={this.openWebsite}
+            onPress={() => this.openWebsite(SHOWCASE_WEBSITE)}
             title={i18n.t('ABOUT_EBUDGIE')}
             titleStyle={styles.title}
           />
@@ -236,6 +237,23 @@ class SettingsComponent extends Component {
               titleStyle={styles.title}
             />
           }
+          {!!ebudgie.linkCode &&
+            <SettingsList.Item
+              hasNavArrow
+              icon={
+                <View style={styles.imageStyle}>
+                  <Icon
+                    color={colors.main}
+                    name="message"
+                    size={iconSize} />
+                </View>
+              }
+              onPress={() => this.openWebsite(MESSENGER_WEBSITE)}
+              title={i18n.t('MESSENGER')}
+              titleStyle={styles.title}
+            />
+          }
+
           <SettingsList.Item
             hasNavArrow
             icon={
