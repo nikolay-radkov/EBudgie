@@ -56,6 +56,8 @@ class NavigationRootContainer extends Component {
     if (!didIntro) {
       return this.props.replace({ key: 'intro' });
     }
+
+    SplashScreen.hide();
   }
 
   componentWillUnmount() {
