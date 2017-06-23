@@ -15,13 +15,13 @@ const styles = StyleSheet.create({
 
 class SpinnerContainer extends Component {
   render() {
-    const { children, isVisible } = this.props;
+    const { children, isVisible, text } = this.props;
 
     return (
       <View style={styles.container}>
         {children}
         <Spinner
-          textContent={i18n.t('SYNCING')}
+          textContent={text}
           textStyle={{ color: '#FFF' }}
           visible={isVisible}
         />
@@ -37,7 +37,8 @@ SpinnerContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    isVisible: state.spinner.isVisible
+    isVisible: state.spinner.isVisible,
+    text: i18n.t(state.spinner.text || 'SYNCING')
   };
 }
 

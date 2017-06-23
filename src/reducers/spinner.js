@@ -5,6 +5,7 @@ import {
 
 const initialState = {
   isVisible: false,
+  text: null
 };
 
 export default (state = initialState, action) => {
@@ -13,6 +14,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isVisible: true,
+        text: action.text
       };
     case HIDE_SPINNER:
       return {
