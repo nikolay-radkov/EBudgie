@@ -7,6 +7,8 @@ import { loadEBudgie } from '../actionCreators/ebudgie';
 import { showSpinner, hideSpinner } from '../actionCreators/spinner';
 import ebudgieReducer from '../reducers/ebudgie';
 
+let syncHandler = null;
+
 export const createPouchDB = (name) => {
   const instance = new PouchDB(name, { adapter: 'asyncstorage' });
 
@@ -141,47 +143,55 @@ const resolveConflicts = async (docId, revs) => {
 };
 
 export const syncDocument = async () => {
-  try {
-    const remoteDB = new PouchDB(config.syncServer);
-    const { instance, docId } = getInstance();
+  if (!syncHandler) {
+    try {
+      const remoteDB = new PouchDB(config.syncServer);
+      const { instance, docId } = getInstance();
 
-    instance.sync(remoteDB, {
-      live: true,
-      retry: true,
-      filter: function (doc) {
-        return doc._id === docId;
-      }
-    }).on('complete', function (info) {
-      alert('complete'); // eslint-disable-line
-    }).on('change', async function (data) {
-      if (data.direction === 'pull') {
-        if (data.change.errors.length === 0) {
-          let ebudgie = await getDocument(docId, { conflicts: true });
-
-          if (ebudgie._conflicts) {
-            await resolveConflicts(docId, ebudgie._conflicts);
-            ebudgie = await getDocument(docId, { conflicts: true });
-          }
-
-          store.dispatch(loadEBudgie(ebudgie));
+      syncHandler = instance.sync(remoteDB, {
+        live: true,
+        retry: true,
+        filter: function (doc) {
+          return doc._id === docId;
         }
-      }
-    }).on('active', function (info) {
-      if (info.direction === 'pull') {
-        store.dispatch(showSpinner());
-      }
-    }).on('paused', function (info) {
-      store.dispatch(hideSpinner());
-    }).on('denied', function (err) {
-      alert('Error ' + JSON.stringify(err)); // eslint-disable-line
-    }).on('error', function (err) {
-      alert('Error ' + JSON.stringify(err)); // eslint-disable-line
-    });
-  } catch (e) {
+      }).on('complete', function (info) {
 
+      }).on('change', async function (data) {
+        if (data.direction === 'pull') {
+          if (data.change.errors.length === 0) {
+            let ebudgie = await getDocument(docId, { conflicts: true });
+
+            if (ebudgie._conflicts) {
+              await resolveConflicts(docId, ebudgie._conflicts);
+              ebudgie = await getDocument(docId, { conflicts: true });
+            }
+
+            store.dispatch(loadEBudgie(ebudgie));
+          }
+        }
+      }).on('active', function (info) {
+        if (info.direction === 'pull') {
+          store.dispatch(showSpinner());
+        }
+      }).on('paused', function (info) {
+        store.dispatch(hideSpinner());
+      }).on('denied', function (err) {// eslint-disable-line
+
+      }).on('error', function (err) {// eslint-disable-line
+
+      });
+    } catch (e) {
+
+    }
   }
 };
 
+export const cancelSyncing = () => {
+  if (!!syncHandler) {
+    syncHandler.cancel();
+    syncHandler = null;
+  }
+};
 
 export const replicateDocument = () => {
   return new Promise(async (resolve) => {
