@@ -4,7 +4,8 @@ import {
   BackAndroid,
   NavigationExperimental,
   StyleSheet,
-  AsyncStorage
+  AsyncStorage,
+  NetInfo,
 } from 'react-native';
 const {
   CardStack: NavigationCardStack
@@ -16,7 +17,7 @@ import { pushRoute, popRoute, replaceRoute } from '../boundActionCreators/naviga
 import { createNewPouchDB } from '../boundActionCreators/pouchdb';
 import getRoute from '../getRoute';
 import CustomHeader from './Header/CustomHeader';
-
+import { cancelSyncing, syncDocument } from '../services/pouchdbService';
 import colors from '../themes/Colors';
 import metrics from '../themes/Metrics';
 
@@ -40,6 +41,7 @@ class NavigationRootContainer extends Component {
 
   async componentDidMount() {
     BackAndroid.addEventListener('hardwareBackPress', this._handleBackAction);
+    NetInfo.addEventListener('change', this._handleConnectivityChange);
 
     const isUserLogged = await AsyncStorage.getItem('isLogged');
 
@@ -62,6 +64,7 @@ class NavigationRootContainer extends Component {
 
   componentWillUnmount() {
     BackAndroid.removeEventListener('hardwareBackPress', this._handleBackAction);
+    NetInfo.removeEventListener('change', this._handleConnectivityChange);
   }
 
   async goToHome(dbName = 'unauthorized') {
@@ -98,6 +101,16 @@ class NavigationRootContainer extends Component {
 
       pop();
       return true;
+    }
+  }
+
+  _handleConnectivityChange = (connection) => {
+    if (connection === 'WIFI' || connection === 'MOBILE') {
+      syncDocument();
+    }
+
+    if (connection === 'NONE') {
+      cancelSyncing();
     }
   }
 
