@@ -187,5 +187,6 @@ export default {
   'SLIDE_6_DESCRIPTION': 'И последно...за всичко това нямате нужда от налична интернет връзка :)',
   'SYNCING': 'Синхронизиране...',
   'LINK_CODE': 'Код за свързване',
-  'MESSENGER': 'Отвори Messenger'
+  'MESSENGER': 'Отвори Messenger',
+  'LOADING': 'Зареждане...',
 };

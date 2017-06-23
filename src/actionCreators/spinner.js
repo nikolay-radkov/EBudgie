@@ -3,9 +3,10 @@ import {
   HIDE_SPINNER,
 } from '../constants/ActionTypes';
 
-export const showSpinner = () => {
+export const showSpinner = (text) => {
   return {
-    type: SHOW_SPINNER
+    type: SHOW_SPINNER,
+    text
   };
 };
 

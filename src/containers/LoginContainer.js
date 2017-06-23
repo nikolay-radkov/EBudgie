@@ -16,6 +16,7 @@ import colors from '../themes/Colors';
 import metrics from '../themes/Metrics';
 import categories from '../constants/InitialCategories';
 import items from '../constants/InitialItems';
+import { showSpinner, hideSpinner } from '../actionCreators/spinner';
 
 const styles = StyleSheet.create({
   container: {
@@ -109,11 +110,19 @@ class LoginContainer extends Component {
   }
 
   goToHome = async (dbName = 'unauthorized', email, phone) => {
-    const { createPouchDB, replace, load, createLinkCode } = this.props;
+    const {
+      createPouchDB,
+      replace,
+      load,
+      createLinkCode,
+      hideLoader,
+      showLoader
+     } = this.props;
 
     try {
       const ebudgie = await createPouchDB(dbName);
 
+      showLoader('LOADING');
       if (!ebudgie || !ebudgie.didInitialLoad) {
         load(categories, items);
       }
@@ -124,8 +133,10 @@ class LoginContainer extends Component {
 
       await AsyncStorage.setItem('isLogged', 'true');
       replace({ key: 'home' });
+      hideLoader();
     } catch (e) {
       console.log(e);
+      hideLoader();
       alert('Something went wrong'); // eslint-disable-line
     }
   }
@@ -185,6 +196,8 @@ LoginContainer.propTypes = {
   replace: React.PropTypes.func.isRequired,
   createPouchDB: React.PropTypes.func.isRequired,
   load: React.PropTypes.func.isRequired,
+  showLoader: React.PropTypes.func.isRequired,
+  hideLoader: React.PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -199,6 +212,8 @@ function mapDispatchToProps(dispatch) {
     createPouchDB: createNewPouchDB,
     load: initialLoad,
     createLinkCode: getLinkCode,
+    showLoader: showSpinner,
+    hideLoader: hideSpinner
   }, dispatch);
 }
 

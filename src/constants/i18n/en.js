@@ -187,5 +187,6 @@ export default {
   'SLIDE_6_DESCRIPTION': 'One last thing...for all these, you don\'t need an internet connection :)',
   'SYNCING': 'Syncing...',
   'LINK_CODE': 'Linking code',
-  'MESSENGER': 'Open Messenger'
+  'MESSENGER': 'Open Messenger',
+  'LOADING': 'Loading...',
 };
