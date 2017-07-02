@@ -127,15 +127,16 @@ class LoginContainer extends Component {
         load(categories, items);
       }
 
-      if (!ebudgie || !ebudgie.link_code) {
-        await createLinkCode(dbName, email, phone);
+      if (dbName !== 'unauthorized') {
+        if (!ebudgie || !ebudgie.link_code) {
+          await createLinkCode(dbName, email, phone);
+        }
       }
 
       await AsyncStorage.setItem('isLogged', 'true');
       replace({ key: 'home' });
       hideLoader();
     } catch (e) {
-      console.log(e);
       hideLoader();
       alert('Something went wrong'); // eslint-disable-line
     }
