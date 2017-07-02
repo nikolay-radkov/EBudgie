@@ -134,6 +134,13 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force 'com.facebook.android:account-kit-sdk:4.23.0'
+    }
+}
+
+
 dependencies {
     compile project(':react-native-linear-gradient')
     compile project(':react-native-custom-tabs')
@@ -145,7 +152,13 @@ dependencies {
     compile project(':react-native-push-notification')
     compile project(':react-native-uuid-generator')
     compile project(':react-native-device-info')
-    compile project(':react-native-facebook-account-kit')
+    compile project(':react-native-facebook-account-kit') {
+        configurations.all {
+            resolutionStrategy {
+                force 'com.facebook.android:account-kit-sdk:4.23.0'
+            }
+        }
+    }
     compile project(':react-native-splash-screen')
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])
